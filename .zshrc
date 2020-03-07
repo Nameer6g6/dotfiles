@@ -1,6 +1,6 @@
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
-# Khalid snippets
+
 PROMPT='%B%M%b ${vcs_info_msg_0_}%F{yellow}%(!.%F{red}#%f.%%)%f '
 RPROMPT='%(?.%F{grey}%/%f.:()'
 
@@ -9,7 +9,6 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git*' unstagedstr '𥉉' #'
 
-# Luke's config for the Zoomer Shell
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b ${vcs_info_msg_0_} "
@@ -56,6 +55,7 @@ zle-line-init() {
     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
 }
+
 zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
@@ -70,15 +70,10 @@ lfcd () {
         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
     fi
 }
-# bindkey -s '^o' 'lfcd\n'
 
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
-
-# Load aliases and shortcuts if existent.
-# [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
-# [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
@@ -90,11 +85,6 @@ source /etc/profile.d/vte.sh
 . $HOME/.asdf/asdf.sh
 . $HOME/.asdf/completions/asdf.bash
 . $HOME/projects/Dev/Zsh_dir/zsh-haskell/haskell.plugin.zsh
-
-# zsh-git-prompt
-# . /home/angron/projects/Dev/Zsh_dir/zsh-git-prompt/zshrc.sh
-# PROMPT='%B%m%~%b$(git_super_status) %# '
-
 
 # Enabling cache for the completions for zsh
 zstyle ':completion::complete:*' use-cache 1
