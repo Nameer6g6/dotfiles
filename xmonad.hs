@@ -52,8 +52,6 @@ myLayout = maximize (ResizableTall 1 (3 / 100) (1 / 2) [] ||| Full)
 windowCount     = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
 main = do
-    --setRandomWallpaper ["$HOME/Pictures/nixos-onedark-wallpaper.png"]
-
     xmproc <- spawnPipe "xmobar"
 
 
@@ -66,7 +64,6 @@ main = do
                         { ppOutput = hPutStrLn xmproc
                         -- , ppTitle = xmobarColor "#98c379" "" . shorten 100
                         , ppTitle = xmobarColor "#d0d0d0" "" . shorten 80     -- Title of active window in xmobar
-                        -- , ppCurrent = xmobarColor "#61afef" "" . wrap "[" "]"
                         , ppCurrent = xmobarColor "#6495ED" "" . wrap "[" "]"
                         , ppUrgent  = xmobarColor "red" "yellow"
                         , ppVisible = wrap "(" ")"
@@ -75,8 +72,6 @@ main = do
                         , ppHiddenNoWindows = xmobarColor "#F07178" ""
                         }
         , borderWidth        = myBorderWidth
-        -- , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
-        -- , startupHook        = myStartupHooker >> setWMName "LG3D"
         , startupHook        = myStartupHooker 
         , modMask            = mod4Mask
         , workspaces         = myWorkspaces
@@ -86,7 +81,6 @@ main = do
         , focusedBorderColor = myFocusedBorderColor }
         `additionalKeys`
         [
-          -- ((mod4Mask, xK_p                   ), spawn "j4-dmenu-desktop --dmenu=\"dmenu_run -fn 'monospace:regular:pixelsize=12' -nb '#282c34' -sf '#282c34' -sb '#98c379' -nf '#abb2bf'\"" ) ,
           ((mod4Mask, xK_p                                 ), spawn "j4-dmenu-desktop" ) ,
           ((mod4Mask .|. shiftMask, xK_e                   ) , spawn "nemo" ),
           ((mod4Mask .|. shiftMask, xK_w                   ) , spawn "chromium" ),
@@ -111,9 +105,6 @@ myStartupHooker = do
    spawnOnce "compton --config ~/.compton.conf &"
    spawnOnce "unclutter &"
    spawnOnce "xmodmap ~/.Xmodmap"
-   -- spawnOnce "setxkbmap -option caps:swapescape"
    spawnOnce "nitrogen --restore &"
    spawnOnce "clipit &"
-   -- spawnHere "xloadimage -onroot -fullscreen ~/Pictures/nixos-onedark-wallpaper.png"
-   -- spawnOn "workspace2" "pulseeffects"
 

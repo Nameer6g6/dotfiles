@@ -3,14 +3,6 @@ filetype off
 
 call plug#begin('~/.vim/plugins')
 " Utility
-"Plug 'BufOnly.vim'
-"Plug 'benmills/vimux'
-"Plug 'gilsondev/searchtasks.vim'
-"Plug 'godlygeek/tabular'
-"Plug 'jeetsukumaran/vim-buffergator'
-"Plug 'junegunn/fzf'
-"Plug 'junegunn/fzf.vim'
-"Plug 'aurieh/discord.nvim', { 'do': ':UpdateRemotePlugins'}
 Plug 'ObserverOfTime/discord.nvim', {'do': ':UpdateRemotePlugins'}
 Plug 'KabbAmine/zeavim.vim'
 Plug 'Xuyuanp/nerdtree-git-plugin'
@@ -38,9 +30,6 @@ Plug 'puremourning/vimspector'
 Plug 'scrooloose/nerdcommenter'
 
 " Generic Programming Support
-"Plug 'janko-m/vim-test'
-"Plug 'maksimr/vim-jsbeautify'
-"Plug 'tobyS/vmustache'
 Plug 'Townk/vim-autoclose'
 Plug 'honza/vim-snippets'
 Plug 'ntpeters/vim-better-whitespace'
@@ -59,7 +48,6 @@ Plug 'chemzqm/vim-cssfmt'
 
 " Markdown / Writting
 
-"Plug 'LanguageTool'
 "Plug 'reedes/vim-pencil'
 Plug 'gabrielelana/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
@@ -144,11 +132,7 @@ Plug 'OmniSharp/omnisharp-vim'
 Plug 'OrangeT/vim-csharp'
 
 " Theme / Interface
-"Plug 'AnsiEsc.vim'
 Plug 'junegunn/vim-emoji'
-"Plug 'junegunn/limelight.vim'
-"Plug 'mkarmona/colorsbox'
-"Plug 'Lokaltog/vim-distinguished'
 Plug 'mhartington/oceanic-next'
 
 " Tmux
@@ -210,53 +194,10 @@ if (has("termguicolors"))
    set termguicolors
 endif
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-
-" if !empty(s:languageservers)
-"    call coc#config('languageserver', s:languageservers)
-" endif
-
-"call deoplete#custom#source('emoji', 'converters', ['converter_emoji'])
-
-"inoremap <silent><expr> <TAB>
-"         \ pumvisible() ? "\<C-n>" :
-"         \ <SID>check_back_space() ? "\<TAB>" :
-"         \ coc#rpc#request('doKeymap', 'snippets-expand')
-"
-"function! s:check_back_space() abort
-"   let col = col('.') - 1
-"   return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
-
-
-" If Nord
-"colorscheme nord
-"let g:nord_cursor_line_number_background = 1
-
 colorscheme OceanicNext
 let g:airline_theme='oceanicnext'
 let g:spacegray_underline_search = 1
 let g:spacegray_italicize_comments = 1
-
-"let g:tmuxcomplete#trigger = 'completefunc'
-"let g:tmuxcomplete#trigger = ''
-
-"let g:ale_completion_enabled = 1
-
-"let g:syntastic_vim_checkers = ['vint']
-
-" Auto Cost Import
-" augroup import_cost_auto_run
-"    autocmd!
-"    autocmd InsertLeave *.js,*.jsx,*.ts,*.tsx ImportCost
-"    autocmd BufEnter *.js,*.jsx,*.ts,*.tsx ImportCost
-"    autocmd CursorHold *.js,*.jsx,*.ts,*.tsx ImportCost
-" augroup END
 
 " Markdown Syntax Support
 augroup markdown
@@ -276,11 +217,6 @@ let g:ale_linters = {
    \ 'cs': ['OmniSharp'],
    \ }
 
-" let g:ale_fixers = {
-" \   'javascript': ['prettier'],
-" \   'css': ['prettier'],
-" \}
-
 let g:ale_fixers = {}
 
 " Specifing ale to use only OmniSharp
@@ -297,27 +233,10 @@ elseif has('python') == 1
    let g:ale_fix_on_save = 1
 endif
 
-" if executable('standardrb') == 1
-"    "let call map(g:ale_linters, {'ruby': ['standardrb']})
-"    let g:ale_linters.ruby = ['standardrb']
-"    let g:ale_fixers = {'ruby': ['standardrb']}
-"    let g:ale_fix_on_save = 1
-" endif
-
-
 " Automate line numbers
 autocmd InsertEnter * silent! setlocal norelativenumber
 autocmd InsertLeave * silent! setlocal relativenumber
 
-
-" Enable omni completion.
-" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-" autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-" autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-" autocmd FileType ruby setlocal omnifunc=syntaxcompelete#Complete
-" autocmd FileType elixir setlocal omnifunc=syntaxcompelete#Complete
 
 """"""""""""
 " TagBar
@@ -340,19 +259,6 @@ let g:tagbar_type_elixir = {
          \ 't:tests'
          \ ]
          \ }
-
-"let g:tmuxcomplete#asyncomplete_source_options = {
-"            \ 'name':      'tmuxcomplete',
-"            \ 'whitelist': ['*'],
-"            \ 'config': {
-"            \     'splitmode':      'words',
-"            \     'filter_prefix':   1,
-"            \     'show_incomplete': 1,
-"            \     'sort_candidates': 0,
-"            \     'scrollback':      0,
-"            \     'truncate':        0
-"            \     }
-"            \ }
 
 
 """""""""""
@@ -438,22 +344,3 @@ nnoremap <Right> :vertical resize -2<CR>
 
 " Show Discord Presence
 nnoremap <leader>qq :DiscordUpdatePresence<CR>
-
-
-" Mappings using CoCList:
-" Show all diagnostics.
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
-nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" Show commands.
-nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
