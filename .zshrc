@@ -71,6 +71,7 @@ lfcd () {
     fi
 }
 
+
 # Edit line in vim with ctrl-e:
 autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
@@ -82,9 +83,6 @@ source /etc/profile.d/vte.sh
 . $HOME/dotfiles/alias.sh
 . $HOME/dotfiles/exports.sh
 . $HOME/dotfiles/functions.sh
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-. $HOME/projects/Dev/Zsh_dir/zsh-haskell/haskell.plugin.zsh
 
 # Enabling cache for the completions for zsh
 zstyle ':completion::complete:*' use-cache 1
@@ -97,8 +95,10 @@ else
         export TERM='xterm-color'
 fi
 
-if [[ $TERM == xterm-termite ]]; then
+# if [[ $TERM == xterm-termite ]]; then
+if [[ $TERM == xterm-alacritty ]]; then
   . /etc/profile.d/vte.sh
   __vte_osc7
 fi
 
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
