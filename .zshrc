@@ -1,5 +1,6 @@
 autoload -Uz vcs_info
 autoload -Uz add-zsh-hook
+
 # Khalid snippets
 PROMPT='%B%M%b ${vcs_info_msg_0_}%F{yellow}%(!.%F{red}#%f.%%)%f '
 RPROMPT='%(?.%F{grey}%/%f.:()'
@@ -87,9 +88,12 @@ source /etc/profile.d/vte.sh
 . $HOME/dotfiles/alias.sh
 . $HOME/dotfiles/exports.sh
 . $HOME/dotfiles/functions.sh
+
 . $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-. $HOME/projects/Dev/Zsh_dir/zsh-haskell/haskell.plugin.zsh
+fpath=(${ASDF_DIR}/completions $fpath)
+autoload -Uz compinit && compinit
+
+# . $HOME/projects/Dev/Zsh_dir/zsh-haskell/haskell.plugin.zsh
 
 # zsh-git-prompt
 # . /home/angron/projects/Dev/Zsh_dir/zsh-git-prompt/zshrc.sh
@@ -107,8 +111,10 @@ else
         export TERM='xterm-color'
 fi
 
-if [[ $TERM == xterm-termite ]]; then
+# if [[ $TERM == xterm-termite ]]; then
+if [[ $TERM == xterm-alacritty ]]; then
   . /etc/profile.d/vte.sh
   __vte_osc7
 fi
 
+[ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
