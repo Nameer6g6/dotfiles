@@ -1,5 +1,6 @@
-call plug#begin('~/.vim/plugins')
+set nocompatible
 
+call plug#begin('~/.vim/plugins')
 " Utility
 "Plug 'BufOnly.vim'
 "Plug 'benmills/vimux'
@@ -45,7 +46,6 @@ Plug 'scrooloose/nerdcommenter'
 
 " Generic Programming Support
 Plug 'Townk/vim-autoclose'
-Plug 'ntpeters/vim-better-whitespace'
 Plug 'w0rp/ale'
 Plug 'sheerun/vim-polyglot'
 Plug 'DougBeney/pickachu'
@@ -107,7 +107,7 @@ Plug 'tpope/vim-endwise'
 
 " Haskell Support
 Plug 'neovimhaskell/haskell-vim'
-Plug 'Twinside/vim-haskellConceal'
+Plug 'enomsg/vim-haskellConcealPlus'
 
 " PureScript Support
 Plug 'purescript-contrib/purescript-vim'
@@ -177,8 +177,11 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 call plug#end()
 
-set nocompatible
 filetype plugin indent on
+
+let g:python_host_prog  = '/usr/bin/python2.7'
+let g:python3_host_prog = '/usr/bin/python'
+let g:ruby_host_prog    = '~/.asdf/shims/neovim-ruby-host'
 
 let g:rehash256 = 1
 set encoding=UTF-8
@@ -384,6 +387,10 @@ let g:haskell_backpack = 1                " to enable highlighting of backpack k
 " let g:ale_haskell_hie_executable = 'hie-wrapper'
 if executable('stylish-haskell')
    command! -nargs=0 FmtHaskell :%!stylish-haskell
+endif
+
+if executable('ghci')
+   command! -nargs=0 Ghci :sv|term!ghci
 endif
 
 " NerdComment configs
@@ -678,7 +685,7 @@ function! s:show_documentation()
 endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
@@ -772,8 +779,6 @@ nm <buffer> <silent> <leader>p :Pursuit<CR>
 nm <buffer> <silent> <leader>T :Ptype<CR>
 let g:psc_ide_log_level = 3
 
-let g:python_host_prog = '/usr/bin/python2.7'
-let g:python3_host_prog = '/usr/bin/python'
 
 " Emoji "
 """""""""
@@ -791,14 +796,26 @@ let g:python3_host_prog = '/usr/bin/python'
 " Fold
 " Handling created fold blocks to be presisted
 augroup remember_folds
-    autocmd!
-    autocmd BufWinLeave ?* mkview | filetype detect
-    autocmd BufWinEnter ?* silent loadview | filetype detect
+   autocmd!
+    " au BufWinLeave ?* mkview 1
+    " au BufWinEnter ?* silent loadview 1
+   autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+   autocmd BufWinEnter ?* silent! loadview
 augroup END
+
+" autocmd BufWinLeave ?* mkview 1 | filetype detect
+" autocmd BufWinEnter ?* silent loadview 1 | filetype detect
+
 set foldcolumn=2
 hi Folded guifg=LightRed
 hi FoldColumn guifg=LightRed
+set viewoptions=folds,cursor
+set sessionoptions=folds
 " hi Folded ctermfg=216
+
+" Automatically deletes all trailing whitespace and newlines at end of file on save.
+autocmd BufWritePre * %s/\s\+$//e
+autocmd BufWritepre * %s/\n\+\%$//e
 
 
 " Testing Section

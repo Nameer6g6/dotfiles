@@ -3,8 +3,9 @@ Config {
         , additionalFonts = [ "xft:FontAwesome:size=9:FontAwesome5Free:size=9:FontAwesome5Brands:size=9" ]
         , iconRoot = ".config/xmobar/icons"
         , bgColor = "#32302f"
+        , allDesktops = True
         , fgColor = "#f2e5bc"
-        , position = Top C 50
+        , position = Top 0 20
         , commands = [
                        -- Run Date "<fn=1>\xf073</fn> %d %m %Y %H:%M:%S  " "date" 10
                        Run DateZone "<fc=#E6E6FA><fn=1>\xf073</fn> %a %b%d日 %H:%M:%S</fc>" "ja_JP.utf-8" "" "date" 2

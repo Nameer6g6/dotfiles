@@ -10,7 +10,6 @@ zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:git*' unstagedstr '𥉉' #'
 
-# Luke's config for the Zoomer Shell
 # Enable colors and change prompt:
 autoload -U colors && colors
 PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b ${vcs_info_msg_0_} "
@@ -19,7 +18,6 @@ PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magent
 HISTSIZE=10000
 SAVEHIST=10000
 HISTFILE=~/.cache/zsh/history
-
 
 # Basic auto/tab complete:
 autoload -U compinit
@@ -78,18 +76,17 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load aliases and shortcuts if existent.
-# [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrc"
-# [ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+# [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrd"
+[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 source /etc/profile.d/vte.sh
 
-. $HOME/dotfiles/alias.sh
-. $HOME/dotfiles/exports.sh
+# . $HOME/dotfiles/alias.sh
 . $HOME/dotfiles/functions.sh
-
 . $HOME/.asdf/asdf.sh
+
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 
@@ -105,16 +102,21 @@ zstyle ':completion::complete:*' use-cache 1
 
 bindkey "^r" history-incremental-search-backward
 
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-        export TERM='xterm-256color'
-else
-        export TERM='xterm-color'
-fi
+export TERM='xterm-256color'
+# if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+#         export TERM='xterm-256color'
+# else
+#         export TERM='xterm-color'
+# fi
 
-# if [[ $TERM == xterm-termite ]]; then
-if [[ $TERM == xterm-alacritty ]]; then
-  . /etc/profile.d/vte.sh
-  __vte_osc7
-fi
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
+ibus-daemon -drx
+
+# Load aliases and shortcuts if existent.
+# [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
+# [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
 
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"

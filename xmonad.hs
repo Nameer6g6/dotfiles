@@ -1,54 +1,57 @@
-import XMonad
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-
-import XMonad.Util.Run(spawnPipe)
-import XMonad.Util.EZConfig
-import XMonad.Util.Loggers
-import XMonad.Util.NamedWindows (getName)
-import XMonad.Util.Font
-import XMonad.Util.Run
-import XMonad.Util.SpawnOnce
--- import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.SetWMName
-import XMonad.Actions.SpawnOn
-import XMonad.Actions.Minimize
-
-import XMonad.Layout
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.WorkspaceDir
-import XMonad.Layout.NoBorders
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Spacing
-import XMonad.Layout.Maximize
-import XMonad.Layout.Minimize
-import XMonad.Layout.BoringWindows as BW
--- import XMonad.Layout.ResizableTile (MirrorShrink, MirrorExpand)
-
-import Graphics.X11.ExtraTypes.XF86
-
-import qualified XMonad.StackSet as W
---import XMonad.Wallpaper
-import Graphics.X11.ExtraTypes.XF86
-import System.IO
-
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.Tabbed
-import XMonad.Layout.Spiral
-import XMonad.Layout.Fullscreen
-import qualified XMonad.StackSet as W
-import qualified Data.Map as M
+-- import XMonad.Wallpaper
+import qualified Data.Map                     as M
+import           Graphics.X11.ExtraTypes.XF86
+import           System.IO
+import           XMonad
+import           XMonad.Actions.Minimize
+import           XMonad.Actions.SpawnOn
+import           XMonad.Hooks.DynamicLog
+import           XMonad.Hooks.EwmhDesktops
+import           XMonad.Hooks.ManageDocks
+import           XMonad.Hooks.ManageHelpers
+import           XMonad.Hooks.SetWMName
+import           XMonad.Hooks.UrgencyHook
+import           XMonad.Layout
+import           XMonad.Layout.BoringWindows  as BW
+import           XMonad.Layout.Fullscreen
+import           XMonad.Layout.Maximize
+import           XMonad.Layout.Minimize
+import           XMonad.Layout.NoBorders
+import           XMonad.Layout.PerWorkspace
+import           XMonad.Layout.ResizableTile
+import           XMonad.Layout.Spacing
+import           XMonad.Layout.Spiral
+import           XMonad.Layout.Tabbed
+import           XMonad.Layout.ThreeColumns
+import           XMonad.Layout.WorkspaceDir
+import qualified XMonad.StackSet              as W
+import           XMonad.Util.EZConfig
+import           XMonad.Util.Font
+import           XMonad.Util.Loggers
+import           XMonad.Util.NamedWindows     (getName)
+import           XMonad.Util.Run              (safeSpawn, spawnPipe)
+import           XMonad.Util.SpawnOnce
 
 -- Border Styling
 myBorderWidth = 3
 myNormalBorderColor = "#BFBFBF"
 myFocusedBorderColor = "#89DDFF"
 
+myWorkspaces :: [String]
 myWorkspaces = ["一","二","三","四","五","六","七","八","九"]
    where clickable l = [ "<action=xdotool key mod4Mask+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                              (i,ws) <- zip [1..9] l
                        , let n = i ]
+
+
+data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
+
+instance UrgencyHook LibNotifyUrgencyHook where
+   urgencyHook LibNotifyUrgencyHook w = do
+      name <- getName w
+      Just idx <- fmap (W.findTag w) $ gets windowset
+
+      safeSpawn "notify-send" [show name, "workspace" ++ idx]
 
 
 -- xmobarEscape = concatMap doubleLts
@@ -67,12 +70,12 @@ gaps = spacingRaw True (Border 0 0 0 0) False (Border 8 8 8 8) True -- gaps (bor
 
 -- myLayout = maximize (ResizableTall 1 (3 / 100) (1 / 2) [] ||| Full)
 myLayout = avoidStruts (
-    ThreeColMid 1 (3/100) (1/2) |||
+    -- ThreeColMid 1 (3/100) (1/2) |||
     Tall 1 (3/100) (1/2) |||
     Mirror (Tall 1 (3/100) (1/2)) |||
     tabbed shrinkText tabConfig |||
-    Full |||
-    spiral (6/7)) |||
+    Full) |||
+    -- spiral (6/7)) |||
     noBorders (fullscreenFull Full)
 
 tabConfig = defaultTheme {
@@ -94,13 +97,17 @@ xmobarCurrentWorkspaceColor = "#CEFFAC"
 
 windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
 
+localBin :: String -> String
+localBin x = "$HOME/.local/bin/" <> x
+
+main :: IO ()
 main = do
     --setRandomWallpaper ["$HOME/Pictures/nixos-onedark-wallpaper.png"]
 
     -- xmproc <- spawnPipe "xmobar /home/angron/.config/xmobar/xmobarrc"
     xmproc <- spawnPipe "xmobar /home/angron/.config/xmobar/xmobarrc.hs"
 
-    xmonad $ docks $ def
+    xmonad $ docks $ withUrgencyHook LibNotifyUrgencyHook $ ewmh $ def
         { manageHook = manageDocks <+> manageHook def -- replaced defaultConfig by def
         , layoutHook = myLayoutHook
         , logHook = dynamicLogWithPP xmobarPP
@@ -133,11 +140,14 @@ myLayoutHook = minimize . BW.boringWindows $ avoidStruts  $ gaps $ smartBorders 
 myKeys = [
 -- myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
           -- ((mod4Mask, xK_p                   ), spawn "j4-dmenu-desktop --dmenu=\"dmenu_run -fn 'monospace:regular:pixelsize=12' -nb '#282c34' -sf '#282c34' -sb '#98c379' -nf '#abb2bf'\"" ) ,
-          ((mod4Mask, xK_p                                 ), spawn "j4-dmenu-desktop" ) ,
-          ((mod4Mask .|. shiftMask, xK_e                   ) , spawn "nemo" ),
-          ((mod4Mask .|. shiftMask, xK_w                   ) , spawn "chromium" ),
-          ((mod4Mask .|. shiftMask, xK_g                   ) , spawn "termite" ),
-          ((mod1Mask .|. controlMask, xK_l                 ) , spawn "i3lock-fancy" ),
+          -- ((mod4Mask, xK_p                                 ), spawn "j4-dmenu-desktop" ) ,
+          ((mod4Mask, xK_p                                 ), spawn "dmenu_run" ) ,
+          ((mod4Mask .|. controlMask, xK_i                 ), (spawn . localBin) "dunicode" ) ,
+          ((mod4Mask .|. shiftMask, xK_i                   ), (spawn . localBin) "dunicode 1" ) ,
+          ((mod4Mask .|. shiftMask, xK_e                   ), spawn "nemo" ),
+          ((mod4Mask .|. shiftMask, xK_w                   ), spawn "chromium" ),
+          ((mod4Mask .|. shiftMask, xK_g                   ), spawn "termite" ),
+          ((mod1Mask .|. controlMask, xK_l                 ), spawn "i3lock-fancy" ),
           ((mod1Mask, xK_m                                 ), withFocused minimizeWindow ),
           ((mod1Mask .|. shiftMask, xK_m                   ), withLastMinimized maximizeWindow),
           ((0       , xF86XK_AudioMute                     ), spawn "amixer set Master toggle"),
@@ -154,10 +164,11 @@ myStartupHook = do
    spawnOnce "unclutter &"
    spawnOnce "trayer --expand true  --transparent true  --alpha 255 --edge bottom --align right --expand true --SetDockType true --widthtype request"
    -- spawnOnce "trayer --expand true --edge bottom --align right --expand true --SetDockType true --widthtype request"
-   spawnOnce "xmodmap ~/.Xmodmap"
+   -- spawnOnce "xmodmap ~/.Xmodmap"
    -- spawnOnce "setxkbmap -option caps:swapescape"
    spawnOnce "nitrogen --restore &"
    spawnOnce "clipit"
    -- spawnHere "xloadimage -onroot -fullscreen ~/Pictures/nixos-onedark-wallpaper.png"
    -- spawnOn "workspace2" "pulseeffects"
+
 

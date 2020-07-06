@@ -1,0 +1,12 @@
+[user]
+	email = nameer6g6@gmail.com
+	name = Nameer
+
+[color]
+   status = auto
+   branch = auto
+   interactive = auto
+   diff = auto
+
+[core]
+   editor = nvim
