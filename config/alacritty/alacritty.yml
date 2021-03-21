@@ -1,12 +1,22 @@
 font:
   # The normal (roman) font face to use.
-  size: 8.0
+  size: 8
   normal:
     # family: Droid Sans Mono Slashed for Powerline
-    family: Monospace
-    # family: iosevka
-    # Style can be specified to pick a specific face.
+    family: Monospace # family: iosevka Style can be specified to pick a specific face.
     style: Regular
+    options:
+      size: 10
+      thin_strokes: true
+      antialias: lcd # Can have values like lcd, lcdv, gray, and none
+      hinting: true
+      style: Regular
+      range:
+        start: 0
+        end: 'Z'
+      offset:
+        x: 0
+        y: 0
 
   # The bold font face
   bold:
@@ -21,7 +31,7 @@ font:
     family: iosevka
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
-    # style: Italic
+    style: Italic
 
 # Colors (Nord)
 colors:
@@ -61,7 +71,7 @@ colors:
     #   primary:
     #     background: '0x0a0f14'
     #     foreground: '0x98d1ce'
-    # 
+    #
     #   # Normal colors
     #   normal:
     #     black:   '0x0a0f14'
@@ -72,7 +82,7 @@ colors:
     #     magenta: '0x4e5165'
     #     cyan:    '0x33859d'
     #     white:   '0x98d1ce'
-    # 
+    #
     #   # Bright colors
     #   bright:
     #     black:   '0x10151b'
@@ -84,7 +94,7 @@ colors:
     #     cyan:    '0x599caa'
     #     white:   '0xd3ebe9'
 
-# shell:
+shell:
 #   program: /usr/bin/tmux
 #   args:
 #     - -u # force UTF-8 in tmux
@@ -110,9 +120,13 @@ colors:
 #   - Linear
 #
 
+# visual_bell:
+#   animation: Linear
+#   duration: 200
+#   color: '0xff0000'
 
-env:
-  TERM: xterm-256color
+# env:
+#   TERM: xterm-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -136,8 +150,8 @@ window:
   # Blank space added around the window in pixels. This padding is scaled
   # by DPI and the specified value is always added at both opposing sides.
   padding:
-    x: 6
-    y: 6
+    x: 2
+    y: 2
 
   # Spread additional padding evenly around the terminal content.
   #dynamic_padding: false
@@ -184,11 +198,11 @@ window:
 scrolling:
   # Maximum number of lines in the scrollback buffer.
   # Specifying '0' will disable scrolling.
-  history: 5000
+  history: 10000
 
   # Number of lines the viewport will move for every line scrolled when
   # scrollback is enabled (history > 0).
-  #multiplier: 3
+  multiplier: 10
 
   # Scroll to the bottom when new text is written to the terminal.
   #auto_scroll: false
@@ -205,3 +219,43 @@ scrolling:
 background_opacity: 1.0
 # background_opacity: 0.95
 
+live_config_reload: true
+
+draw_bold_text_with_bright_colors: true
+
+selection:
+  semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+  save_to_clipboard: true
+
+# window:
+#   padding:
+#     x: 2
+#     y: 2
+#
+# scrolling:
+#   # Maximum number of lines in the scrollback buffer.
+#   # Specifying '0' will disable scrolling.
+#   history: 10000
+#
+#   # Number of lines the viewport will move for every line scrolled when
+#   # scrollback is enabled (history > 0).
+#   multiplier: 10
+#
+# # If `true`, bold text is drawn using the bright color variants.
+# draw_bold_text_with_bright_colors: true
+#
+# selection:
+#   semantic_escape_chars: ',│`|:"'' ()[]{}<>'
+#   save_to_clipboard: true
+#
+# live_config_reload: true
+#
+# key_bindings:
+#   - { key: V, mods: Control|Shift, action: Paste }
+#   - { key: C, mods: Control|Shift, action: Copy }
+#   - { key: Key0, mods: Control, action: ResetFontSize }
+#   - { key: Equals, mods: Control, action: IncreaseFontSize }
+#   - { key: Add, mods: Control, action: IncreaseFontSize }
+#   - { key: Subtract, mods: Control, action: DecreaseFontSize }
+#   - { key: Minus, mods: Control, action: DecreaseFontSize }
+#   - { key: N, mods: Control, action: SpawnNewInstance }

@@ -1,10 +1,18 @@
 Config {
         font = "xft:fira mono:size=7:weight=bold, vlgothic:size=9"
-        , additionalFonts = [ "xft:FontAwesome:size=9:FontAwesome5Free:size=9:FontAwesome5Brands:size=9" ]
-        , iconRoot = ".config/xmobar/icons"
-        , bgColor = "#32302f"
-        , fgColor = "#f2e5bc"
-        , position = Top C 50
+       , additionalFonts = [ "xft:FontAwesome:size=9:FontAwesome5Free:size=9:FontAwesome5Brands:size=9" ]
+       -- , additionalFonts = [ "xft:mononoki Nerd Font:pixelsize=11:antialias=true:hinting=true"
+       --                     , "xft:mononoki Nerd Font:pixelsize=16:antialias=true:hinting=true"
+       --                     , "xft:FontAwesome:pixelsize=13"]
+       , iconRoot = ".config/xmobar/icons"
+       , bgColor = "#32302f"
+       , allDesktops = True
+       , fgColor = "#f2e5bc"
+       , position = Top 0 20
+       -- , position = Static { xpos = 1920 , ypos = 0, width = 1920, height = 24 }
+       , lowerOnStart = True
+       , hideOnStart = False
+       , persistent = True
         , commands = [
                        -- Run Date "<fn=1>\xf073</fn> %d %m %Y %H:%M:%S  " "date" 10
                        Run DateZone "<fc=#E6E6FA><fn=1>\xf073</fn> %a %b%d日 %H:%M:%S</fc>" "ja_JP.utf-8" "" "date" 2
@@ -63,9 +71,12 @@ Config {
                      -- , Run Network  "enp3s0"   ["-L","0","-H","32","--normal","green","--high","red"] 10
                      -- , Run Com "wifi-stat" [] "wifi" 30
                      -- , Run Com "volume.sh" [] "vol" 10
+                        , Run Com "home/angron/.config/xmobar/trayer-padding-icon.sh" [] "trayerpad" 20
+                      -- Prints out the left side items such as workspaces, layout, etc.
+                      -- The workspaces are 'clickable' in my configs.
                      ]
 
         , sepChar = "%"
         , alignSep = "}{"
-        , template = "%uname% | %StdinReader% }{ %dynnetwork% | %disku% |  %ORBI% | %battery% | %memory% | <fc=#fbf1c7>%coretemp%</fc> | %date%"
+        , template = "%uname% | %StdinReader% }{ %dynnetwork% | %disku% |  %ORBI% | %battery% | %memory% | <fc=#fbf1c7>%coretemp%</fc> | %date% |   %trayerpad%"
         }
