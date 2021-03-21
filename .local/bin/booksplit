@@ -1,0 +1,41 @@
+#!/bin/sh
+
+# Requires ffmpeg & tag
+
+[ ! -f "$2" ] && printf "The first file should be the audio, the second should be the timecodes.\\n" && exit
+
+echo "Enter the album:"; read -r album_title
+
+echo "Enter the artist:"; read -r artist
+
+echo "Enter the publication year:"; read -r year
+
+inputaudio="$1"
+
+escalbum="$(echo "$album_title" | iconv -cf UTF-8 -t ASCII//TRANSLIT | tr -d '[:punct:]' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed "s/-\+/-/g;s/\(^-\|-\$\)//g")"
+
+! mkdir -p "$escbook" && echo "Do you have write access in this directory?" && exit 1
+
+ext="opus"
+
+# Total number of tracks
+total="$(wc -l < "$2")"
+
+while read -r x;
+do
+	end="$(echo "$x" | cut -d' ' -f1)"
+	[ -n "$start" ] &&
+	echo "From $start to $end; $track $title"
+	file="$escalbum/$(printf "%.2d" "$track")-$esctitle.$ext"
+	[ -n "$start" ] && echo "Splitting \"$title\"..." && ffmpeg -nostdin -y -loglevel -8 -i "$inputaudio" -ss "$start" -to "$end" -vn "$file" &&
+		echo "Tagging \"$title\"..." && tag -a "$artist" -A "$album_title" -t "$title" -n "$track" -N "$total" -d "$year" "$file"
+	title="$(echo "$x" | cut -d' ' -f 2-)"
+	esctitle="$(echo "$title" | iconv -cf UTF-8 -t ASCII//TRANSLIT | tr -d '[:punct:]' | tr '[:upper:]' '[:lower:]' | tr ' ' '-' | sed "s/-\+/-/g;s/\(^-\|-\$\)//g")"
+	track="$((track+1))"
+	start="$end"
+done < "$2"
+# The last track must be done outside the loop.
+echo "From $start to the end: $title"
+file="$escalbum/$(printf "%.2d" "$track")-$esctitle.$ext"
+echo "Splitting \"$title\"..." && ffmpeg -nostdin -y -loglevel -8 -i "$inputaudio" -ss "$start" -vn "$file" &&
+		echo "Tagging \"$title\"..." && tag -a "$artist" -A "$album_title" -t "$title" -n "$track" -N "$total" -d "$year" "$file"

@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+process=$(ps aux | grep -v grep | grep mv_ms | awk '{print $2}' )
+
+if [[ $process ]]
+then
+      kill $process
+      notify-send "mv_ms off"
+
+else
+      ./mv_ms.sh &
+      notify-send "mv_ms on"
+fi
