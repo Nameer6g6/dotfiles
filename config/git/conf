@@ -1,6 +1,6 @@
 [user]
 	email = nameer6g6@gmail.com
-	name = Nameer
+	name = Nameer Metori
 
 [color]
    status = auto
@@ -10,3 +10,6 @@
 
 [core]
    editor = nvim
+
+[diff]
+	tool = nvimdiff

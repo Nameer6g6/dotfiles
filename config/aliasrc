@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Use neovim for vim if present.
-command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d"
+command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" vimConf="nvim ~/.config/nvim/init.vim"
 
 alias git_branch_log="git log --all --graph --decorate --oneline"
 command -v dokcer >/dev/null  && alias docker_container_rm="docker rm $(docker ps -a -q)"
@@ -9,11 +9,13 @@ alias tb="taskbook"
 alias nuget="mono /usr/local/bin/nuget.exe"
 alias cleanup="yay -Rs `yay -Qdtq`"
 alias sln_gen="dotnet new sln && dotnet sln add ."
+alias dockerContainerIP="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 
 # alias ala="env WINIT_UNIX_BACKEND=x11 alacritty"
 # To re-bind caps as escape
 alias rebind_escape="setxkbmap -option caps:swapescape"
 
+alias pacmanFzf="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
 #alias rebind_escape="xmodmap ~/.xmodmap"
 
 # Show size of hidden files too "Bash Only"
@@ -31,7 +33,9 @@ alias \
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
  	mkd="mkdir -pv" \
-   yt="youtube-dl --add-metadata -i"
+ 	duLsHid="du -sch .[!.]* * | sort -h" \
+   yt="youtube-dl --add-metadata -i" \
+   xmonadRecompile="PATH=/usr/bin; xmonad --recompile"
 #  	cp="cp -iv" \
 #  	mv="mv -iv" \
 #  	rm="rm -vI" \
@@ -40,20 +44,30 @@ alias \
 
 
 # These common commands are just too long! Abbreviate them.
-# alias \
-# 	ka="killall" \
+alias \
+   ka="killall" \
+   e="$EDITOR" \
+   v="$EDITOR" \
+   z="zathura" \
+   psDir="cd $HOME/workspace/haskell/PureScript_dir" \
+   hsDir="cd $HOME/workspace/haskell" \
+   rbDir="cd $HOME/workspace/ruby" \
+   raDir="cd $HOME/workspace/rails" \
+   jsDir="cd $HOME/workspace/javascript" \
+   exDir="cd $HOME/workspace/elixir" \
+   csDir="cd $HOME/workspace/csharp" \
+   rsDir="cd $HOME/workspace/rust" \
+   fsDir="cd $HOME/workspace/fsharp" \
+   pyDir="cd $HOME/workspace/python"
 # 	g="git" \
 # 	trem="transmission-remote" \
 # 	YT="youtube-viewer" \
 # 	sdn="sudo shutdown -h now" \
 # 	f="$FILE" \
-# 	e="$EDITOR" \
-# 	v="$EDITOR" \
 # 	p="sudo pacman" \
 # 	xi="sudo xbps-install" \
 # 	xr="sudo xbps-remove -R" \
 # 	xq="xbps-query" \
-# 	z="zathura"
 
 # alias \
 # 	magit="nvim -c MagitOnly" \
@@ -61,3 +75,8 @@ alias \
 # 	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
 # 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
 
+# Frameworks commands abbreviations
+alias \
+   djServer="python manage.py runserver"
+   djCli="python manage.py shell"
+   djRoutes="python manage.py show_urls"

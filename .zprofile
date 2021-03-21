@@ -3,7 +3,12 @@
 PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
 PATH="$PATH:$HOME/.local/bin"
 export PATH=$PATH:~/.cabal/bin
+export PATH=$PATH:$HOME/.local/share/cargo/bin/
 
+typeset -U PATH path
+BINPATH="$HOME/.local/bin"
+path+=("$BINPATH" ${BINPATH}/*/)
+export PATH
 
 # Default programs:
 export EDITOR="nvim"
