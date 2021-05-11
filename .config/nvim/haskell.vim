@@ -1,23 +1,14 @@
-let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
-let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
-let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
-let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
-let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
-let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
-let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
-" let g:ale_haskell_stack_ghc_options = 'stack ghc'
-" let g:ale_haskell_hie_executable = 'hie-wrapper'
-if executable('brittany')
-   command! -nargs=0 FmtHaskell :%!stylish-haskell
-endif
 
 if executable('ghci')
    command! -nargs=0 Ghci :sv|term!ghci
 endif
 
 
+" let g:ale_haskell_stack_ghc_options = 'stack ghc'
+" let g:ale_haskell_hie_executable = 'hie-wrapper'
 let g:ale_linters = {}
-let g:ale_linters.haskell = ['stack_ghc', 'hlint']
+let g:ale_haskell_stack_ghc_options = 'stack ghc'
+" let g:ale_linters.haskell = ['stack_ghc', 'hlint']
 let g:ale_haskell_stack_ghc_options = '
       \ -threaded
       \ -rtsopts
@@ -30,8 +21,6 @@ let g:ale_haskell_stack_ghc_options = '
       \ -Wmissing-import-lists
       \ -Wmissing-export-lists
       \'
-
-let g:ghcid_command = 'stack exec ghcid --'
 
 if executable('lushtags')
        let g:tagbar_type_haskell = {
@@ -67,7 +56,7 @@ if executable('lushtags')
 " syn on
 " set conceallevel=0
 " set concealcursor=nciv
-set formatprg=brittany
+" set formatprg=brittany
 " set formatprg=stylish-haskell
 
 " let hscoptions="↱hCcls"
@@ -81,3 +70,17 @@ set formatprg=brittany
 "   \   'haskell': ['stack-build'], " you can include any other linters in this list too
 "   \}
 " endif
+
+let g:ormolu_command="fourmolu"
+let g:ormolu_options=["-o -XTypeApplications -o -XTemplateHaskell -o -XImportQualifiedPost 2>/dev/null"]
+autocmd BufWritePre *.hs :call RunOrmolu()
+
+let g:haskell_enable_quantification = 1   " to enable highlighting of `forall`
+let g:haskell_enable_recursivedo = 1      " to enable highlighting of `mdo` and `rec`
+let g:haskell_enable_arrowsyntax = 1      " to enable highlighting of `proc`
+let g:haskell_enable_pattern_synonyms = 1 " to enable highlighting of `pattern`
+let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
+let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
+let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
+
+let g:himporterCreateMappings = 1

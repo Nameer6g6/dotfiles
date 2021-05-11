@@ -21,3 +21,8 @@ let g:tagbar_type_elixir = {
          \ 't:tests'
          \ ]
          \ }
+
+
+" vim-mix-format options
+let g:mix_format_on_save = 1
+let g:mix_format_options = '--check-equivalent'

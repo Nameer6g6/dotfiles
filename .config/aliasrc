@@ -58,7 +58,8 @@ alias \
    csDir="cd $HOME/workspace/csharp" \
    rsDir="cd $HOME/workspace/rust" \
    fsDir="cd $HOME/workspace/fsharp" \
-   pyDir="cd $HOME/workspace/python"
+   pyDir="cd $HOME/workspace/python" \
+   vimConf="cd $HOME/.config/nvim/"
 # 	g="git" \
 # 	trem="transmission-remote" \
 # 	YT="youtube-viewer" \

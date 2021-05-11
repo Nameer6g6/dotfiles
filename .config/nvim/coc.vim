@@ -8,6 +8,7 @@ let g:coc_global_extensions = ['coc-solargraph',
 \     'coc-flutter',
 \     'coc-html',
 \     'coc-go',
+\     'coc-lua',
 \     'coc-rls',
 \     'coc-prettier',
 \     'coc-python']

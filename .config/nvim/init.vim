@@ -1,5 +1,5 @@
 set nocompatible
-let g:polyglot_disabled = ['css','ruby','javascript', 'haskell', 'cs']
+
 
 source $HOME/.config/nvim/plugins.vim
 
@@ -63,7 +63,14 @@ nnoremap &lt;leader&gt;t :call &lt;SID&gt;show_documentation()&lt;CR&gt;
 "let g:nord_cursor_line_number_background = 1
 
 " colorscheme OceanicNext
-colorscheme iceberg
+" colorscheme iceberg
+
+" let g:tokyonight_style = "day"
+let g:tokyonight_italic_functions = 1
+let g:tokyonight_italic_variables = 1
+let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+colorscheme tokyonight
+
 let g:spacegray_underline_search = 1
 let g:spacegray_italicize_comments = 1
 
@@ -156,7 +163,13 @@ autocmd User Startified setlocal buflisted
 source $HOME/.config/nvim/coc.vim
 
 " LightLine
-source $HOME/.config/nvim/lightline.vim
+" source $HOME/.config/nvim/lightline.vim
+
+" Glaxey line
+" lua require('galaxyline')
+" :lua << EOF
+" require('galaxyline')
+" EOF
 
 " C#/Omnisharp
 source $HOME/.config/nvim/csharp.vim
@@ -182,11 +195,10 @@ nmap <F8> :TagbarToggle<CR>
 
 " Disable arrow movement, resize splits instead.
 nnoremap <Up>    :resize +2<CR>
-nnoremap <Down>  :resize -2<CR> nnoremap <Left>  :vertical resize +2<CR>
+nnoremap <Down>  :resize -2<CR>
 nnoremap <Right> :vertical resize -2<CR>
+nnoremap <Left>  :vertical resize +2<CR>
 
-" Show Discord Presence
-nnoremap <leader>qq :DiscordUpdatePresence<CR>
 
 let g:python3_host_skip_check = 1
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
@@ -284,3 +296,182 @@ noremap <leader>7 7gt
 noremap <leader>8 8gt
 noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
+
+" mapping
+nnoremap <Leader>rg :Grep<space>
+" function to process fzf select
+function! ProcessRgFzf(line)
+    " line = FILE : COL : ROW : WORD
+    let l:info = split(a:line, ":")
+    execute "edit " .. l:info[0]
+    call cursor(l:info[1], l:info[2])
+    call feedkeys("*``", "n")
+endfunction
+" the command
+command! -bang -nargs=* Grep
+  \ call fzf#vim#grep(
+  \   'rg -o -p --column --no-heading -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview({'sink': function('ProcessRgFzf')}), <bang>0)
+
+
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+
+
+lua << EOF
+local telescope = require('telescope')
+telescope.setup{
+  defaults = {
+    vimgrep_arguments = {
+      'rg',
+      '--color=never',
+      '--no-heading',
+      '--with-filename',
+      '--line-number',
+      '--column',
+      '--smart-case'
+    },
+    prompt_position = "bottom",
+    prompt_prefix = "> ",
+    selection_caret = "> ",
+    entry_prefix = "  ",
+    initial_mode = "insert",
+    selection_strategy = "reset",
+    sorting_strategy = "descending",
+    layout_strategy = "horizontal",
+    layout_defaults = { horizontal = {
+        mirror = false,
+      },
+      vertical = {
+        mirror = false,
+      },
+    },
+    file_sorter =  require'telescope.sorters'.get_fuzzy_file,
+    file_ignore_patterns = {},
+    generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
+    shorten_path = true,
+    winblend = 0,
+    width = 0.75,
+    preview_cutoff = 120,
+    results_height = 1,
+    results_width = 0.8,
+    border = {},
+    borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
+    color_devicons = true,
+    use_less = true,
+    set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
+    file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
+    grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
+    qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
+
+    -- Developer configurations: Not meant for general override
+    buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
+  }
+}
+telescope.load_extension('hoogle')
+EOF
+
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    disable = { "c", "rust" },  -- list of language that will be disabled
+  },
+}
+EOF
+
+
+" Dashboard
+let g:dashboard_default_executive ='fzf.vim'
+
+" DAP
+lua << EOF
+   local dap = require('dap')
+   dap.adapters.python = {
+      type = 'executable';
+      -- command = 'path/to/virtualenvs/debugpy/bin/python';
+      command = 'python';
+      args = { '-m', 'debugpy.adapter' };
+   }
+   vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
+   vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
+EOF
+nnoremap <leader>dh :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <S-k> :lua require'dap'.step_out()<CR>
+nnoremap <S-l> :lua require'dap'.step_into()<CR>
+nnoremap <S-j> :lua require'dap'.step_over()<CR>
+nnoremap <leader>dn :lua require'dap'.continue()<CR>
+nnoremap <leader>d_ :lua require'dap'.run_last()<CR>
+nnoremap <leader>dr :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
+nnoremap <leader>di :lua require'dap.ui.variables'.hover(function () return vim.fn.expand("<cexpr>") end)<CR>
+vnoremap <leader>di :lua require'dap.ui.variables'.visual_hover()<CR>
+nnoremap <leader>d? :lua require'dap.ui.variables'.scopes()<CR>
+nnoremap <leader>de :lua require'dap'.set_exception_breakpoints({"all"})<CR>
+" nnoremap <leader>da :lua require'debugHelper'.attach()<CR>
+
+" theHamsta/nvim-dap-virtual-text and mfussenegger/nvim-dap
+" let g:dap_virtual_text = v:true
+
+
+" Exiting Terminal mode remapping
+:tnoremap <C-\><C-\> <C-\><C-n>
+
+
+" Show Discord Presence
+nnoremap <leader>qq :DiscordUpdatePresence<CR>
+" nnoremap <leader>qq :lua Presence:update()<CR>
+
+" Discord
+" lua << EOF
+" Presence = require("presence"):setup({
+"     -- This config table shows all available config options with their default values
+"     auto_update       = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua Presence:update()`)
+"     editing_text      = "Editing %s",               -- Editing format string (either string or function(filename: string|nil, buffer: string): string)
+"     workspace_text    = "Working on %s",            -- Workspace format string (either string or function(git_project_name: string|nil, buffer: string): string)
+"     neovim_image_text = "The One True Text Editor", -- Text displayed when hovered over the Neovim image
+"     main_image        = "file",                     -- Main image display (either "neovim" or "file")
+"     -- client_id         = "793271441293967371",       -- Use your own Discord application client id (not recommended)
+"     log_level         = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
+"     debounce_timeout  = 5,                         -- Number of seconds to debounce TextChanged events (or calls to `:lua Presence:update(<buf>, true)`)
+" })
+" EOF
+
+
+" Keep Eye
+" let g:keepeye_features = ['bell', 'notification', 'statusline']
+let g:keepeye_features = ['bell', 'notification']
+let g:keepeye_autostart = 1
+let g:keepeye_timer = 900
+let g:keepeye_message = 'SAVE YOUR EYES, DRINK WATER, TAKE A BREAK'
+
+
+" Navigator.nvim settings
+lua << EOF
+require('Navigator').setup({
+    auto_save = 'current',
+    disable_on_zoom = true
+})
+
+-- Keybindings
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
+
+map('n', "<A-h>", "<CMD>lua require('Navigator').left()<CR>", opts)
+map('n', "<A-k>", "<CMD>lua require('Navigator').up()<CR>", opts)
+map('n', "<A-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
+map('n', "<A-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
+map('n', "<A-p>", "<CMD>lua require('Navigator').previous()<CR>", opts)
+EOF
