@@ -162,15 +162,6 @@ autocmd User Startified setlocal buflisted
 " Coc
 source $HOME/.config/nvim/coc.vim
 
-" LightLine
-" source $HOME/.config/nvim/lightline.vim
-
-" Glaxey line
-" lua require('galaxyline')
-" :lua << EOF
-" require('galaxyline')
-" EOF
-
 " C#/Omnisharp
 source $HOME/.config/nvim/csharp.vim
 
