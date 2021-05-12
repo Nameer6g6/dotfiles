@@ -20,7 +20,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 
 " Status bar
-" Plug 'itchyny/lightline.vim'
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 Plug 'kyazdani42/nvim-web-devicons'                   " lua
 Plug 'ryanoasis/vim-devicons'                         " vimscript

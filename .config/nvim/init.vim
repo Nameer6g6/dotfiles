@@ -189,6 +189,10 @@ source $HOME/.config/nvim/limelight_goyo.vim
 " Other languages
 source $HOME/.config/nvim/langs.vim
 
+" statusline
+" source $HOME/.config/nvim/evilline.vim
+source $HOME/.config/nvim/statusline.vim
+
 " NerdTree
 map <C-n> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
