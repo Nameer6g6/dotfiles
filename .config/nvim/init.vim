@@ -5,10 +5,6 @@ source $HOME/.config/nvim/plugins.vim
 
 filetype plugin indent on
 
-" let g:python_host_prog  = '/usr/bin/python2.7'
-let g:python3_host_prog = '/usr/bin/python'
-let g:ruby_host_prog    = '~/.asdf/shims/neovim-ruby-host'
-
 let g:rehash256 = 1
 set encoding=UTF-8
 set mouse=a
