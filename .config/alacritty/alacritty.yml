@@ -3,7 +3,9 @@ font:
   size: 8
   normal:
     # family: Droid Sans Mono Slashed for Powerline
-    family: Monospace # family: iosevka Style can be specified to pick a specific face.
+    # family: Monospace # family: iosevka Style can be specified to pick a specific face.
+    family: iosevka
+    # family: fira
     style: Regular
     options:
       size: 10
@@ -20,8 +22,9 @@ font:
 
   # The bold font face
   bold:
-    # family: iosevka
-    family: Monospace
+    family: iosevka
+    # family: fira
+    # family: Monospace
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
     # style: Bold
@@ -29,6 +32,7 @@ font:
   # The italic font face
   italic:
     family: iosevka
+    # family: fira
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
     style: Italic
