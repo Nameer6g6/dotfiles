@@ -22,7 +22,7 @@ Config {
     , sepChar = "%" -- delineator between plugin names and straight text
     , alignSep = "}{" -- separator between left-right alignment
     , commands =
-        [ Run DateZone "<fc=#E6E6FA><fn=1>\xf073</fn> %a %b%d日 %H:%M:%S</fc>" "ja_JP.utf-8" "" "date" 2
+        [ Run DateZone "<fc=#E6E6FA>%a %b%d日 %H:%M:%S</fc>" "ja_JP.utf-8" "" "date" 2
         -- , Run StdinReader
         , Run UnsafeStdinReader
         , Run Memory
