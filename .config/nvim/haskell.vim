@@ -1,8 +1,13 @@
 
 if executable('ghci')
-   command! -nargs=0 Ghci :sv|term!ghci
+   command! -nargs=0 Ghci :vs|term!ghci
 endif
 
+
+if executable('stack')
+   command! -nargs=0 StackInstall :tabe|term stack install
+   command! -nargs=0 StackInstallWatch :tabe|term stack install --file-watch
+endif
 
 " let g:ale_haskell_stack_ghc_options = 'stack ghc'
 " let g:ale_haskell_hie_executable = 'hie-wrapper'
@@ -83,4 +88,4 @@ let g:haskell_enable_typeroles = 1        " to enable highlighting of type roles
 let g:haskell_enable_static_pointers = 1  " to enable highlighting of `static`
 let g:haskell_backpack = 1                " to enable highlighting of backpack keywords
 
-let g:himporterCreateMappings = 1
+" let g:himporterCreateMappings = 1

@@ -3,7 +3,9 @@
 # Use neovim for vim if present.
 command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" vimConf="nvim ~/.config/nvim/init.vim"
 
-alias git_branch_log="git log --all --graph --decorate --oneline"
+alias gitAdog="git log --all --graph --decorate --oneline"
+alias gitAhusky="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %C(red)%an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+alias gitAhusky2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''%C(white)%s%C(reset) %C(white)- %C(red)%an%C(reset)' --all"
 command -v dokcer >/dev/null  && alias docker_container_rm="docker rm $(docker ps -a -q)"
 alias tb="taskbook"
 alias nuget="mono /usr/local/bin/nuget.exe"
@@ -11,7 +13,9 @@ alias cleanup="yay -Rs `yay -Qdtq`"
 alias sln_gen="dotnet new sln && dotnet sln add ."
 alias dockerContainerIP="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 
-# alias ala="env WINIT_UNIX_BACKEND=x11 alacritty"
+# Workaround to enable alacritty interact with ibus
+# alias alacritty="env WINIT_UNIX_BACKEND=x11 alacritty"
+
 # To re-bind caps as escape
 alias rebind_escape="setxkbmap -option caps:swapescape"
 
@@ -59,7 +63,7 @@ alias \
    rsDir="cd $HOME/workspace/rust" \
    fsDir="cd $HOME/workspace/fsharp" \
    pyDir="cd $HOME/workspace/python" \
-   vimConf="cd $HOME/.config/nvim/"
+   vimDir="cd $HOME/.config/nvim/"
 # 	g="git" \
 # 	trem="transmission-remote" \
 # 	YT="youtube-viewer" \

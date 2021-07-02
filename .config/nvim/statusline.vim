@@ -133,6 +133,23 @@ gls.left[12] = {
     }
 }
 
+gls.left[13] = {
+    DiagnosticWarn = {
+        provider = "DiagnosticHint",
+        icon = "  ",
+        highlight = {colors.greenYel, colors.bg}
+    }
+}
+
+gls.left[14] = {
+    DiagnosticWarn = {
+        provider = "DiagnosticInfo",
+        icon = "  ",
+        highlight = {colors.nord, colors.bg}
+    }
+}
+
+
 gls.right[1] = {
     GitIcon = {
         provider = function()

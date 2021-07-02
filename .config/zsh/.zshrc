@@ -245,7 +245,6 @@ bindkey '^e' edit-command-line
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-source /etc/profile.d/vte.sh
 
 # . $HOME/dotfiles/alias.sh
 . $HOME/dotfiles/functions.sh
@@ -276,7 +275,7 @@ export TERM='xterm-256color'
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
-ibus-daemon -drx
+# ibus-daemon -drx
 
 # Load aliases and shortcuts if existent.
 # [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"

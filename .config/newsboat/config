@@ -1,5 +1,7 @@
 #show-read-feeds no
 auto-reload yes
+datetime-format "%D"
+notify-xterm yes
 
 external-url-viewer "urlscan -dc -r 'linkhandler {}'"
 
@@ -29,6 +31,8 @@ color listfocus_unread yellow default bold
 color info red black bold
 color article white default bold
 
+# browser "$BROWSER %u"
+browser "$BROWSER %u"
 browser linkhandler
 macro , open-in-browser
 macro t set browser "qndl" ; open-in-browser ; set browser linkhandler

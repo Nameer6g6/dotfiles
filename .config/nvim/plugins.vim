@@ -11,13 +11,17 @@ Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 Plug 'kovetskiy/sxhkd-vim'                         "sxhkd is X hotkey daemon
 Plug 'christoomey/vim-sort-motion'
-Plug 'soywod/vim-keepeye'
+" Plug 'soywod/vim-keepeye'
 Plug 'numToStr/Navigator.nvim'
 
 " File bar
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
+" Plug 'romgrk/barbar.nvim'
+" Plug 'kyazdani42/nvim-web-devicons' " for file icons
+" Plug 'kyazdani42/nvim-tree.lua'
+
 
 " Status bar
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}

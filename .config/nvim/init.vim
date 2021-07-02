@@ -42,7 +42,7 @@ set cmdheight=2
 set signcolumn=yes
 
 
-nnoremap &lt;leader&gt;t :call &lt;SID&gt;show_documentation()&lt;CR&gt;
+" nnoremap &lt;leader&gt;t :call &lt;SID&gt;show_documentation()&lt;CR&gt;
 
 " To make git_prompt_info works
  set ff=unix
@@ -180,6 +180,9 @@ source $HOME/.config/nvim/langs.vim
 " source $HOME/.config/nvim/evilline.vim
 source $HOME/.config/nvim/statusline.vim
 
+" Barbar
+" source $HOME/.config/nvim/barbar.vim
+
 " NerdTree
 map <C-n> :NERDTreeToggle<CR>
 nmap <F8> :TagbarToggle<CR>
@@ -191,7 +194,7 @@ nnoremap <Right> :vertical resize -2<CR>
 nnoremap <Left>  :vertical resize +2<CR>
 
 
-let g:python3_host_skip_check = 1
+" let g:python3_host_skip_check = 1
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env']
 
 " Fold
@@ -313,10 +316,10 @@ nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 " Using lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fF <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fG <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fB <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fN <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 
 lua << EOF
@@ -376,7 +379,7 @@ EOF
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  -- ignore_install = { "javascript", "python" }, -- List of parsers to ignore installing
   highlight = {
     enable = true,              -- false will disable the whole extension
     disable = { "c", "rust" },  -- list of language that will be disabled
@@ -442,8 +445,8 @@ nnoremap <leader>qq :DiscordUpdatePresence<CR>
 
 
 " Keep Eye
-" let g:keepeye_features = ['bell', 'notification', 'statusline']
-let g:keepeye_features = ['bell', 'notification']
+let g:keepeye_features = ['bell', 'notification', 'statusline']
+" let g:keepeye_features = ['bell', 'notification']
 let g:keepeye_autostart = 1
 let g:keepeye_timer = 900
 let g:keepeye_message = 'SAVE YOUR EYES, DRINK WATER, TAKE A BREAK'
@@ -466,3 +469,95 @@ map('n', "<A-l>", "<CMD>lua require('Navigator').right()<CR>", opts)
 map('n', "<A-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
 map('n', "<A-p>", "<CMD>lua require('Navigator').previous()<CR>", opts)
 EOF
+
+" let g:nvim_tree_side = 'right' "left by default
+" let g:nvim_tree_width = 40 "30 by default
+" let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
+" let g:nvim_tree_gitignore = 1 "0 by default
+" let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
+" let g:nvim_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
+" let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
+" let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
+" let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
+" let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
+" let g:nvim_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
+" let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
+" let g:nvim_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
+" let g:nvim_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
+" let g:nvim_tree_width_allow_resize  = 1 "0 by default, will not resize the tree when opening a file
+" let g:nvim_tree_disable_netrw = 0 "1 by default, disables netrw
+" let g:nvim_tree_hijack_netrw = 0 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
+" let g:nvim_tree_add_trailing = 1 "0 by default, append a trailing slash to folder names
+" let g:nvim_tree_group_empty = 1 " 0 by default, compact folders that only contain a single folder into one node in the file tree
+" let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
+" let g:nvim_tree_special_files = [ 'README.md', 'Makefile', 'MAKEFILE' ] " List of filenames that gets highlighted with NvimTreeSpecialFile
+" let g:nvim_tree_show_icons = {
+"     \ 'git': 1,
+"     \ 'folders': 0,
+"     \ 'files': 0,
+"     \ }
+" "If 0, do not show the icons for one of 'git' 'folder' and 'files'
+" "1 by default, notice that if 'files' is 1, it will only display
+" "if nvim-web-devicons is installed and on your runtimepath
+"
+" " default will show icon by default if no icon is provided
+" " default shows no icon by default
+" let g:nvim_tree_icons = {
+"     \ 'default': '',
+"     \ 'symlink': '',
+"     \ 'git': {
+"     \   'unstaged': "✗",
+"     \   'staged': "✓",
+"     \   'unmerged': "",
+"     \   'renamed': "➜",
+"     \   'untracked': "★",
+"     \   'deleted': "",
+"     \   'ignored': "◌"
+"     \   },
+"     \ 'folder': {
+"     \   'default': "",
+"     \   'open': "",
+"     \   'empty': "",
+"     \   'empty_open': "",
+"     \   'symlink': "",
+"     \   'symlink_open': "",
+"     \   },
+"     \   'lsp': {
+"     \     'hint': "",
+"     \     'info': "",
+"     \     'warning': "",
+"     \     'error': "",
+"     \   }
+"     \ }
+"
+" nnoremap <C-n> :NvimTreeToggle<CR>
+" nnoremap <leader>r :NvimTreeRefresh<CR>
+" nnoremap <leader>n :NvimTreeFindFile<CR>
+" " NvimTreeOpen and NvimTreeClose are also available if you need them
+"
+" set termguicolors " this variable must be enabled for colors to be applied properly
+"
+" " a list of groups can be found at `:help nvim_tree_highlight`
+" highlight NvimTreeFolderIcon guibg=blue
+
+
+hi link ALEError Error
+hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
+hi link ALEWarning Warning
+hi link ALEInfo SpellCap
+
+
+lua  << EOF
+  if hl and end_row >= line then
+      a.nvim_buf_set_extmark(buf, ns, start_row, start_col,
+      { end_line = end_row, end_col = end_col,
+      hl_group = hl,
+      ephemeral = true,
+    })
+    else
+      return
+    end
+EOF
+
+" Setting fsharp files type manually
+au BufRead,BufNewFile *.fs		set filetype=fsharp
