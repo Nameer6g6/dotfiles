@@ -1,14 +1,13 @@
 font:
   # The normal (roman) font face to use.
-  size: 8
+  size: 8.0
   normal:
     # family: Droid Sans Mono Slashed for Powerline
     # family: Monospace # family: iosevka Style can be specified to pick a specific face.
-    family: iosevka
-    # family: fira
+    # family: iosevka
+    family: FiraCode
     style: Regular
     options:
-      size: 10
       thin_strokes: true
       antialias: lcd # Can have values like lcd, lcdv, gray, and none
       hinting: true
@@ -22,8 +21,8 @@ font:
 
   # The bold font face
   bold:
-    family: iosevka
-    # family: fira
+    family: FiraCode
+    # family: iosevka
     # family: Monospace
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
@@ -31,8 +30,8 @@ font:
 
   # The italic font face
   italic:
-    family: iosevka
-    # family: fira
+    family: FiraCode
+    # family: iosevka
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
     style: Italic
@@ -103,7 +102,7 @@ colors:
     - { index: 16, color: '0xff9e64' }
     - { index: 17, color: '0xdb4b4b' }
 
-shell:
+# shell:
 #   program: /usr/bin/tmux
 #   args:
 #     - -u # force UTF-8 in tmux
@@ -134,8 +133,9 @@ shell:
 #   duration: 200
 #   color: '0xff0000'
 
-# env:
-#   TERM: xterm-256color
+env:
+  # TERM: xterm-256color
+  TERM: alacritty-256color
 
 window:
   # Window dimensions (changes require restart)
@@ -268,3 +268,9 @@ selection:
 #   - { key: Subtract, mods: Control, action: DecreaseFontSize }
 #   - { key: Minus, mods: Control, action: DecreaseFontSize }
 #   - { key: N, mods: Control, action: SpawnNewInstance }
+
+  # This value is used to set the `$TERM` environment variable for
+  # each instance of Alacritty. If it is not present, alacritty will
+  # check the local terminfo database and use `alacritty` if it is
+  # available, otherwise `xterm-256color` is used.
+  #TERM: alacritty
