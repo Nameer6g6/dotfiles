@@ -30,6 +30,8 @@ Plug 'ryanoasis/vim-devicons'                         " vimscript
 
 " Debugger plugin
 Plug 'mfussenegger/nvim-dap'
+Plug 'rcarriga/nvim-dap-ui'
+Plug 'theHamsta/nvim-dap-virtual-text'
 " Plug 'Kethku/neovide'
 " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
 
