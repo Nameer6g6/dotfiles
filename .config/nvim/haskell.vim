@@ -14,18 +14,18 @@ endif
 let g:ale_linters = {}
 let g:ale_haskell_stack_ghc_options = 'stack ghc'
 " let g:ale_linters.haskell = ['stack_ghc', 'hlint']
-let g:ale_haskell_stack_ghc_options = '
-      \ -threaded
-      \ -rtsopts
-      \ -with-rtsopts=-N
-      \ -Wall
-      \ -Wcompat
-      \ -Wincomplete-record-updates
-      \ -Wincomplete-uni-patterns
-      \ -Wredundant-constraints
-      \ -Wmissing-import-lists
-      \ -Wmissing-export-lists
-      \'
+" let g:ale_haskell_stack_ghc_options = '
+"       \ -threaded
+"       \ -rtsopts
+"       \ -with-rtsopts=-N
+"       \ -Wall
+"       \ -Wcompat
+"       \ -Wincomplete-record-updates
+"       \ -Wincomplete-uni-patterns
+"       \ -Wredundant-constraints
+"       \ -Wmissing-import-lists
+"       \ -Wmissing-export-lists
+"       \'
 
 if executable('lushtags')
        let g:tagbar_type_haskell = {
