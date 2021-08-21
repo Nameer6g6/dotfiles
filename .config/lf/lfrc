@@ -127,11 +127,12 @@ map O $mimeopen --ask $f
 map Y %cp -ri -- $fs .
 
 map A rename # at the very end
-map c push A<c-u> # new rename
+map <c-a> push A<c-u> # new rename
 map I push A<c-a> # at the very beginning
 map i push A<a-b><a-b><a-f> # before extention
 map a push A<a-b> # after extention
 map B bulkrename
+map t toggle
 map b $setbg $f
 
 map <c-e> down
