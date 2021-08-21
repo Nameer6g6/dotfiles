@@ -46,6 +46,7 @@ Plug 'honza/vim-snippets'
 Plug 'mbbill/undotree'
 Plug 'chr4/nginx.vim'
 Plug 'sbdchd/neoformat'
+Plug 'vmchale/dhall-vim'
 
 " Neovim Plugins
 Plug 'nvim-lua/popup.nvim'
@@ -186,6 +187,5 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Discord presence
 Plug 'ObserverOfTime/discord.nvim', {'do': ':UpdateRemotePlugins'}
-" Plug 'andweeb/presence.nvim'
 
 call plug#end()
