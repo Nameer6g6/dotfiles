@@ -14,7 +14,7 @@ set cleaner ~/.config/lf/cleaner
 # Vars that depend on environmental variables
 # $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"
 
-cmds/functions
+# cmds/functions
 cmd open ${{
     case $(file --mime-type $f -b) in
 	image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
@@ -72,15 +72,11 @@ cmd copyto ${{
 	notify-send "📋 File(s) copied." "File(s) copies to $dest."
 }}
 
-
 # cmd yank-dirname $dirname -- "$f" | head -c-1 | xclip -i -selection clipboard
 # cmd yank-path $printf '%s' "$fx" | xclip -i -selection clipboard
 # cmd yank-basename $basename -a -- $fx | head -c-1 | xclip -i -selection clipboard
-#
 # cmd yank-basename-without-extension &basename -a -- $fx | cut -d. -f1 | head -c-1 | xclip -i -selection clipboard
-
 cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | rev | head -c-1 | xclip -i -selection clipboard
-
 
 # cmd yank-basename-without-extension ${{
 #     echo "$fx" |
@@ -105,7 +101,7 @@ cmd yank-basename-without-extension &basename -a -- $fx | rev | cut -d. -f2- | r
 cmd setbg "$1"
 cmd bulkrename $vidir
 
-Bindings
+# Bindings
 map <c-f> $lf -remote "send $id select '$(fzf)'"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
 map gh
@@ -139,5 +135,5 @@ map <c-e> down
 map <c-y> up
 map V push :!nvim<space>
 
-Source Bookmarks
+# Source Bookmarks
 # source "~/.config/lf/shortcutrc"
