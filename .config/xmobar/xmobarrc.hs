@@ -1,7 +1,7 @@
 Config
     { font = "xft:Iosevka:size=12:style=Regular, sarasagothicsc:size=12"
-    , -- font = "xft:Iosevka:size=12:style=Regular, sarasagothicsc:size=12"
-      -- font = "xft:Iosevka:size=12:style=Regular, vlgothic:size=12"
+    -- font = "xft:Iosevka:size=8:style=Regular, sarasagothicsc:size=8"
+    , -- font = "xft:Iosevka:size=12:style=Regular, vlgothic:size=12"
       additionalFonts = ["xft:FontAwesome:size=9:FontAwesome5Free:size=9:FontAwesome5Brands:size=9"]
     , -- font = "xft:fira fira:size=12:weight=bold, vlgothic:size=12"
       -- font = "xft:fira mono:size=7:weight=bold, vlgothic:size=7"

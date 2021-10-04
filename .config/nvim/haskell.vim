@@ -8,8 +8,8 @@ if executable('stack')
    command! -nargs=0 StackInstallWatch :tabe|term stack install --file-watch
 endif
 
-" let g:ale_haskell_stack_ghc_options = 'stack ghc'
-" let g:ale_haskell_hie_executable = 'hie-wrapper'
+let g:ale_haskell_stack_ghc_options = 'stack ghc'
+let g:ale_haskell_hie_executable = 'hie-wrapper'
 let g:ale_linters = {}
 let g:ale_haskell_stack_ghc_options = 'stack ghc'
 let g:ale_linters.haskell = ['stack_ghc', 'hlint']

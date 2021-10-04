@@ -14,3 +14,6 @@ nm <buffer> <silent> <leader>pg  :Pgoto<CR>
 nm <buffer> <silent> <leader>pp  :Pursuit<CR>
 nm <buffer> <silent> <leader>pT  :Ptype<CR>
 let g:psc_ide_log_level = 3
+
+command! -nargs=0  OrganizeImports :call CocAction('runCommand', 'editor.action.organizeImport')
+nmap  <leader>o  :OrganizeImports<cr>

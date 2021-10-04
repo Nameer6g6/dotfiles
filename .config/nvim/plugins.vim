@@ -13,6 +13,7 @@ Plug 'kovetskiy/sxhkd-vim'                         "sxhkd is X hotkey daemon
 Plug 'christoomey/vim-sort-motion'
 " Plug 'soywod/vim-keepeye'
 Plug 'numToStr/Navigator.nvim'
+Plug 'numtostr/FTerm.nvim'
 
 " File bar
 Plug 'scrooloose/nerdtree'
@@ -170,6 +171,9 @@ Plug 'OmniSharp/omnisharp-vim'
 
 " Nix Support
 Plug 'LnL7/vim-nix'
+
+" Databases Support
+Plug 'lifepillar/pgsql.vim'
 
 " Theme / Interface
 Plug 'cocopon/iceberg.vim'
