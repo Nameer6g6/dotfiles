@@ -1,9 +1,23 @@
 #show-read-feeds no
 auto-reload yes
+reload-time 10
+download-retries 4
+download-timeout 15
 datetime-format "%D"
 notify-xterm yes
+notify-beep yes
+confirm-exit no
+cleanup-on-quit no
+
+feedlist-format " %n %4i - %9u: %t %>  :: %?%-17T"
+# feedlist-title-format "Feeds (%u unread, %t total)"
+# highlight feedlist "https?://[^ ]+" yellow red bold
+# highlight article "^(Feed|Title|Author|Link|Date):" default default underline
+# highlight article "^(Title):" default default underline
+# highlight feedlist "(^title:.*)" red default bold
 
 external-url-viewer "urlscan -dc -r 'linkhandler {}'"
+always-display-description true
 
 bind-key j down
 bind-key k up
@@ -23,6 +37,15 @@ bind-key N prev-unread
 bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
+
+# show-read-feeds no
+
+# feed-sort-order unreadarticlecount-asc
+# color info default default reverse
+# color listnormal_unread yellow default
+# color listfocus blue default reverse bold
+# color listfocus_unread blue default reverse bold
+# text-width 80
 
 color listnormal cyan default
 color listfocus black yellow standout bold
