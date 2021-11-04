@@ -12,17 +12,13 @@ Plug 'junegunn/goyo.vim'
 Plug 'kovetskiy/sxhkd-vim'                         "sxhkd is X hotkey daemon
 Plug 'christoomey/vim-sort-motion'
 " Plug 'soywod/vim-keepeye'
-Plug 'numToStr/Navigator.nvim'
-Plug 'numtostr/FTerm.nvim'
+Plug 'itchyny/calendar.vim'
 
 " File bar
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " Plug 'romgrk/barbar.nvim'
-" Plug 'kyazdani42/nvim-web-devicons' " for file icons
-" Plug 'kyazdani42/nvim-tree.lua'
-
 
 " Status bar
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
@@ -55,11 +51,19 @@ Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'wbthomason/packer.nvim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'numToStr/Navigator.nvim'
+Plug 'numtostr/FTerm.nvim'
+Plug 'windwp/nvim-spectre'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
+Plug 'folke/todo-comments.nvim'
+" Plug 'kyazdani42/nvim-tree.lua'
+
 " Plug 'glepnir/dashboard-nvim'
 
 " Frontend Support
 Plug 'mattn/emmet-vim'
 Plug 'chemzqm/vim-cssfmt'
+Plug 'AndrewRadev/tagalong.vim'
 " Plug 'ap/vim-css-color'
 " Plug 'cakebaker/scss-syntax.vim'
 " Plug 'othree/html5.vim'
