@@ -1,6 +1,5 @@
 set nocompatible
 
-
 source $HOME/.config/nvim/plugins.vim
 
 filetype plugin indent on
@@ -321,61 +320,6 @@ nnoremap <leader>fG <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fB <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fN <cmd>lua require('telescope.builtin').help_tags()<cr>
 
-
-" lua << EOF
-" local telescope = require('telescope')
-" telescope.setup{
-"   defaults = {
-"     vimgrep_arguments = {
-"       'rg',
-"       '--color=never',
-"       '--no-heading',
-"       '--with-filename',
-"       '--line-number',
-"       '--column',
-"       '--smart-case'
-"     },
-"     prompt_position = "bottom",
-"     prompt_prefix = "> ",
-"     selection_caret = "> ",
-"     entry_prefix = "  ",
-"     initial_mode = "insert",
-"     selection_strategy = "reset",
-"     sorting_strategy = "descending",
-"     layout_strategy = "horizontal",
-"     layout_defaults = { horizontal = {
-"         mirror = false,
-"       },
-"       vertical = {
-"         mirror = false,
-"       },
-"     },
-"     file_sorter =  require'telescope.sorters'.get_fuzzy_file,
-"     file_ignore_patterns = {},
-"     generic_sorter =  require'telescope.sorters'.get_generic_fuzzy_sorter,
-"     shorten_path = true,
-"     winblend = 0,
-"     width = 0.75,
-"     preview_cutoff = 120,
-"     results_height = 1,
-"     results_width = 0.8,
-"     border = {},
-"     borderchars = { '─', '│', '─', '│', '╭', '╮', '╯', '╰' },
-"     color_devicons = true,
-"     use_less = true,
-"     set_env = { ['COLORTERM'] = 'truecolor' }, -- default = nil,
-"     file_previewer = require'telescope.previewers'.vim_buffer_cat.new,
-"     grep_previewer = require'telescope.previewers'.vim_buffer_vimgrep.new,
-"     qflist_previewer = require'telescope.previewers'.vim_buffer_qflist.new,
-"
-"     -- Developer configurations: Not meant for general override
-"     buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker
-"   }
-" }
-" telescope.load_extension('hoogle')
-" EOF
-
-
 lua <<EOF
 require'nvim-treesitter.configs'.setup {
   ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
@@ -387,10 +331,8 @@ require'nvim-treesitter.configs'.setup {
 }
 EOF
 
-
 " Dashboard
 let g:dashboard_default_executive ='fzf.vim'
-
 
 " Exiting Terminal mode remapping
 :tnoremap <C-\><C-\> <C-\><C-n>
@@ -400,29 +342,12 @@ let g:dashboard_default_executive ='fzf.vim'
 nnoremap <leader>qq :DiscordUpdatePresence<CR>
 " nnoremap <leader>qq :lua Presence:update()<CR>
 
-" Discord
-" lua << EOF
-" Presence = require("presence"):setup({
-"     -- This config table shows all available config options with their default values
-"     auto_update       = true,                       -- Update activity based on autocmd events (if `false`, map or manually execute `:lua Presence:update()`)
-"     editing_text      = "Editing %s",               -- Editing format string (either string or function(filename: string|nil, buffer: string): string)
-"     workspace_text    = "Working on %s",            -- Workspace format string (either string or function(git_project_name: string|nil, buffer: string): string)
-"     neovim_image_text = "The One True Text Editor", -- Text displayed when hovered over the Neovim image
-"     main_image        = "file",                     -- Main image display (either "neovim" or "file")
-"     -- client_id         = "793271441293967371",       -- Use your own Discord application client id (not recommended)
-"     log_level         = nil,                        -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
-"     debounce_timeout  = 5,                         -- Number of seconds to debounce TextChanged events (or calls to `:lua Presence:update(<buf>, true)`)
-" })
-" EOF
-
-
 " Keep Eye
 let g:keepeye_features = ['bell', 'notification', 'statusline']
 " let g:keepeye_features = ['bell', 'notification']
 let g:keepeye_autostart = 1
 let g:keepeye_timer = 900
 let g:keepeye_message = 'SAVE YOUR EYES, DRINK WATER, TAKE A BREAK'
-
 
 " Navigator.nvim settings
 lua << EOF
@@ -442,71 +367,6 @@ map('n', "<A-j>", "<CMD>lua require('Navigator').down()<CR>", opts)
 map('n', "<A-p>", "<CMD>lua require('Navigator').previous()<CR>", opts)
 EOF
 
-" let g:nvim_tree_side = 'right' "left by default
-" let g:nvim_tree_width = 40 "30 by default
-" let g:nvim_tree_ignore = [ '.git', 'node_modules', '.cache' ] "empty by default
-" let g:nvim_tree_gitignore = 1 "0 by default
-" let g:nvim_tree_auto_open = 1 "0 by default, opens the tree when typing `vim $DIR` or `vim`
-" let g:nvim_tree_auto_close = 1 "0 by default, closes the tree when it's the last window
-" let g:nvim_tree_auto_ignore_ft = [ 'startify', 'dashboard' ] "empty by default, don't auto open tree on specific filetypes.
-" let g:nvim_tree_quit_on_open = 1 "0 by default, closes the tree when you open a file
-" let g:nvim_tree_follow = 1 "0 by default, this option allows the cursor to be updated when entering a buffer
-" let g:nvim_tree_indent_markers = 1 "0 by default, this option shows indent markers when folders are open
-" let g:nvim_tree_hide_dotfiles = 1 "0 by default, this option hides files and folders starting with a dot `.`
-" let g:nvim_tree_git_hl = 1 "0 by default, will enable file highlight for git attributes (can be used without the icons).
-" let g:nvim_tree_root_folder_modifier = ':~' "This is the default. See :help filename-modifiers for more options
-" let g:nvim_tree_tab_open = 1 "0 by default, will open the tree when entering a new tab and the tree was previously open
-" let g:nvim_tree_width_allow_resize  = 1 "0 by default, will not resize the tree when opening a file
-" let g:nvim_tree_disable_netrw = 0 "1 by default, disables netrw
-" let g:nvim_tree_hijack_netrw = 0 "1 by default, prevents netrw from automatically opening when opening directories (but lets you keep its other utilities)
-" let g:nvim_tree_add_trailing = 1 "0 by default, append a trailing slash to folder names
-" let g:nvim_tree_group_empty = 1 " 0 by default, compact folders that only contain a single folder into one node in the file tree
-" let g:nvim_tree_lsp_diagnostics = 1 "0 by default, will show lsp diagnostics in the signcolumn. See :help nvim_tree_lsp_diagnostics
-" let g:nvim_tree_special_files = [ 'README.md', 'Makefile', 'MAKEFILE' ] " List of filenames that gets highlighted with NvimTreeSpecialFile
-" let g:nvim_tree_show_icons = {
-"     \ 'git': 1,
-"     \ 'folders': 0,
-"     \ 'files': 0,
-"     \ }
-" "If 0, do not show the icons for one of 'git' 'folder' and 'files'
-" "1 by default, notice that if 'files' is 1, it will only display
-" "if nvim-web-devicons is installed and on your runtimepath
-"
-" " default will show icon by default if no icon is provided
-" " default shows no icon by default
-" let g:nvim_tree_icons = {
-"     \ 'default': '',
-"     \ 'symlink': '',
-"     \ 'git': {
-"     \   'unstaged': "✗",
-"     \   'staged': "✓",
-"     \   'unmerged': "",
-"     \   'renamed': "➜",
-"     \   'untracked': "★",
-"     \   'deleted': "",
-"     \   'ignored': "◌"
-"     \   },
-"     \ 'folder': {
-"     \   'default': "",
-"     \   'open': "",
-"     \   'empty': "",
-"     \   'empty_open': "",
-"     \   'symlink': "",
-"     \   'symlink_open': "",
-"     \   },
-"     \   'lsp': {
-"     \     'hint': "",
-"     \     'info': "",
-"     \     'warning': "",
-"     \     'error': "",
-"     \   }
-"     \ }
-"
-" nnoremap <C-n> :NvimTreeToggle<CR>
-" nnoremap <leader>r :NvimTreeRefresh<CR>
-" nnoremap <leader>n :NvimTreeFindFile<CR>
-" " NvimTreeOpen and NvimTreeClose are also available if you need them
-"
 " set termguicolors " this variable must be enabled for colors to be applied properly
 "
 " " a list of groups can be found at `:help nvim_tree_highlight`
@@ -518,102 +378,60 @@ hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gol
 hi link ALEWarning Warning
 hi link ALEInfo SpellCap
 
+" lua  << EOF
+"   if hl and end_row >= line then
+"       a.nvim_buf_set_extmark(buf, ns, start_row, start_col,
+"       { end_line = end_row, end_col = end_col,
+"       hl_group = hl,
+"       ephemeral = true,
+"     })
+"     else
+"       return
+"     end
+" EOF
+"
+" " Setting fsharp files type manually
+" au BufRead,BufNewFile *.fs		set filetype=fsharp
 
-lua  << EOF
-  if hl and end_row >= line then
-      a.nvim_buf_set_extmark(buf, ns, start_row, start_col,
-      { end_line = end_row, end_col = end_col,
-      hl_group = hl,
-      ephemeral = true,
-    })
-    else
-      return
-    end
-EOF
+" inserting date
+nnoremap <leader>td "=strftime("%Y-%m-%d")<CR>P
+inoremap <leader>td <C-R>=strftime("%Y-%m-%d")<CR>
 
-" Setting fsharp files type manually
-au BufRead,BufNewFile *.fs		set filetype=fsharp
-
-
-" DAP
 lua << EOF
-local dap = require('dap')
-dap.adapters.netcoredbg = {
-  type = 'executable',
-  command = '/usr/bin/netcoredbg',
-  args = {'--interpreter=vscode'}
-}
+require'FTerm'.setup({
+    border = 'double',
+    dimensions  = {
+        height = 0.9, -- Height of the terminal window
+        width = 0.9, -- Width of the terminal window
+        -- x = 0.5, -- X axis of the terminal window
+        -- y = 0.5, -- Y axis of the terminal window
+    },
+})
 
-dap.configurations.cs = {
-  {
-    type = "netcoredbg",
-    name = "launch - netcoredbg",
-    request = "launch",
-    program = function()
-        return vim.fn.input('Path to dll', vim.fn.getcwd() .. '/bin/Debug/', 'file')
-    end,
-  },
-}
+-- Example keybindings
+local map = vim.api.nvim_set_keymap
+local opts = { noremap = true, silent = true }
 
-dap.defaults.fallback.external_terminal = {
-  command = '/usr/bin/alacritty';
-  args = {'-e'};
-}
-
-dap.adapters.node2 = {
-  type = 'executable',
-  command = 'node',
-  args = {os.getenv('HOME') .. '/home/angron/projects/Dev/LanguageServers/vscode-node-debug2/out/src/nodeDebug.js'},
-}
-dap.configurations.javascript = {
-  {
-    type = 'node2',
-    request = 'launch',
-    program = '${file}',
-    cwd = vim.fn.getcwd(),
-    sourceMaps = true,
-    protocol = 'inspector',
-    console = 'integratedTerminal',
-  },
-}
-
-dap.adapters.python = {
-   type = 'executable';
-   -- command = 'path/to/virtualenvs/debugpy/bin/python';
-   command = 'python';
-   args = { '-m', 'debugpy.adapter' };
-}
--- vim.fn.sign_define('DapBreakpoint', {text='🟥', texthl='', linehl='', numhl=''})
--- vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
+map('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
+map('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 EOF
 
-au FileType dap-repl lua require('dap.ext.autocompl').attach()
+nnoremap <leader>S :lua require('spectre').open()<CR>
+" search current word
+nnoremap <leader>sw :lua require('spectre').open_visual({select_word=true})<CR>
+vnoremap <leader>s :lua require('spectre').open_visual()<CR>
+" search in current file
+nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
 
-" nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
-" nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
-" nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
-" nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
-" nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-" nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-" nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
-" nnoremap <silent> <leader>dl :lua require'dap'.run_last()<CR>
-nnoremap <leader>dh :lua require'dap'.toggle_breakpoint()<CR>
-nnoremap <S-k> :lua require'dap'.step_out()<CR>
-nnoremap <S-l> :lua require'dap'.step_into()<CR>
-nnoremap <S-j> :lua require'dap'.step_over()<CR>
-nnoremap <leader>dn :lua require'dap'.continue()<CR>
-nnoremap <leader>d_ :lua require'dap'.run_last()<CR>
-nnoremap <leader>dr :lua require'dap'.repl.open({}, 'vsplit')<CR><C-w>l
-nnoremap <leader>di :lua require'dap.ui.widgets'.hover()<CR>
-" nnoremap <leader>di :lua require'dap.ui.variables'.hover()<CR>
-vnoremap <leader>di :lua require'dap.ui.variables'.visual_hover()<CR>
-" nnoremap <leader>d? :lua require'dap.ui.variables'.scopes()<CR>
-nnoremap <leader>d? :lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>
-nnoremap <leader>de :lua require'dap'.set_exception_breakpoints({"all"})<CR>
-" nnoremap <leader>da :lua require'debugHelper'.attach()<CR>
+lua << EOF
+  require("todo-comments").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
 
-" theHamsta/nvim-dap-virtual-text and mfussenegger/nvim-dap
-let g:dap_virtual_text = v:true
-
-
-let g:discord_workspace = ""
+" Calendar.vim integrating with goolge
+" let g:calendar_google_calendar = 1
+" let g:calendar_google_task = 1
+" source ~/.cache/calendar.vim/credentials.vim
