@@ -38,7 +38,9 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
-# show-read-feeds no
+# add contrib scripts for thumbnail preview
+# pager "~/.local/bin/nbparser"
+html-renderer "/bin/bat"
 
 # feed-sort-order unreadarticlecount-asc
 # color info default default reverse
@@ -80,3 +82,20 @@ highlight article "\\[embedded flash: [0-9][0-9]*\\]" green default bold
 highlight article ":.*\\(link\\)$" cyan default
 highlight article ":.*\\(image\\)$" blue default
 highlight article ":.*\\(embedded flash\\)$" magenta default
+
+## Nord colorscheme
+# color background          color236   default
+# color listnormal          color248   default
+# color listnormal_unread   color6     default
+# color listfocus           color236   color12
+# color listfocus_unread    color15    color12
+# color info                color248   color236
+# color article             color248   default
+#
+# # highlights
+# highlight article "^(Feed|Link):.*$" color6 default bold
+# highlight article "^(Title|Date|Author):.*$" color6 default bold
+# highlight article "https?://[^ ]+" color10 default underline
+# highlight article "\\[[0-9]+\\]" color10 default bold
+# highlight article "\\[image\\ [0-9]+\\]" color10 default bold
+# highlight feedlist "^─.*$" color6 color236 bold
