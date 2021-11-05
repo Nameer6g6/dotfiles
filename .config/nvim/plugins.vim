@@ -13,6 +13,7 @@ Plug 'kovetskiy/sxhkd-vim'                         "sxhkd is X hotkey daemon
 Plug 'christoomey/vim-sort-motion'
 " Plug 'soywod/vim-keepeye'
 Plug 'itchyny/calendar.vim'
+Plug 'kristijanhusak/orgmode.nvim', { 'branch' : 'tree-sitter' }
 
 " File bar
 Plug 'scrooloose/nerdtree'
