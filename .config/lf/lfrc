@@ -50,6 +50,16 @@ cmd delete ${{
 	[ $ans = "y" ] && rm -rf -- $fx
 }}
 
+cmd moveToTrash ${{
+	clear; tput cup $(($(tput lines)/3)); tput bold
+	set -f
+	printf "%s\n\t" "$fx"
+	printf "move to trash?[y/N]"
+	read ans
+	# [ $ans = "y" ] && rm -rf -- $fx
+	[ $ans = "y" ] && trash $fx
+}}
+
 cmd moveto ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
@@ -106,7 +116,8 @@ map <c-f> $lf -remote "send $id select '$(fzf)'"
 map J $lf -remote "send $id cd $(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}/shell/bm-dirs | fzf)"
 map gh
 map g top
-map D delete
+map D moveToTrash
+map <c-d> delete
 map E extract
 map C copyto
 map M moveto
