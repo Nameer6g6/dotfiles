@@ -250,6 +250,9 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 . $HOME/dotfiles/functions.sh
 . $HOME/.asdf/asdf.sh
 
+export DOTNET_ROOT="$HOME/.dotnet"
+export PATH="$DOTNET_ROOT:$PATH"
+
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 
