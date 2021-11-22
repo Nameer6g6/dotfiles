@@ -25,10 +25,12 @@ return require('packer').startup(function()
 	use 'itchyny/calendar.vim'
 
 	-- File bar
-	use 'scrooloose/nerdtree'
-	use 'Xuyuanp/nerdtree-git-plugin'
-	use 'tiagofumo/vim-nerdtree-syntax-highlight'
 	-- use 'romgrk/barbar.nvim'
+   use {
+      'kyazdani42/nvim-tree.lua',
+      requires = 'kyazdani42/nvim-web-devicons',
+      config = function() require'nvim-tree'.setup {} end
+   }
 
 	-- Status bar
 	use {'glepnir/galaxyline.nvim' , branch= 'main' }
