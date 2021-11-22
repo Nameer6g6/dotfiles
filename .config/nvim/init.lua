@@ -142,10 +142,6 @@ map('n', "<A-p>", "<CMD>lua require('Navigator').previous()<CR>", opts)
 -- source $HOME/.config/nvim/evilline.vim
 require('statusline')
 
--- NOTE: Ale
-vim.g.ale_linters = {
-   cs = {'OmniSharp'}
-}
 
 -- WARNING: need working
 -- vim.g.ale_fix_on_save = true
