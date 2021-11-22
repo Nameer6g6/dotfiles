@@ -19,9 +19,13 @@ let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
 let g:NERDDefaultAlign = 'left'
 
-" NerdTree
-map <C-n> :NERDTreeToggle<CR>
+" Tagbar
 nmap <F8> :TagbarToggle<CR>
+
+" NvimTree
+nnoremap <C-n> :NvimTreeToggle<CR>
+nnoremap <leader>r :NvimTreeRefresh<CR>
+nnoremap <leader>n :NvimTreeFindFile<CR>
 
 " Disable arrow movement, resize splits instead.
 nnoremap <Up>    :resize +2<CR>
@@ -121,3 +125,8 @@ hi TagbarSignature ctermfg=21
 " Automatically deletes all trailing whitespace and newlines at end of file on save.
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufWritepre * %s/\n\+\%$//e
+
+" NOTE: Ale
+let g:ale_linters = {
+\ 'cs': ['OmniSharp'],
+\ }
