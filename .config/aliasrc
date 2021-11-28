@@ -40,12 +40,12 @@ alias pacmanFzf="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --
 
 # Colorize commands when possible.
 alias \
-   ls="colorls -h --group-directories-first"
+   ls="exa --icons --group-directories-first"
 	grep="grep --color=auto" \
 	diff="diff --color=auto" \
 	ccat="highlight --out-format=ansi"
 
-# ls="ls -hN --color=auto --group-directories-first" \
+# ls="colorls -h --group-directories-first"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
