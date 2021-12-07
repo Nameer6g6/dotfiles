@@ -117,7 +117,7 @@ map J $lf -remote "send $id cd $(cut -d'	' -f2 ${XDG_CONFIG_HOME:-$HOME/.config}
 map gh
 map g top
 map D moveToTrash
-map <c-d> delete
+# map <c-d> delete
 map E extract
 map C copyto
 map M moveto
