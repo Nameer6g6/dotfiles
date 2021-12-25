@@ -14,6 +14,8 @@ command! MakeHaskellTags !hasktags --ctags .
 autocmd InsertEnter * silent! setlocal norelativenumber
 autocmd InsertLeave * silent! setlocal relativenumber
 
+"let g:python3_host_skip_check = 1
+
 " NerdComment configs
 let g:NERDSpaceDelims = 1
 let g:NERDCompactSexyComs = 1
@@ -22,26 +24,15 @@ let g:NERDDefaultAlign = 'left'
 " Tagbar
 nmap <F8> :TagbarToggle<CR>
 
-" NvimTree
-nnoremap <C-n> :NvimTreeToggle<CR>
-nnoremap <leader>r :NvimTreeRefresh<CR>
-nnoremap <leader>n :NvimTreeFindFile<CR>
-
-" Disable arrow movement, resize splits instead.
-nnoremap <Up>    :resize +2<CR>
-nnoremap <Down>  :resize -2<CR>
-nnoremap <Right> :vertical resize -2<CR>
-nnoremap <Left>  :vertical resize +2<CR>
-
 " Fold
 " Handling created fold blocks to be presisted
-augroup remember_folds
-   autocmd!
-    " au BufWinLeave ?* mkview 1
-    " au BufWinEnter ?* silent loadview 1
-   autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
-   autocmd BufWinEnter ?* silent! loadview
-augroup END
+" augroup remember_folds
+"    autocmd!
+"     " au BufWinLeave ?* mkview 1
+"     " au BufWinEnter ?* silent loadview 1
+"    autocmd BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview!
+"    autocmd BufWinEnter ?* silent! loadview
+" augroup END
 
 " set foldcolumn=2
 " hi Folded guifg=LightRed
@@ -58,12 +49,12 @@ hi diffRemoved ctermfg=red
 nnoremap <leader>td "=strftime("%Y-%m-%d")<CR>P
 inoremap <leader>td <C-R>=strftime("%Y-%m-%d")<CR>
 
-nnoremap <leader>S :lua require('spectre').open()<CR>
+" nnoremap <leader>S :lua require('spectre').open()<CR>
 " search current word
-nnoremap <leader>sw :lua require('spectre').open_visual({select_word=true})<CR>
-vnoremap <leader>s :lua require('spectre').open_visual()<CR>
+" nnoremap <leader>sw :lua require('spectre').open_visual({select_word=true})<CR>
+" vnoremap <leader>s :lua require('spectre').open_visual()<CR>
 " search in current file
-nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
+"nnoremap <leader>sp viw:lua require('spectre').open_file_search()<cr>
 
 " Keep Eye
 let g:keepeye_features = ['bell', 'notification', 'statusline']
@@ -73,9 +64,8 @@ let g:keepeye_timer = 900
 let g:keepeye_message = 'SAVE YOUR EYES, DRINK WATER, TAKE A BREAK'
 
 " Show Discord Presence
-nnoremap <leader>qq :DiscordUpdatePresence<CR>
+" nnoremap <leader>qq :DiscordUpdatePresence<CR>
 " nnoremap <leader>qq :lua Presence:update()<CR>
-
 
 " Exiting Terminal mode remapping
 :tnoremap <C-\><C-\> <C-\><C-n>
@@ -96,7 +86,8 @@ noremap <leader>9 9gt
 noremap <leader>0 :tablast<cr>
 
 " mapping
-nnoremap <Leader>rg :Grep<space>
+"nnoremap <Leader>rg :Grep<space>
+
 " function to process fzf select
 function! ProcessRgFzf(line)
     " line = FILE : COL : ROW : WORD

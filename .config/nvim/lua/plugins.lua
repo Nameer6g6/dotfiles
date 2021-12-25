@@ -16,13 +16,14 @@ return require('packer').startup(function()
 	use 'tpope/vim-surround'
 	use 'mhinz/vim-startify'
 	use 'ryanoasis/vim-devicons'
-	use 'KabbAmine/zeavim.vim'
+	-- use 'KabbAmine/zeavim.vim'
 	use 'junegunn/limelight.vim'
 	use 'junegunn/goyo.vim'
-	use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
+	-- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
 	use 'christoomey/vim-sort-motion'
 	-- use 'soywod/vim-keepeye'
-	use 'itchyny/calendar.vim'
+	-- use 'itchyny/calendar.vim'
+   use 'dstein64/vim-startuptime'
 
 	-- File bar
 	-- use 'romgrk/barbar.nvim'
@@ -71,7 +72,8 @@ return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 	use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 	use 'numToStr/Navigator.nvim'
-	use { 'numtostr/FTerm.nvim', config = function() require'FTerm'.setup() end }
+	--use { 'numtostr/FTerm.nvim', config = function() require'FTerm'.setup() end }
+	use 'numtostr/FTerm.nvim'
 	use 'windwp/nvim-spectre'
 	use 'folke/todo-comments.nvim'
 	-- use 'kyazdani42/nvim-tree.lua'
@@ -80,15 +82,15 @@ return require('packer').startup(function()
 
 	-- Frontend Support
 	use 'mattn/emmet-vim'
-	use 'chemzqm/vim-cssfmt'
 	use 'AndrewRadev/tagalong.vim'
-	-- use 'ap/vim-css-color'
-	-- use 'cakebaker/scss-syntax.vim'
-	-- use 'othree/html5.vim'
+	-- use 'chemzqm/vim-cssfmt'
+	use 'ap/vim-css-color'
+	use 'cakebaker/scss-syntax.vim'
+	use 'othree/html5.vim'
 
 	--use 'LanguageTool'
-	use 'reedes/vim-pencil'
-	use 'vimwiki/vimwiki'
+	-- use 'reedes/vim-pencil'
+	-- use 'vimwiki/vimwiki'
 
 	-- Markdown Support
 	use {'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
@@ -110,8 +112,8 @@ return require('packer').startup(function()
 
 	-- Erlang Support
 	use 'vim-erlang/vim-erlang-tags'
-	use 'vim-erlang/vim-erlang-runtime'
-	use 'vim-erlang/vim-erlang-compiler'
+	-- use 'vim-erlang/vim-erlang-runtime'
+	-- use 'vim-erlang/vim-erlang-compiler'
 
 	-- Elixir Support
 	-- use 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
@@ -129,7 +131,7 @@ return require('packer').startup(function()
 	-- Haskell Support
 	use 'neovimhaskell/haskell-vim'
 	use 'sdiehl/vim-ormolu'
-	use 'luc-tielen/telescope_hoogle'
+	-- use 'luc-tielen/telescope_hoogle'
 	use 'monkoose/fzf-hoogle.vim'
 	-- use 'Twinside/vim-haskellFold'
 	-- use 'enomsg/vim-haskellConcealPlus'
@@ -137,18 +139,18 @@ return require('packer').startup(function()
 
 	-- PureScript Support
 	use 'purescript-contrib/purescript-vim'
-	use 'frigoeu/psc-ide-vim'
+	-- use 'frigoeu/psc-ide-vim'
 	-- use 'sriharshachilakapati/vimmer-ps'
 
 	-- Fsharp Support
-	use 'lucasteles/fsi.vim'
-	use 'yatli/fvim'
+	-- use 'lucasteles/fsi.vim'
+	-- use 'yatli/fvim'
 
 	-- Crystal Support
-	use 'rhysd/vim-crystal'
+	-- use 'rhysd/vim-crystal'
 
 	-- Rust Support
-	use 'rust-lang/rust.vim'
+	-- use 'rust-lang/rust.vim'
 
 	-- Vim Support
 	use 'junegunn/vader.vim'
@@ -163,10 +165,10 @@ return require('packer').startup(function()
 	-- use 'sbdchd/neoformat'
 
 	-- Python Support
-	use {'psf/black', branch = 'stable' }
+	-- use {'psf/black', branch = 'stable' }
 
 	-- TypeScript Support
-	use 'leafgarland/typescript-vim'
+	-- use 'leafgarland/typescript-vim'
 	-- use 'HerringtonDarkholme/yats.vim'
 
 	-- Ruby Support
@@ -183,13 +185,13 @@ return require('packer').startup(function()
 	-- use 'ElmCast/elm-vim'
 
 	-- Dart & Flutter  Support
-	use 'dart-lang/dart-vim-plugin'
-	use 'thosakwe/vim-flutter'
-	use 'reisub0/hot-reload.vim'
+	-- use 'dart-lang/dart-vim-plugin'
+	-- use 'thosakwe/vim-flutter'
+	-- use 'reisub0/hot-reload.vim'
 
 	-- C# & .Net Support
-	use 'OmniSharp/omnisharp-vim'
-	-- use 'OrangeT/vim-csharp'
+	-- use 'OmniSharp/omnisharp-vim'
+	use 'OrangeT/vim-csharp'
 
 	-- Nix Support
 	use 'LnL7/vim-nix'
@@ -198,8 +200,8 @@ return require('packer').startup(function()
 	use 'lifepillar/pgsql.vim'
 
 	-- Theme / Interface
-	use 'cocopon/iceberg.vim'
-	use 'gkeep/iceberg-dark'
+	-- use 'cocopon/iceberg.vim'
+	-- use 'gkeep/iceberg-dark'
 	use 'folke/tokyonight.nvim'
 
 	-- Tmux
@@ -209,16 +211,48 @@ return require('packer').startup(function()
 	-- use 'wellle/tmux-complete.vim
 
 	-- Completion
-	use {'neoclide/coc.nvim', branch = 'release'}
+	-- use {'neoclide/coc.nvim', branch = 'release'}
+   use 'neovim/nvim-lspconfig'
+   use 'williamboman/nvim-lsp-installer'
+
+   -- Key mapping
+   use {
+      "folke/which-key.nvim",
+      config = function()
+         require("which-key").setup {
+            -- your configuration comes here
+            -- or leave it empty to use the default settings
+            -- refer to the configuration section below
+         }
+      end
+   }
 
 	-- Discord presence
-	use {'ObserverOfTime/discord.nvim', run = ':UpdateRemoteuseins'}
+	-- use {'ObserverOfTime/discord.nvim', run = ':UpdateRemoteuseins'}
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if packer_bootstrap then
 		require('packer').sync()
 	end
+
+   -- Completion
+   use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+   use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+   use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+   use 'L3MON4D3/LuaSnip' -- Snippets plugin
+   -- use {
+   --    "folke/trouble.nvim",
+   --    requires = "kyazdani42/nvim-web-devicons",
+   --    config = function()
+   --       require("trouble").setup {
+   --          -- your configuration comes here
+   --          -- or leave it empty to use the default settings
+   --          -- refer to the configuration section below
+   --       }
+   --    end
+   -- }
 end)
 
 -- -- Simple plugins can be specified as strings
