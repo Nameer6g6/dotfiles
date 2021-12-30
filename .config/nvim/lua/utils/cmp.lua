@@ -8,6 +8,8 @@ if not snip_status_ok then
   return
 end
 
+local lspkind = require('lspkind')
+
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -96,6 +98,32 @@ cmp.setup {
   },
   formatting = {
     fields = { "kind", "abbr", "menu" },
+    -- WARNING: lspkind not working currently
+    -- format = lspkind.cmp_format({
+    --   with_text = false, -- do not show text alongside icons
+    --   maxwidth = 100, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
+    --   -- The function below will be called before any actual modifications from lspkind
+    --   -- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
+    --   before = function (entry, vim_item)
+    --     -- Kind icons
+    --     vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+    --     -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+    --     vim_item.menu = ({
+    --       nvim_lsp = "[LSP]",
+    --       luasnip = "[Snippet]",
+    --       buffer = "[Buffer]",
+    --       path = "[Path]",
+    --       latex_symbols = "[LaTeX]",
+    --       spell = "[Spell]",
+    --       treesitter = "[Treesitter]",
+    --       clac = "[Clac]",
+    --       emoji = "[Emoji]",
+    --       nvim_lua = "[Lua]",
+    --       tags = "[Tags]",
+    --     })[entry.source.name]
+    --     return vim_item
+    --   end
+    -- })
     format = function(entry, vim_item)
       -- Kind icons
       vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
@@ -111,6 +139,7 @@ cmp.setup {
         clac = "[Clac]",
         emoji = "[Emoji]",
         nvim_lua = "[Lua]",
+        tags = "[Tags]",
       })[entry.source.name]
       return vim_item
     end,
@@ -126,6 +155,7 @@ cmp.setup {
     { name = 'emoji' },
     { name = 'spell' },
     { name = 'nvim_lua' },
+    { name = 'tags' },
   },
 
   confirm_opts = {
