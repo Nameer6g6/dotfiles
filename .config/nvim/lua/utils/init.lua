@@ -7,6 +7,7 @@ require('utils.blank_line');
 require('utils.commands');
 require('utils.auto_pairs');
 require('utils.git_signs');
+require('utils.numb');
 -- require('utils.nvim_tree');
 
 

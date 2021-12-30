@@ -113,7 +113,8 @@ require "telescope"
   use 'windwp/nvim-spectre'
   use 'folke/todo-comments.nvim'
   use 'windwp/nvim-autopairs'
-  use 'tversteeg/ registers.nvim'
+  use 'tversteeg/registers.nvim'
+  use 'nacro90/numb.nvim'
 
   -- use 'glepnir/dashboard-nvim'
 
