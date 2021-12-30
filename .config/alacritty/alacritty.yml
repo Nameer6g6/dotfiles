@@ -2,24 +2,20 @@ font:
   # The normal (roman) font face to use.
   size: 8.0
   normal:
-    # family: Droid Sans Mono Slashed for Powerline
-    # family: Monospace # family: iosevka Style can be specified to pick a specific face.
     # family: iosevka
     family: FiraCode
     style: Regular
-    options:
-      thin_strokes: true
-      antialias: lcd # Can have values like lcd, lcdv, gray, and none
-      hinting: true
-      style: Regular
-      range:
-        start: 0
-        end: 'Z'
-      offset:
-        x: 0
-        y: 0
-
-  # The bold font face
+    # options:
+    #   thin_strokes: true
+    #   antialias: lcd # Can have values like lcd, lcdv, gray, and none
+    #   hinting: true
+    #   style: Regular
+    #   range:
+    #     start: 0
+    #     end: 'Z'
+    #   offset:
+    #     x: 0
+    #     y: 0
   bold:
     family: FiraCode
     # family: iosevka
@@ -27,14 +23,16 @@ font:
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
     # style: Bold
-
-  # The italic font face
   italic:
     family: FiraCode
     # family: iosevka
     # family: Droid Sans Mono Slashed for Powerline
     # Style can be specified to pick a specific face.
     style: Italic
+  bold_italic:
+    family: FiraCode
+    style: Bold Italic
+
 
 # Colors (Nord)
 # colors:
