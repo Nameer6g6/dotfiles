@@ -1,7 +1,9 @@
 require "plugins"
 require "utils"
 require "statusline"
+require "telescope"
 require "lsp"
+
 
 -- NOTE: Todo configs
  require("todo-comments").setup {
