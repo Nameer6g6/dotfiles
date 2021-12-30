@@ -1,17 +1,22 @@
-require'nvim-treesitter.install'.compilers = { "clang++" }
-require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-  -- ensure_installed = {'org'}, -- Or run :TSUpdate org
-  -- ignore_install = { "javascript", "python" }, -- List of parsers to ignore installing
+local status_ok, configs = pcall(require, "nvim-treesitter")
+if not status_ok then
+  return
+end
+
+-- require('nvim-treesitter.install').compilers = { "clang++" }
+require('nvim-treesitter.configs').setup {
+  ensure_installed = "all", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   highlight = {
-    enable = true,              -- false will disable the whole extension
-    -- disable = { "c", "rust" },  -- list of language that will be disabled
-    --disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    --additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
+    enable = true, -- false will disable the whole extension
+    disable = { "" }, -- list of language that will be disabled
+    additional_vim_regex_highlighting = true,
   },
   indent= {
      enable = true,
+     disable = { "yaml" },
   },
+  sync_install = false,
+  ignore_install = { "" }, -- List of parsers to ignore installing
   rainbow = {
     enable = true,
     -- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
@@ -22,25 +27,19 @@ require'nvim-treesitter.configs'.setup {
   }
 }
 
-
--- local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-if (vim.bo.filetype == "haskell") then
-  local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
-  parser_config.haskell = {
+require "nvim-treesitter.parsers".get_parser_configs {
+  org = {
+    install_info = {
+      url = 'https://github.com/milisims/tree-sitter-org',
+      revision = 'main',
+      files = {'src/parser.c', 'src/scanner.cc'},
+    },
+    filetype = 'org',
+  },
+  haskell = {
     install_info = {
       url = "~/path/to/tree-sitter-haskell",
       files = {"src/parser.c", "src/scanner.cc"}
     }
   }
-else
-  require "nvim-treesitter.parsers".get_parser_configs {
-    org = {
-      install_info = {
-        url = 'https://github.com/milisims/tree-sitter-org',
-        revision = 'main',
-        files = {'src/parser.c', 'src/scanner.cc'},
-      },
-      filetype = 'org',
-    },
-  }
-end
+}
