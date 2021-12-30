@@ -5,6 +5,9 @@ require('utils.cmp');
 require('utils.colorscheme');
 require('utils.blank_line');
 require('utils.commands');
+require('utils.auto_pairs');
+require('utils.git_signs');
+-- require('utils.nvim_tree');
 
 
 -- WARNING: need checking
