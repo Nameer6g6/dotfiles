@@ -45,7 +45,7 @@ end
 --   use "wbthomason/packer.nvim" -- Have packer manage itself
 --   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
 --   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
--- 
+--
 --   -- Automatically set up your configuration after cloning packer.nvim
 --   -- Put this at the end after all plugins
 --   if PACKER_BOOTSTRAP then
@@ -65,6 +65,7 @@ return require('packer').startup(function()
   use 'tpope/vim-surround'
   use 'mhinz/vim-startify'
   use 'ryanoasis/vim-devicons'
+require "telescope"
   use 'junegunn/limelight.vim'
   use 'junegunn/goyo.vim'
   -- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
@@ -95,7 +96,6 @@ return require('packer').startup(function()
 
   -- Generic Programming Support
   use 'majutsushi/tagbar'
-  use 'Townk/vim-autoclose'
   use 'lukas-reineke/indent-blankline.nvim'
   use 'mbbill/undotree'
   use 'chr4/nginx.vim'
@@ -103,15 +103,17 @@ return require('packer').startup(function()
   use 'vmchale/dhall-vim'
   use 'SmiteshP/nvim-gps'
 
-  -- Neovim useins
+  -- Neovim
   use 'nvim-lua/popup.nvim'
   use 'nvim-lua/plenary.nvim'
   use 'nvim-telescope/telescope.nvim'
+  use 'nvim-telescope/telescope-media-files.nvim'
   use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  --use { 'numtostr/FTerm.nvim', config = function() require'FTerm'.setup() end }
   use 'numtostr/FTerm.nvim'
   use 'windwp/nvim-spectre'
   use 'folke/todo-comments.nvim'
+  use 'windwp/nvim-autopairs'
+  use 'tversteeg/ registers.nvim'
 
   -- use 'glepnir/dashboard-nvim'
 
@@ -134,7 +136,8 @@ return require('packer').startup(function()
 
   -- Git Support
   use 'gregsexton/gitv'
-  use 'mhinz/vim-signify'
+  -- use 'mhinz/vim-signify'
+  use 'lewis6991/gitsigns.nvim'
   use 'tpope/vim-fugitive'
   use 'rbong/vim-flog'
   use 'jreybert/vimagit'
@@ -160,7 +163,7 @@ return require('packer').startup(function()
   use {'tpope/vim-endwise', ft = {"elixir", "eelixir"}}
 
   -- Haskell Support
-  use {'neovimhaskell/haskell-vim', ft = 'haskell'}
+  -- use {'neovimhaskell/haskell-vim', ft = 'haskell'}
   use {'sdiehl/vim-ormolu', ft = 'haskell'}
   use {'monkoose/fzf-hoogle.vim', ft = 'haskell'}
   -- use 'luc-tielen/telescope_hoogle'
@@ -264,7 +267,7 @@ return require('packer').startup(function()
   -- Completion
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
-  use 'hrsh7th/cmp-nvim-lua' 
+  use 'hrsh7th/cmp-nvim-lua'
   use "hrsh7th/cmp-buffer" -- buffer completions
   use "hrsh7th/cmp-path" -- path completions
   use "hrsh7th/cmp-cmdline" -- cmdline completions
