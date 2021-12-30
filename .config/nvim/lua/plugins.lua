@@ -102,6 +102,7 @@ require "telescope"
   use 'sbdchd/neoformat'
   use 'vmchale/dhall-vim'
   use 'SmiteshP/nvim-gps'
+  use 'mhartington/formatter.nvim'
 
   -- Neovim
   use 'nvim-lua/popup.nvim'
