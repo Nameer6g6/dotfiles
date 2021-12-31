@@ -64,8 +64,7 @@ return require('packer').startup(function()
   use 'junegunn/fzf.vim'
   use 'tpope/vim-surround'
   use 'mhinz/vim-startify'
-  use 'ryanoasis/vim-devicons'
-require "telescope"
+  -- use 'ryanoasis/vim-devicons'
   use 'junegunn/limelight.vim'
   use 'junegunn/goyo.vim'
   -- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
@@ -90,6 +89,7 @@ require "telescope"
   use 'mfussenegger/nvim-dap'
   use 'rcarriga/nvim-dap-ui'
   use 'theHamsta/nvim-dap-virtual-text'
+  -- use 'SmiteshP/nvim-gps'
 
   -- Commenting out plugin
   use 'scrooloose/nerdcommenter'
@@ -101,8 +101,8 @@ require "telescope"
   use 'chr4/nginx.vim'
   use 'sbdchd/neoformat'
   use 'vmchale/dhall-vim'
-  use 'SmiteshP/nvim-gps'
   use 'mhartington/formatter.nvim'
+  use 'ethanholz/nvim-lastplace'
 
   -- Neovim
   use 'nvim-lua/popup.nvim'
@@ -122,11 +122,10 @@ require "telescope"
   -- Frontend Support
   use 'mattn/emmet-vim'
   use 'AndrewRadev/tagalong.vim'
-  -- use 'chemzqm/vim-cssfmt'
   use 'ap/vim-css-color'
   use 'cakebaker/scss-syntax.vim'
   use 'othree/html5.vim'
-  use 'AndrewRadev/tagalong.vim'
+  -- use 'chemzqm/vim-cssfmt'
 
   --use 'LanguageTool'
   -- use 'reedes/vim-pencil'
@@ -264,7 +263,6 @@ require "telescope"
       }
     end
   }
-
 
   -- Completion
   use "hrsh7th/nvim-cmp" -- The completion plugin

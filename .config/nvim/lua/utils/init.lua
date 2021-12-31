@@ -24,3 +24,9 @@ vim.cmd("hi diffRemoved ctermfg=red")
 -- let g:keepeye_autostart = 1
 -- let g:keepeye_timer = 900
 -- let g:keepeye_message = 'SAVE YOUR EYES, DRINK WATER, TAKE A BREAK'
+
+require'nvim-lastplace'.setup {
+    -- lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
+    -- lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
+    -- lastplace_open_folds = true
+}
