@@ -1,14 +1,16 @@
-require('utils.options');
-require('utils.keymap');
-require('utils.treesitter');
-require('utils.cmp');
-require('utils.colorscheme');
-require('utils.blank_line');
-require('utils.commands');
-require('utils.auto_pairs');
-require('utils.git_signs');
-require('utils.numb');
-require('utils.formatter');
+require('utils.options')
+require('utils.keymap')
+require('utils.treesitter')
+require('utils.cmp')
+require('utils.colorscheme')
+require('utils.blank_line')
+require('utils.commands')
+require('utils.auto_pairs')
+require('utils.git_signs')
+require('utils.numb')
+require('utils.formatter')
+require('utils.zen_mode')
+require('utils.twilight')
 -- require('utils.nvim_tree');
 
 
