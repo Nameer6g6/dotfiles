@@ -36,10 +36,10 @@ require'FTerm'.setup {
 -- source ~/.cache/calendar.vim/credentials.vim
 
 -- Elixir
--- vim.cmd('source $HOME/.config/nvim/elixir.vim')
+require "elixir"
 
 -- Haskell
--- vim.cmd('source $HOME/.config/nvim/haskell.vim')
+require "haskell"
 
 -- Limelight & Goyo
 -- vim.cmd('source $HOME/.config/nvim/limelight_goyo.vim')
