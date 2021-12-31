@@ -1,1 +1,1 @@
-require 'status_line'
+require('status_line.statusline')
