@@ -4,6 +4,7 @@ require "status_line"
 require "telescope"
 require "lsp"
 require "langs"
+require "dap"
 
 
 -- NOTE: Todo configs
