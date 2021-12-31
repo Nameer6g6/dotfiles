@@ -1,8 +1,9 @@
 require "plugins"
 require "utils"
-require "statusline"
+require "status_line"
 require "telescope"
 require "lsp"
+require "langs"
 
 
 -- NOTE: Todo configs
@@ -34,12 +35,6 @@ require'FTerm'.setup {
 -- let g:calendar_google_calendar = 1
 -- let g:calendar_google_task = 1
 -- source ~/.cache/calendar.vim/credentials.vim
-
--- Elixir
-require "elixir"
-
--- Haskell
-require "haskell"
 
 -- Limelight & Goyo
 -- vim.cmd('source $HOME/.config/nvim/limelight_goyo.vim')
