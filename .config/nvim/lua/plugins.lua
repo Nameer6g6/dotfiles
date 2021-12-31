@@ -65,14 +65,11 @@ return require('packer').startup(function()
   use 'tpope/vim-surround'
   use 'mhinz/vim-startify'
   -- use 'ryanoasis/vim-devicons'
-  use 'junegunn/limelight.vim'
-  use 'junegunn/goyo.vim'
   -- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
   use 'christoomey/vim-sort-motion'
   -- use 'soywod/vim-keepeye'
   -- use 'itchyny/calendar.vim'
   use 'dstein64/vim-startuptime'
-
   -- File bar
   -- use 'romgrk/barbar.nvim'
   use {
@@ -116,8 +113,13 @@ return require('packer').startup(function()
   use 'windwp/nvim-autopairs'
   use 'tversteeg/registers.nvim'
   use 'nacro90/numb.nvim'
-
   -- use 'glepnir/dashboard-nvim'
+
+  -- Distraction free
+  use "folke/zen-mode.nvim"
+  use "folke/twilight.nvim"
+  use 'junegunn/goyo.vim'
+  use 'junegunn/limelight.vim'
 
   -- Frontend Support
   use 'mattn/emmet-vim'
