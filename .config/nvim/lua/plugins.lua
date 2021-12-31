@@ -215,7 +215,14 @@ return require('packer').startup(function()
   -- use 'sovetnik/vim-hanami'
 
   -- Go Support
-  use {'fatih/vim-go', opt = true, ft = "go"}
+  use {
+    'ray-x/go.nvim',
+    opt = true,
+    ft = "go",
+    config = function ()
+        require("which-key").setup()
+    end
+  }
   -- use 'stamblerre/gocode', { 'rtp': 'nvim', 'do': '~/.vim/plugins/gocode/nvim/symlink.sh' }
 
   -- Elm Support
