@@ -67,6 +67,9 @@ keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
 keymap('n', "<F8>", ":TagbarToggle<CR>", opts)
 -- nmap <F8> :TagbarToggle<CR>
 
+-- Zen-mode
+keymap('n', "<Space>z", ":ZenMode<CR>", opts)
+
 -- NOTE: Insert mapping
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
