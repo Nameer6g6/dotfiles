@@ -1,10 +1,10 @@
 require "plugins"
+require "dap_configs"
 require "utils"
 require "status_line"
 require "telescope"
 require "lsp"
 require "langs"
-require "dap"
 
 
 -- NOTE: Todo configs
