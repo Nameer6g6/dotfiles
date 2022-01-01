@@ -40,20 +40,6 @@ end
 --   },
 -- }
 
--- return packer.startup(function(use)
---   -- My plugins here
---   use "wbthomason/packer.nvim" -- Have packer manage itself
---   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
---   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
---
---   -- Automatically set up your configuration after cloning packer.nvim
---   -- Put this at the end after all plugins
---   if PACKER_BOOTSTRAP then
---     require("packer").sync()
---   end
--- end)
-
-
 -- Install your plugins here
 return require('packer').startup(function()
   -- Packer can manage itself
@@ -114,6 +100,12 @@ return require('packer').startup(function()
   use 'windwp/nvim-autopairs'
   use 'tversteeg/registers.nvim'
   use 'nacro90/numb.nvim'
+  use {
+    'haringsrob/nvim_context_vt',
+    config = function ()
+      require('nvim_context_vt').setup()
+    end
+  }
   -- use 'glepnir/dashboard-nvim'
 
   -- Distraction free
@@ -247,6 +239,7 @@ return require('packer').startup(function()
   -- latex
   use {'lervag/vimtex',  ft = 'tex' }
   use {'xuhdev/vim-latex-live-preview', ft = 'tex' }
+  use {'jbyuki/nabla.nvim', opt = true, ft = {"markdown", "tex"}}
 
   -- Theme / Interface
   use 'folke/tokyonight.nvim'
