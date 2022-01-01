@@ -64,6 +64,7 @@ packer.startup(function()
     config = function() require'nvim-tree'.setup {} end
   }
   use 'chentau/marks.nvim'
+  use 'NFrid/due.nvim'
 
   -- Status bar
   use {'glepnir/galaxyline.nvim' , branch= 'main' }
