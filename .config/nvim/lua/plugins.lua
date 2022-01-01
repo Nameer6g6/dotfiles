@@ -41,7 +41,7 @@ end
 -- }
 
 -- Install your plugins here
-return require('packer').startup(function()
+packer.startup(function()
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
@@ -63,6 +63,7 @@ return require('packer').startup(function()
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'nvim-tree'.setup {} end
   }
+  use 'chentau/marks.nvim'
 
   -- Status bar
   use {'glepnir/galaxyline.nvim' , branch= 'main' }
@@ -283,7 +284,6 @@ return require('packer').startup(function()
   use 'hrsh7th/cmp-emoji'
   use {'f3fora/cmp-spell', opt = true, ft = {'markdown', 'text'}}
   use 'onsails/lspkind-nvim'
-
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine

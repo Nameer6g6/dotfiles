@@ -12,6 +12,7 @@ require('utils.formatter')
 require('utils.zen_mode')
 require('utils.twilight')
 -- require('utils.nvim_tree');
+require('utils.marks')
 
 
 -- WARNING: need checking
@@ -27,6 +28,7 @@ vim.cmd("hi diffRemoved ctermfg=red")
 -- let g:keepeye_timer = 900
 -- let g:keepeye_message = 'SAVE YOUR EYES, DRINK WATER, TAKE A BREAK'
 
+-- Last place config
 require'nvim-lastplace'.setup {
     -- lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
     -- lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
