@@ -70,6 +70,22 @@ keymap('n', "<F8>", ":TagbarToggle<CR>", opts)
 -- Zen-mode
 keymap('n', "<Space>z", ":ZenMode<CR>", opts)
 
+-- BUG: not working
+if (vim.bo.filetype == "markdown" or vim.bo.filetype == "tex") then
+  keymap('n', "<F5>", ":lua require('nabla').action()<CR>", opts)
+  keymap('n', "<leader>p", ":lua require('nabla').popup()<CR> ", opts) -- " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
+end
+
+keymap('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>', opts)
+keymap('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>', opts)
+keymap('n', '<leader>dsi', '<cmd>lua require"dap".step_into()<CR>', opts)
+keymap('n', '<leader>dso', '<cmd>lua require"dap".step_out()<CR>', opts)
+keymap('n', '<leader>dtb', '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
+keymap('n', '<leader>dsbr', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', opts)
+keymap('n', '<leader>dsbm', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
+keymap('n', '<leader>dro', '<cmd>lua require"dap".repl.open()<CR>', opts)
+keymap('n', '<leader>drl', '<cmd>lua require"dap".repl.run_last()<CR>', opts)
+
 -- NOTE: Insert mapping
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
