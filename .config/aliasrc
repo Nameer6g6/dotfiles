@@ -76,7 +76,7 @@ alias \
    rsDir="cd $HOME/workspace/rust" \
    fsDir="cd $HOME/workspace/fsharp" \
    pyDir="cd $HOME/workspace/python" \
-   ntDir="cd $HOME/workspace/Notes" \
+   ntDir="cd $HOME/Documents/Neorg/" \
    vimDir="cd $HOME/.config/nvim/" \
  	lf="lfrun"
 # 	g="git" \
