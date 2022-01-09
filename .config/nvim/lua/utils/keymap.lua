@@ -65,7 +65,9 @@ keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
 
 -- Tagbar
 keymap('n', "<F8>", ":TagbarToggle<CR>", opts)
--- nmap <F8> :TagbarToggle<CR>
+vim.cmd([[
+  nnoremap <leader>tj :TagbarOpen j<CR>
+  nnoremap <silent><expr> <Leader>tj bufname() =~# '.Tagbar.' ? "\<C-w>\<C-p>" : ":TagbarOpen j<CR>"]])
 
 -- Zen-mode
 keymap('n', "<Space>z", ":ZenMode<CR>", opts)
