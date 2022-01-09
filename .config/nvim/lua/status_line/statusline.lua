@@ -1,3 +1,4 @@
+local gps = require("nvim-gps")
 local gl = require("galaxyline")
 local gls = gl.section
 
@@ -15,7 +16,18 @@ local colors = {
     greenYel = "#EBCB8B"
 }
 
-gls.left[1] = {
+gls.left[1]= {
+	nvimGPS = {
+		provider = function()
+			return gps.get_location()
+		end,
+		condition = function()
+			return gps.is_available()
+		end
+	}
+}
+
+gls.left[2] = {
     leftRounded = {
         provider = function()
             return ""
@@ -24,7 +36,7 @@ gls.left[1] = {
     }
 }
 
-gls.left[2] = {
+gls.left[3] = {
     statusIcon = {
         provider = function()
             return "   "
@@ -35,7 +47,7 @@ gls.left[2] = {
     }
 }
 
-gls.left[3] = {
+gls.left[4] = {
     FileIcon = {
         provider = "FileIcon",
         condition = buffer_not_empty,
@@ -43,7 +55,7 @@ gls.left[3] = {
     }
 }
 
-gls.left[4] = {
+gls.left[5] = {
     FileName = {
         provider = {"FileName", "FileSize"},
         condition = buffer_not_empty,
@@ -51,7 +63,7 @@ gls.left[4] = {
     }
 }
 
-gls.left[5] = {
+gls.left[6] = {
     teech = {
         provider = function()
             return ""
