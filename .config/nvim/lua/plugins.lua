@@ -46,18 +46,34 @@ packer.startup(function()
   use 'wbthomason/packer.nvim'
 
   -- Utility
+    use 'nvim-lua/popup.nvim'
+    use 'nvim-lua/plenary.nvim'
+    use 'nvim-telescope/telescope.nvim'
+    use 'nvim-telescope/telescope-media-files.nvim'
+    use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'numtostr/FTerm.nvim'
+    use 'windwp/nvim-spectre'
+    use 'folke/todo-comments.nvim'
+    use 'windwp/nvim-autopairs'
+    use 'tversteeg/registers.nvim'
+    use 'nacro90/numb.nvim'
+    use {
+      'haringsrob/nvim_context_vt',
+      config = function ()
+        require('nvim_context_vt').setup()
+      end
+    }
+  -- use 'romgrk/barbar.nvim'
+  use "rcarriga/nvim-notify"
   use 'junegunn/fzf'
   use 'junegunn/fzf.vim'
   use 'tpope/vim-surround'
   use 'mhinz/vim-startify'
-  -- use 'ryanoasis/vim-devicons'
   -- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
   use 'christoomey/vim-sort-motion'
   -- use 'soywod/vim-keepeye'
   -- use 'itchyny/calendar.vim'
-  use 'dstein64/vim-startuptime'
-  -- File bar
-  -- use 'romgrk/barbar.nvim'
+  use {'dstein64/vim-startuptime', opt = true}
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
@@ -65,17 +81,18 @@ packer.startup(function()
   }
   use 'chentau/marks.nvim'
   use 'NFrid/due.nvim'
+  -- use 'glepnir/dashboard-nvim'
 
   -- Status bar
   use {'glepnir/galaxyline.nvim' , branch= 'main' }
   use 'kyazdani42/nvim-web-devicons'   -- lua
+  use 'SmiteshP/nvim-gps'
 
   -- Debugger plugin
   use 'mfussenegger/nvim-dap'
   use 'rcarriga/nvim-dap-ui'
   use 'theHamsta/nvim-dap-virtual-text'
   use "Pocco81/DAPInstall.nvim"
-  -- use 'SmiteshP/nvim-gps'
 
   -- Commenting out plugin
   use 'scrooloose/nerdcommenter'
@@ -89,26 +106,6 @@ packer.startup(function()
   use 'vmchale/dhall-vim'
   use 'mhartington/formatter.nvim'
   use 'ethanholz/nvim-lastplace'
-
-  -- Neovim
-  use 'nvim-lua/popup.nvim'
-  use 'nvim-lua/plenary.nvim'
-  use 'nvim-telescope/telescope.nvim'
-  use 'nvim-telescope/telescope-media-files.nvim'
-  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-  use 'numtostr/FTerm.nvim'
-  use 'windwp/nvim-spectre'
-  use 'folke/todo-comments.nvim'
-  use 'windwp/nvim-autopairs'
-  use 'tversteeg/registers.nvim'
-  use 'nacro90/numb.nvim'
-  use {
-    'haringsrob/nvim_context_vt',
-    config = function ()
-      require('nvim_context_vt').setup()
-    end
-  }
-  -- use 'glepnir/dashboard-nvim'
 
   -- Distraction free
   use "folke/zen-mode.nvim"
@@ -129,7 +126,7 @@ packer.startup(function()
 
   -- Markdown Support
   use {'iamcco/markdown-preview.nvim', ft = "markdown", run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
-  use {'npxbr/glow.nvim', ft = "markdown", run = ':GlowInstall', branch = 'main'}
+  use {'npxbr/glow.nvim', ft = {"markdown", "text", "norg"}, run = ':GlowInstall', branch = 'main'}
   use {'gabrielelana/vim-markdown', ft = "markdown"}
 
   -- Git Support
@@ -143,7 +140,7 @@ packer.startup(function()
   -- use 'jaxbot/github-issues.vim'
 
   -- Erlang Support
-  use 'vim-erlang/vim-erlang-tags'
+  use {'vim-erlang/vim-erlang-tags', opt = true, ft = "erlang"}
   -- use 'vim-erlang/vim-erlang-runtime'
   -- use 'vim-erlang/vim-erlang-compiler'
 
@@ -170,7 +167,7 @@ packer.startup(function()
   -- use 'calebsmith/vim-lambdify'
 
   -- PureScript Support
-  use {'purescript-contrib/purescript-vim', ft = "purescript"}
+  use {'purescript-contrib/purescript-vim', opt = true, ft = "purescript"}
   -- use 'frigoeu/psc-ide-vim'
   -- use 'sriharshachilakapati/vimmer-ps'
 
@@ -241,7 +238,7 @@ packer.startup(function()
   -- latex
   use {'lervag/vimtex',  ft = 'tex' }
   use {'xuhdev/vim-latex-live-preview', ft = 'tex' }
-  use {'jbyuki/nabla.nvim', opt = true, ft = {"markdown", "tex"}}
+  use {'jbyuki/nabla.nvim', opt = true, ft = {"markdown", "tex", "norg"}}
 
   -- Theme / Interface
   use 'folke/tokyonight.nvim'
@@ -281,9 +278,10 @@ packer.startup(function()
   use 'ray-x/cmp-treesitter'
   use 'p00f/nvim-ts-rainbow'
   use 'kdheepak/cmp-latex-symbols'
+  use 'hrsh7th/cmp-nvim-lsp-document-symbol'
   use 'hrsh7th/cmp-calc'
   use 'hrsh7th/cmp-emoji'
-  use {'f3fora/cmp-spell', opt = true, ft = {'markdown', 'text'}}
+  use {'f3fora/cmp-spell', opt = true, ft = {"markdown", "text", "norg"}}
   use 'onsails/lspkind-nvim'
 
   -- snippets
@@ -303,6 +301,12 @@ packer.startup(function()
 
   -- Discord presence
   -- use {'ObserverOfTime/discord.nvim', run = ':UpdateRemoteuseins'}
+  --
+
+  -- Note
+  use {"nvim-neorg/neorg",
+    requires = {"nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope"}
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
