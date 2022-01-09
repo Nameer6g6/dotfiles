@@ -1,10 +1,16 @@
 require "plugins"
+require "notify_configs"
 require "dap_configs"
+require "neorg_configs"
+require "cmp_configs"
 require "utils"
-require "status_line"
 require "telescope"
 require "lsp"
 require "langs"
+require "status_line"
+-- require "nvim_tree"
+require "treesitter"
+require "keymap"
 
 
 -- NOTE: Todo configs
@@ -25,12 +31,6 @@ require'FTerm'.setup {
     },
 }
 
--- NOTE: orgmode configs
--- require('orgmode').setup({
---   org_agenda_files = {'~/Dropbox/org/*', '~/my-orgs/**/*'},
---   org_default_notes_file = '~/Dropbox/org/refile.org',
--- })
-
 -- NOTE: Config for calendar
 -- Calendar.vim integrating with goolge
 -- let g:calendar_google_calendar = 1
@@ -43,12 +43,3 @@ require'FTerm'.setup {
 -- WhichKey
 -- local wk = require("which-key")
 -- wk.register(mappings, opts)
-
--- " Setting for TagBar
--- " nnoremap <leader>tj :TagbarOpen j<CR>
--- nnoremap <silent><expr> <Leader>tj bufname() =~# '.Tagbar.' ? "\<C-w>\<C-p>" : ":TagbarOpen j<CR>"
--- hi TagbarKind term=bold ctermfg=Green
--- hi TagbarNestedKind ctermfg=126
--- hi TagbarScope term=bold ctermfg=208
--- hi TagbarType ctermfg=28
--- hi TagbarSignature ctermfg=21
