@@ -157,3 +157,7 @@ map V push :!nvim<space>
 
 # Source Bookmarks
 # source "~/.config/lf/shortcutrc"
+
+
+push m-
+map Q push '-q
