@@ -1,3 +1,5 @@
+-- require "neorg_configs.icons"
+
 local neorg_ok, neorg = pcall(require, "neorg")
 if not neorg_ok then
   return
@@ -12,7 +14,13 @@ neorg.setup {
     ["core.presenter"] = {},
     ["core.highlights"] = {},
     ["core.defaults"] = {}, -- Load all the default modules
-    ["core.norg.concealer"] = {}, -- Allows for use of icons
+    ["core.norg.concealer"] = {
+      config = {
+        -- markup_preset = "brave",
+        dim_code_blocks = true,
+        -- icon = require("neorg_configs.icons") -- BUG: doesn't allow to load module
+      }
+    }, -- Allows for use of icons
     -- BUG: telescope module is not working
     -- ["core.integrations.telescope"] = {}, -- Enable the telescope module
     ["core.keybinds"] = { -- Configure core.keybinds
@@ -41,7 +49,7 @@ neorg.setup {
       config = {
         workspace = "example_gtd",
         inbox = "inbox.norg",
-        exclude = {},
+        exclude = {"example.norg"},
         syntax = {
           context = "#contexts",
           start = "#time.start",
