@@ -40,7 +40,7 @@ require("due_nvim").setup {
   prescript = "due: ",           -- prescript to due data
   prescript_hi = "Comment",      -- highlight group of it
   due_hi = "String",             -- highlight group of the data itself
-  ft = "*.md",                   -- filename template to apply aucmds :)
+  ft =  "*[norg|md]",                -- filename template to apply aucmds :)
   today = "TODAY",               -- text for today"s due
   today_hi = "Character",        -- highlight group of today"s due
   overdue = "OVERDUE",           -- text for overdued
@@ -52,3 +52,23 @@ require("due_nvim").setup {
   default_due_time = "midnight", -- if use_clock_time == true, calculate time until option on specified date.
                                  --   Accepts "midnight", for 23:59:59, or noon, for 12:00:00
 }
+
+
+-- NOTE: managing setting spell check on and off
+SpellState = false
+
+function SpellToggler()
+  if SpellState == false then
+    vim.opt.spell = true
+    vim.opt.spelllang = { 'en_us' }
+    vim.cmd(":AbbreinderEnable")
+    SpellState = true
+  else
+    vim.opt.spell = false
+    vim.opt.spelllang = {}
+    vim.cmd(":AbbreinderDisable")
+    SpellState = false
+  end
+end
+
+vim.cmd("command! SpellToggle :lua SpellToggler()")
