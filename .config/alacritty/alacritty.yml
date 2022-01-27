@@ -1,6 +1,6 @@
 font:
   # The normal (roman) font face to use.
-  size: 8.0
+  size: 10.0
   normal:
     family: iosevka
     # family: "Hack"
@@ -137,6 +137,8 @@ env:
   TERM: alacritty-256color
 
 window:
+  opacity: 1.0
+# background_opacity: 0.95
   # Window dimensions (changes require restart)
   #
   # Specified in number of columns/lines, not pixels.
@@ -223,9 +225,6 @@ scrolling:
 # To prevent unexpected behavior in these applications, it's also required to
 # change the `it` value in terminfo when altering this setting.
 #tabspaces: 8
-
-background_opacity: 1.0
-# background_opacity: 0.95
 
 live_config_reload: true
 
