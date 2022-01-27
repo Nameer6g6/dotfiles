@@ -76,9 +76,11 @@ alias \
    rsDir="cd $HOME/workspace/rust" \
    fsDir="cd $HOME/workspace/fsharp" \
    pyDir="cd $HOME/workspace/python" \
+   alDir="cd $HOME/workspace/algorithms/" \
    ntDir="cd $HOME/Documents/Neorg/" \
+   gtdInbox="cd $HOME/Documents/Neorg/gtd && vim inbox.norg" \
    vimDir="cd $HOME/.config/nvim/" \
- 	lf="lfrun"
+ 	 lf="lfrun"
 # 	g="git" \
 # 	trem="transmission-remote" \
 # 	YT="youtube-viewer" \
