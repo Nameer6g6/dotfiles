@@ -181,7 +181,7 @@ myStartupHook = do
     spawnOnce "xrandr --output DP-2 --brightness 0.7"
     spawnOnce "mpd"
     spawnOnce "mpd-notification"
-    spawnOnce "ibus-daemon"
+    spawnOnce "ibus-daemon -drxR"
     spawnOnce "compton --config ~/.compton.conf"
     spawnOnce "unclutter"
     -- spawnOnce "trayer --expand true  --transparent true  --alpha 255 --edge bottom --align right --expand true --SetDockType true --widthtype request"
