@@ -51,9 +51,27 @@ packer.startup(function()
     use 'nvim-telescope/telescope.nvim'
     use 'nvim-telescope/telescope-media-files.nvim'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'numtostr/FTerm.nvim'
+    use {
+      'numtostr/FTerm.nvim',
+      config = function ()
+        require'FTerm'.setup {
+            border = 'double',
+            dimensions  = {
+              height = 0.9, -- Height of the terminal window
+              width = 0.9, -- Width of the terminal window
+              -- x = 0.5, -- X axis of the terminal window
+              -- y = 0.5, -- Y axis of the terminal window
+            },
+          }
+      end
+    }
     use 'windwp/nvim-spectre'
-    use 'folke/todo-comments.nvim'
+    use {
+      'folke/todo-comments.nvim',
+      config = function ()
+        require("todo-comments").setup {}
+      end
+    }
     use 'windwp/nvim-autopairs'
     use 'tversteeg/registers.nvim'
     use 'nacro90/numb.nvim'
@@ -63,12 +81,20 @@ packer.startup(function()
         require('nvim_context_vt').setup()
       end
     }
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function ()
+      require'alpha'.setup(require'alpha.themes.startify'.opts)
+    end
+  }
+  -- use "glepnir/dashboard-nvim"
   -- use 'romgrk/barbar.nvim'
   use "rcarriga/nvim-notify"
-  use 'junegunn/fzf'
-  use 'junegunn/fzf.vim'
-  use 'tpope/vim-surround'
-  use 'mhinz/vim-startify'
+  use "junegunn/fzf"
+  use "junegunn/fzf.vim"
+  use "tpope/vim-surround"
+  -- use 'mhinz/vim-startify'
   -- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
   use 'christoomey/vim-sort-motion'
   -- use 'soywod/vim-keepeye'
@@ -281,8 +307,16 @@ packer.startup(function()
   use 'hrsh7th/cmp-nvim-lsp-document-symbol'
   use 'hrsh7th/cmp-calc'
   use 'hrsh7th/cmp-emoji'
-  use {'f3fora/cmp-spell', opt = true, ft = {"markdown", "text", "norg"}}
+  use {'f3fora/cmp-spell', ft = {"markdown", "text", "norg"}}
   use 'onsails/lspkind-nvim'
+  use {
+    '0styx0/abbreinder.nvim',
+    requires = {{'0styx0/abbremand.nvim', module = 'abbremand'}}, -- if want to lazy load
+    config = function()
+        require'abbreinder'.setup()
+    end,
+    event = 'BufRead', -- if want lazy load
+  }
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
