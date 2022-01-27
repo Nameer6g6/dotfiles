@@ -88,6 +88,17 @@ keymap('n', '<leader>dsbm', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.
 keymap('n', '<leader>dro', '<cmd>lua require"dap".repl.open()<CR>', opts)
 keymap('n', '<leader>drl', '<cmd>lua require"dap".repl.run_last()<CR>', opts)
 
+-- open link
+keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
+
+-- Neorg
+keymap('n', '<Space>ngv', ':Neorg gtd views<CR>', opts)
+keymap('n', '<Space>nge', ':Neorg gtd edit<CR>', opts)
+keymap('n', '<Space>ngc', ':Neorg gtd capture<CR>', opts)
+keymap('n', '<Space>nj', ':Neorg journal today<CR>', opts)
+keymap('n', '<Space>nt', ':Neorg toc split<CR>', opts)
+
+
 -- NOTE: Insert mapping
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
