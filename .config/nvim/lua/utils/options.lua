@@ -53,13 +53,6 @@ vim.opt.listchars:append("trail:.")
 vim.opt.listchars:append("extends:#")
 vim.opt.listchars:append("nbsp:.")
 
--- for spell check
-if (vim.bo.filetype == "text" or vim.bo.filetype == "markdown") then
-  vim.opt.spell = true
-  vim.opt.spelllang = { 'en_us' }
-end
-
-
 vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
@@ -68,8 +61,6 @@ vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 -- Automate line numbers
 vim.cmd "autocmd InsertEnter * silent! setlocal norelativenumber"
 vim.cmd "autocmd InsertLeave * silent! setlocal relativenumber"
-
-
 
 -- NerdComment configs
 vim.g.NERDCreateDefaultMappings = 1
@@ -83,7 +74,6 @@ vim.cmd([[
   autocmd BufWritepre * %s/\n\+\%$//e
 ]])
 
-
 -- Find file with `find`
 -- vim.cmd('set path+=**')
 -- vim.cmd('set wildmenu')
@@ -96,7 +86,7 @@ vim.cmd([[
 -- vim.cmd('set ruler')
 -- vim.cmd('syntax enable')
 
---  FIX: need working
+--  FIX: need checking
 -- set hidden
 -- set nobackup
 -- set nowritebackup
