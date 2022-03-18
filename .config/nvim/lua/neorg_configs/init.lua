@@ -16,7 +16,7 @@ neorg.setup {
     ["core.defaults"] = {}, -- Load all the default modules
     ["core.norg.concealer"] = {
       config = {
-        -- markup_preset = "brave",
+        markup_preset = "dimmed", -- Options are: safe, dimmed, and brave
         dim_code_blocks = true,
         -- icon = require("neorg_configs.icons") -- BUG: doesn't allow to load module
       }
@@ -38,7 +38,7 @@ neorg.setup {
       config = {
         workspaces = {
           my_workspace = "~/Documents/Neorg/",
-          example_gtd = "~/Documents/Neorg/gtd",
+          gtd = "~/Documents/Neorg/gtd",
         },
         autochdir = true, -- Automatically change the directory to the current workspace's root every time
         index = "index.norg", -- The name of the main (root) .norg file
@@ -47,8 +47,10 @@ neorg.setup {
     },
     ["core.gtd.base"] = {
       config = {
-        workspace = "example_gtd",
-        inbox = "inbox.norg",
+        workspace = "gtd",
+        default_lists = {
+          inbox = "inbox.norg",
+        },
         exclude = {"example.norg"},
         syntax = {
           context = "#contexts",
@@ -57,13 +59,14 @@ neorg.setup {
           waiting = "#waiting.for",
         },
         projects = {
-          show_completed_projects = true,
-          show_projects_without_tasks = true,
+          show_completed_projects = false,
+          show_projects_without_tasks = false,
         },
+        custom_tag_completion = true,
       },
     },
-    ["core.gtd.ui"] = {},
-    ["core.gtd.queries"] = {},
+    -- ["core.gtd.ui"] = {},
+    -- ["core.gtd.queries"] = {},
     ["core.norg.journal"] = {
       config = { -- Note that this table is optional and doesn't need to be provided
         workspace = "my_workspace",
