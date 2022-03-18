@@ -9,6 +9,13 @@ require("lsp.settings.haskell")
 require("lsp.settings.purescript")
 -- require("lsp.dart")
 -- require("lsp.purescript")
+-- require "lsp_signature".setup()
+-- require "lsp_signature".setup({
+--   bind = true, -- This is mandatory, otherwise border config won't get registered.
+--   handler_opts = {
+--     border = "rounded"
+--   }
+-- })
 
 -- Lsp extensions
 vim.cmd([[autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"ChainingHint"}}]])
