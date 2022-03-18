@@ -81,13 +81,13 @@ packer.startup(function()
         require('nvim_context_vt').setup()
       end
     }
-  use {
-    'goolord/alpha-nvim',
-    requires = { 'kyazdani42/nvim-web-devicons' },
-    config = function ()
-      require'alpha'.setup(require'alpha.themes.startify'.opts)
-    end
-  }
+  -- use {
+  --   'goolord/alpha-nvim',
+  --   requires = { 'kyazdani42/nvim-web-devicons' },
+  --   config = function ()
+  --     require'alpha'.setup(require'alpha.themes.startify'.opts)
+  --   end
+  -- }
   -- use "glepnir/dashboard-nvim"
   -- use 'romgrk/barbar.nvim'
   use "rcarriga/nvim-notify"
@@ -98,7 +98,7 @@ packer.startup(function()
   -- use 'kovetskiy/sxhkd-vim' -- sxhkd is X hotkey daemon
   use 'christoomey/vim-sort-motion'
   -- use 'soywod/vim-keepeye'
-  -- use 'itchyny/calendar.vim'
+  use 'itchyny/calendar.vim'
   use {'dstein64/vim-startuptime', opt = true}
   use {
     'kyazdani42/nvim-tree.lua',
@@ -276,9 +276,10 @@ packer.startup(function()
   -- use 'wellle/tmux-complete.vim
 
   -- Completion
-  use 'neovim/nvim-lspconfig'
-  use 'williamboman/nvim-lsp-installer'
-  use 'nvim-lua/lsp_extensions.nvim'
+  use "neovim/nvim-lspconfig"
+  use "williamboman/nvim-lsp-installer"
+  use "nvim-lua/lsp_extensions.nvim"
+  use "ray-x/lsp_signature.nvim"
 
   -- Key mapping
   use {
@@ -338,9 +339,11 @@ packer.startup(function()
   --
 
   -- Note
-  use {"nvim-neorg/neorg",
-    requires = {"nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope"}
-  }
+  use "nvim-neorg/neorg"
+  use "nvim-neorg/neorg-telescope"
+  -- use {"nvim-neorg/neorg",
+  --   requires = {"nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope"}
+  -- }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
