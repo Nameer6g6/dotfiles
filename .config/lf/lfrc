@@ -64,7 +64,7 @@ cmd dragFile ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	printf "%s\n\t" "$fx"
-	dragon-drag-and-drop $fx
+	dragon $fx
 }}
 
 
