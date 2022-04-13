@@ -97,6 +97,7 @@ keymap('n', '<Space>nge', ':Neorg gtd edit<CR>', opts)
 keymap('n', '<Space>ngc', ':Neorg gtd capture<CR>', opts)
 keymap('n', '<Space>nj', ':Neorg journal today<CR>', opts)
 keymap('n', '<Space>nt', ':Neorg toc split<CR>', opts)
+keymap('n', '<Space>nc', ':Neorg toc close<CR>', opts)
 
 
 -- NOTE: Insert mapping
