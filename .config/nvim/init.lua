@@ -12,11 +12,12 @@ require "status_line"
 require "treesitter"
 require "keymap"
 
--- NOTE: Config for calendar
--- Calendar.vim integrating with goolge
--- let g:calendar_google_calendar = 1
--- let g:calendar_google_task = 1
--- source ~/.cache/calendar.vim/credentials.vim
+-- NOTE: Config for calendar.vim
+vim.cmd([[
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
+source ~/.cache/calendar.vim/credentials.vim
+]])
 
 -- Limelight & Goyo
 -- vim.cmd('source $HOME/.config/nvim/limelight_goyo.vim')
