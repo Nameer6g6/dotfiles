@@ -78,6 +78,9 @@ if (vim.bo.filetype == "markdown" or vim.bo.filetype == "tex") then
   keymap('n', "<leader>p", ":lua require('nabla').popup()<CR> ", opts) -- " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
 end
 
+-- Calendar
+keymap('n', '<leader>cal', '<cmd>Calendar<CR>', opts)
+
 keymap('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>', opts)
 keymap('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>', opts)
 keymap('n', '<leader>dsi', '<cmd>lua require"dap".step_into()<CR>', opts)
