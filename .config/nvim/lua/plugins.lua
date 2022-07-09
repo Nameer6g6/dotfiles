@@ -105,7 +105,7 @@ packer.startup(function()
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'nvim-tree'.setup {} end
   }
-  use 'chentau/marks.nvim'
+  use 'chentoast/marks.nvim'
   use 'NFrid/due.nvim'
   -- use 'glepnir/dashboard-nvim'
 
@@ -278,6 +278,10 @@ packer.startup(function()
   -- Completion
   use "neovim/nvim-lspconfig"
   use "williamboman/nvim-lsp-installer"
+  use({
+    'scalameta/nvim-metals',
+    requires = { "nvim-lua/plenary.nvim" },
+  })
   use "nvim-lua/lsp_extensions.nvim"
   use "ray-x/lsp_signature.nvim"
 
@@ -333,9 +337,8 @@ packer.startup(function()
   --   config = 'vim.cmd[[ALEEnable]]'
   -- }
 
-
   -- Discord presence
-  -- use {'ObserverOfTime/discord.nvim', run = ':UpdateRemoteuseins'}
+  use 'ObserverOfTime/nvimcord'
   --
 
   -- Note
