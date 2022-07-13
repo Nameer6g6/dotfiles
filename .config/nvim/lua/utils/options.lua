@@ -1,7 +1,7 @@
 local options = {
   -- :help options
   backup = false,                          -- creates a backup file
-  -- clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
+  clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
   cmdheight = 2,                           -- more space in the neovim command line for displaying messages
   completeopt = { "menuone", "noselect" }, -- mostly just for cmp
   -- conceallevel = 0,                        -- so that `` is visible in markdown files
@@ -46,17 +46,17 @@ for k, v in pairs(options) do
 end
 
 -- listchars = 'tab:\·\ ,trail:.,extends:#,nbsp:.', -- Note: old vim option
-vim.opt.listchars:append("space:⋅")
+-- vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
 -- vim.opt.listchars:append("tabs:\.") -- BUG: Check why not working
 vim.opt.listchars:append("trail:.")
-vim.opt.listchars:append("extends:#")
 vim.opt.listchars:append("nbsp:.")
 
 vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
 
 -- Automate line numbers
 vim.cmd "autocmd InsertEnter * silent! setlocal norelativenumber"
@@ -102,31 +102,46 @@ vim.cmd([[
 --  set showtabline=2
 vim.opt.listchars:append("extends:#")
 
--- TODO: change the clipboard config to lua style
--- vim.g.clipboard = {
---   name = "win32yank-swl",
---   copy = {
---     ["+"] = "win32yank -i --crlf",
---     ["*"] = "win32yank -i --crlf"
---   },
---   paste = {
---     ["+"] = "win32yank -o --crlf",
---     ["*"] = "win32yank -o --crlf"
---   },
---   cache_enabled = false
--- }
+-- code to check whether this is linux or wsl
+local is_wsl = (function()
+  local output = vim.fn.systemlist "uname -r"
+  return not not string.find(output[1] or "", "WSL")
+end)()
 
-vim.cmd([[
-let g:clipboard = {
-    \   'name': 'win32yank-wsl',
-    \   'copy': {
-    \      '+': 'win32yank -i --crlf',
-    \      '*': 'win32yank -i --crlf',
-    \    },
-    \   'paste': {
-    \      '+': 'win32yank -o --lf',
-    \      '*': 'win32yank -o --lf',
-    \   },
-    \   'cache_enabled': 0,
-    \ }
-]])
+vim.notify = require("notify")
+local is_linux = not is_wsl
+
+if (is_wsl) then
+  -- TODO: change the clipboard config to lua style
+  -- TODO: Choose best approach for clipboard on wsl
+  -- vim.g.clipboard = {
+  --   name = "win32yank-swl",
+  --   copy = {
+  --     ["+"] = "win32yank -i --crlf",
+  --     ["*"] = "win32yank -i --crlf"
+  --   },
+  --   paste = {
+  --     ["+"] = "win32yank -o --crlf",
+  --     ["*"] = "win32yank -o --crlf"
+  --   },
+  --   cache_enabled = false
+  -- }
+  vim.cmd([[
+    autocmd TextYankPost * if v:event.operator ==# 'y' || v:event.operator ==# 'd' | call system(s:clip, u/0) | endif
+  ]])
+
+  -- vim.cmd([[
+  -- let g:clipboard = {
+  --   \   'name': 'win32yank-wsl',
+  --   \   'copy': {
+  --   \      '+': 'win32yank -i --crlf',
+  --   \      '*': 'win32yank -i --crlf',
+  --   \    },
+  --   \   'paste': {
+  --   \      '+': 'win32yank -o --lf',
+  --   \      '*': 'win32yank -o --lf',
+  --   \   },
+  --   \   'cache_enabled': 0,
+  --   \ }
+  -- ]])
+end
