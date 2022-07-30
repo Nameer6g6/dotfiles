@@ -8,7 +8,7 @@ require "telescope"
 require "lsp"
 require "langs"
 require "status_line"
--- require "nvim_tree"
+require "nvim_tree"
 require "treesitter"
 require "keymap"
 

@@ -48,7 +48,11 @@ packer.startup(function()
   -- Utility
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
-    use 'nvim-telescope/telescope.nvim'
+    use {
+      'nvim-telescope/telescope.nvim',
+      tag = '0.1.0',
+      requires = { {'nvim-lua/plenary.nvim'} }
+    }
     use 'nvim-telescope/telescope-media-files.nvim'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use {

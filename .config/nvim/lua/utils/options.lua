@@ -1,7 +1,7 @@
 local options = {
   -- :help options
   backup = false,                          -- creates a backup file
-  -- clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
+  clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
   cmdheight = 2,                           -- more space in the neovim command line for displaying messages
   completeopt = { "menuone", "noselect", "noinsert" }, -- mostly just for cmp
   -- conceallevel = 0,                        -- so that `` is visible in markdown files
@@ -37,7 +37,7 @@ local options = {
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
   list = true,
   -- Enable folding with treesitter
-  foldmethod = "expr",
+  -- foldmethod = "expr",
   foldexpr = "nvim_treesitter#foldexpr()",
 }
 
@@ -49,17 +49,17 @@ vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt_global.shortmess:remove("F"):append("c")
 
 -- listchars = 'tab:\·\ ,trail:.,extends:#,nbsp:.', -- Note: old vim option
-vim.opt.listchars:append("space:⋅")
+-- vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
 -- vim.opt.listchars:append("tabs:\.") -- BUG: Check why not working
 vim.opt.listchars:append("trail:.")
-vim.opt.listchars:append("extends:#")
 vim.opt.listchars:append("nbsp:.")
 
 vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+
 
 -- Automate line numbers
 vim.cmd "autocmd InsertEnter * silent! setlocal norelativenumber"
@@ -103,3 +103,48 @@ vim.cmd([[
 --  set cursorline
 --  set laststatus=2
 --  set showtabline=2
+vim.opt.listchars:append("extends:#")
+
+-- code to check whether this is linux or wsl
+local is_wsl = (function()
+  local output = vim.fn.systemlist "uname -r"
+  return not not string.find(output[1] or "", "WSL")
+end)()
+
+vim.notify = require("notify")
+local is_linux = not is_wsl
+
+if (not is_linux and is_wsl) then
+  -- TODO: change the clipboard config to lua style
+  -- TODO: Choose best approach for clipboard on wsl
+  -- vim.g.clipboard = {
+  --   name = "win32yank-swl",
+  --   copy = {
+  --     ["+"] = "win32yank -i --crlf",
+  --     ["*"] = "win32yank -i --crlf"
+  --   },
+  --   paste = {
+  --     ["+"] = "win32yank -o --crlf",
+  --     ["*"] = "win32yank -o --crlf"
+  --   },
+  --   cache_enabled = false
+  -- }
+  vim.cmd([[
+    autocmd TextYankPost * if v:event.operator ==# 'y' || v:event.operator ==# 'd' | call system(s:clip, u/0) | endif
+  ]])
+
+  -- vim.cmd([[
+  -- let g:clipboard = {
+  --   \   'name': 'win32yank-wsl',
+  --   \   'copy': {
+  --   \      '+': 'win32yank -i --crlf',
+  --   \      '*': 'win32yank -i --crlf',
+  --   \    },
+  --   \   'paste': {
+  --   \      '+': 'win32yank -o --lf',
+  --   \      '*': 'win32yank -o --lf',
+  --   \   },
+  --   \   'cache_enabled': 0,
+  --   \ }
+  -- ]])
+end

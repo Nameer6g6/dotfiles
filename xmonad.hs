@@ -1,39 +1,61 @@
--- import XMonad.Wallpaper
 {-# LANGUAGE ImportQualifiedPost #-}
 
 import Data.Map qualified as M
 import Data.Word (Word32)
-import Graphics.X11.ExtraTypes.XF86
-import System.IO
+import Graphics.X11.ExtraTypes.XF86 qualified as XF86
+import System.IO (hPutStrLn)
 import XMonad
-import XMonad.Actions.Minimize
-import XMonad.Actions.SpawnOn
-import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.SetWMName
-import XMonad.Hooks.UrgencyHook
-import XMonad.Layout
+import XMonad.Actions.Minimize (withLastMinimized, minimizeWindow, maximizeWindow)
+import XMonad.Hooks.DynamicLog (
+    ppHiddenNoWindows
+  , ppExtras
+  , ppTitle
+  , ppSep
+  , ppCurrent
+  , ppVisible
+  , ppUrgent
+  , ppOutput
+  , xmobarColor
+  , wrap
+  , dynamicLogWithPP
+  , xmobarPP
+  , shorten)
+import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.ManageDocks (manageDocks, avoidStruts, docks)
+import XMonad.Hooks.UrgencyHook (UrgencyHook(..), withUrgencyHook)
 import XMonad.Layout.BoringWindows as BW
-import XMonad.Layout.Fullscreen
-import XMonad.Layout.Maximize
-import XMonad.Layout.Minimize
-import XMonad.Layout.NoBorders
-import XMonad.Layout.PerWorkspace
-import XMonad.Layout.ResizableTile
-import XMonad.Layout.Spacing
-import XMonad.Layout.Spiral
-import XMonad.Layout.Tabbed
-import XMonad.Layout.ThreeColumns
-import XMonad.Layout.WorkspaceDir
+import XMonad.Layout.Fullscreen (fullscreenFull)
+import XMonad.Layout.Minimize (minimize)
+import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.Spacing (spacingRaw, Border(..))
+import XMonad.Layout.Tabbed (
+      activeColor
+    , activeBorderColor
+    , activeTextColor
+    , inactiveColor
+    , inactiveTextColor
+    , inactiveBorderColor
+    , tabbed
+    , shrinkText)
 import XMonad.StackSet qualified as W
-import XMonad.Util.EZConfig
-import XMonad.Util.Font
-import XMonad.Util.Loggers
+import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.Run (safeSpawn, spawnPipe)
-import XMonad.Util.SpawnOnce
+import XMonad.Util.SpawnOnce (spawnOnce)
+
+-- import XMonad.Actions.SpawnOn
+-- import XMonad.Hooks.ManageHelpers
+-- import XMonad.Hooks.SetWMName
+-- import XMonad.Layout
+-- import XMonad.Layout.Maximize
+-- import XMonad.Layout.PerWorkspace
+-- import XMonad.Layout.ResizableTile
+-- import XMonad.Layout.Spiral
+-- import XMonad.Layout.ThreeColumns
+-- import XMonad.Layout.WorkspaceDir
+-- import XMonad.Util.Font
+-- import XMonad.Util.Loggers
+-- import XMonad.Wallpaper
 
 -- Border Styling
 myBorderWidth :: Word32
@@ -49,7 +71,7 @@ myWorkspaces :: [String]
 myWorkspaces = ["一", "二", "三", "四", "五", "六", "七", "八", "九"]
   where
     clickable l =
-        [ "<action=xdotool key mod4Mask+" ++ show (n) ++ ">" ++ ws ++ "</action>"
+        [ "<action=xdotool key mod4Mask+" ++ show n ++ ">" ++ ws ++ "</action>"
         | (i, ws) <- zip [1 .. 9] l
         , let n = i
         ]
@@ -59,7 +81,7 @@ data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
 instance UrgencyHook LibNotifyUrgencyHook where
     urgencyHook LibNotifyUrgencyHook w = do
         name <- getName w
-        Just idx <- fmap (W.findTag w) $ gets windowset
+        Just idx <- W.findTag w <$> gets windowset
 
         safeSpawn "notify-send" [show name, "workspace" ++ idx]
 
@@ -93,7 +115,7 @@ myLayout =
         noBorders (fullscreenFull Full)
 
 tabConfig =
-    defaultTheme
+    def
         { activeBorderColor = "#7C7C7C"
         , activeTextColor = "#CEFFAC"
         , activeColor = "#000000"
@@ -152,7 +174,7 @@ main = do
                         }
                         `additionalKeys` myKeys
 
-myLayoutHook = minimize . BW.boringWindows $ avoidStruts $ gaps $ smartBorders $ myLayout
+myLayoutHook = minimize . BW.boringWindows $ avoidStruts $ gaps $ smartBorders myLayout
 
 myKeys =
     [ -- myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
@@ -169,11 +191,11 @@ myKeys =
     , ((mod1Mask .|. controlMask, xK_l), spawn "i3lock-fancy")
     , ((mod1Mask, xK_m), withFocused minimizeWindow)
     , ((mod1Mask .|. shiftMask, xK_m), withLastMinimized maximizeWindow)
-    , ((0, xF86XK_AudioMute), spawn "amixer set Master toggle")
-    , ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set Master 2%-")
-    , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 2%+")
-    , ((0, xF86XK_MonBrightnessDown), spawn "xbacklight -dec 5")
-    , ((0, xF86XK_MonBrightnessUp), spawn "xbacklight -inc 5")
+    , ((0, XF86.xF86XK_AudioMute), spawn "amixer set Master toggle")
+    , ((0, XF86.xF86XK_AudioLowerVolume), spawn "amixer -q set Master 5%-")
+    , ((0, XF86.xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 5%+")
+    , ((0, XF86.xF86XK_MonBrightnessDown), spawn "xbacklight -dec 5")
+    , ((0, XF86.xF86XK_MonBrightnessUp), spawn "xbacklight -inc 5")
     ]
 
 myStartupHook = do
