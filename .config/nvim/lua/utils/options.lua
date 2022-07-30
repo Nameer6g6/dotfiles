@@ -111,7 +111,7 @@ end)()
 vim.notify = require("notify")
 local is_linux = not is_wsl
 
-if (is_wsl) then
+if (not is_linux and is_wsl) then
   -- TODO: change the clipboard config to lua style
   -- TODO: Choose best approach for clipboard on wsl
   -- vim.g.clipboard = {
