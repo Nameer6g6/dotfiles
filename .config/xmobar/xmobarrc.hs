@@ -248,8 +248,8 @@ Config
             , "<icon=music/music_stopped.xpm/>" -- stopped
             ]
             10
-        , Run Com "rescuetime_timetracker" [] "" 100
+        -- , Run Com "rescuetime_timetracker" [] "" 100
         , Run Com "/bin/sh" ["-c", "$HOME/.config/xmobar/trayer-padding-icon.sh"] "trayerpad" 10
         ]
-    , template = "%uname% <icon=seperators/seperator.xpm/> %kbd% <icon=seperators/seperator.xpm/> %UnsafeStdinReader%} { %dynnetwork% <icon=seperators/seperator.xpm/> %rescuetime_timetracker% <icon=seperators/seperator.xpm/> %mpd%  <icon=seperators/seperator.xpm/> %disku% <icon=seperators/seperator.xpm/>  %ORBI% <icon=seperators/seperator.xpm/> %battery% <icon=seperators/seperator.xpm/> %cpu% <icon=seperators/seperator.xpm/> %memory% <icon=seperators/seperator.xpm/> %multicoretemp%  <icon=seperators/seperator.xpm/> %date% <icon=seperators/seperator.xpm/> %trayerpad%"
+    , template = "%uname% <icon=seperators/seperator.xpm/> %kbd% <icon=seperators/seperator.xpm/> %UnsafeStdinReader%} { %dynnetwork% <icon=seperators/seperator.xpm/>  %mpd%  <icon=seperators/seperator.xpm/> %disku% <icon=seperators/seperator.xpm/>  %ORBI% <icon=seperators/seperator.xpm/> %battery% <icon=seperators/seperator.xpm/> %cpu% <icon=seperators/seperator.xpm/> %memory% <icon=seperators/seperator.xpm/> %multicoretemp%  <icon=seperators/seperator.xpm/> %date% <icon=seperators/seperator.xpm/> %trayerpad%"
     }
