@@ -16,8 +16,10 @@ neorg.setup {
     ["core.defaults"] = {}, -- Load all the default modules
     ["core.norg.concealer"] = {
       config = {
-        markup_preset = "dimmed", -- Options are: safe, dimmed, and brave
-        dim_code_blocks = true,
+        -- markup_preset = "dimmed", -- Options are: safe, dimmed, and brave
+        -- dim_code_blocks = true,
+        conceal = true,
+        preset = "diamond",
         -- icon = require("neorg_configs.icons") -- BUG: doesn't allow to load module
       }
     }, -- Allows for use of icons
