@@ -69,7 +69,7 @@ packer.startup(function()
           }
       end
     }
-    use 'windwp/nvim-spectre'
+    use 'nvim-pack/nvim-spectre'
     use {
       'folke/todo-comments.nvim',
       config = function ()
