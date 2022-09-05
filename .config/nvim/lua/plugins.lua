@@ -109,7 +109,8 @@ packer.startup(function()
     requires = 'kyazdani42/nvim-web-devicons',
     config = function() require'nvim-tree'.setup {} end
   }
-  use 'chentoast/marks.nvim'
+	-- WARNING: Disabled marks
+  -- use 'chentoast/marks.nvim'
   use 'NFrid/due.nvim'
   -- use 'glepnir/dashboard-nvim'
 
