@@ -3,7 +3,6 @@
 autoload -U colors && colors
 
 # Enable local overrides for zsh configuration
-# if [[ -s ~/.zsh/.zshrc.local ]]; then
 if [[ -s $ZDOTDIR/.zshrc.local ]]; then
   source $ZDOTDIR/.zshrc.local
 fi
@@ -100,83 +99,6 @@ fi
 if [[ -s /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
-#####################################
-
-# autoload -Uz vcs_info
-# autoload -Uz add-zsh-hook
-#
-# zstyle ':vcs_info:*' enable git svn
-# zstyle ':vcs_info:git*' actionformats "%s  %r/%S %b %m%u%c "
-# precmd() {
-#     vcs_info
-# }
-#
-# setopt prompt_subst
-# # zstyle ':vcs_info:git*' formats "%{$fg[grey]%}%s %{$reset_color%}%r/%S%{$fg[grey]%} %{$fg[blue]%}%b%{$reset_color%}%m%u%c%{$reset_color%} "
-#
-# PROMPT='${vcs_info_msg_0_}%# '
-
-
-# Khalid snippets
-# PROMPT='%B%M%b ${vcs_info_msg_0_}%F{yellow}%(!.%F{red}#%f.%%)%f '
-# RPROMPT='%(?.%F{grey}%/%f.:()'
-
-# # Zsh options
-# setopt prompt_subst
-# autoload -U colors && colors
-#
-# # Colors
-# BLACK=$'\033[0m'
-# GREEN=$'\033[38;5;148m'
-# BLUE=$'\033[38;5;117m'
-# DARK_BLUE='\033[38;5;4m'
-#
-# current_git_branch() {
-#     git rev-parse --abbrev-ref HEAD 2> /dev/null | sed -e 's/\(.*\)/(\1)/g'
-# }
-#
-# current_directory() {
-#     PROMPT_PATH=""
-#     CURRENT=`dirname ${PWD}`
-#     if [[ $CURRENT = / ]]; then
-#         PROMPT_PATH=""
-#     elif [[ $PWD = $HOME ]]; then
-#         PROMPT_PATH=""
-#     else
-#         GIT_REPO_PATH=$(git rev-parse --show-toplevel 2>/dev/null)
-#         if [[ -d $GIT_REPO_PATH ]]; then
-#             # We are in a git repo. Display the root in color, then the path
-#             # starting from the root.
-#             if [[ $PWD -ef $GIT_REPO_PATH ]]; then
-#                 # We are at the root of the git repo.
-#                 PROMPT_PATH=""
-#             else
-#                 # We are not at the root of the git repo.
-#                 BASE=$(basename $GIT_REPO_PATH)
-#                 GIT_ROOT="%{$fg_bold[red]%}%{$DARK_BLUE%}${BASE}%{$reset_color%}"
-#                 REAL_PWD=$PWD:A
-#                 PATH_TO_CURRENT="${REAL_PWD#$GIT_REPO_PATH}"
-#                 PATH_TO_CURRENT="%{$BLUE%}${PATH_TO_CURRENT%/*}%{$reset_color%}"
-#                 PROMPT_PATH="${GIT_ROOT}${PATH_TO_CURRENT}/"
-#             fi
-#         else
-#             # We are not in a git repo.
-#             PATH_TO_CURRENT=$(print -P %3~)
-#             PATH_TO_CURRENT="%{$BLUE%}${PATH_TO_CURRENT%/*}%{$reset_color%}"
-#             PROMPT_PATH="${PATH_TO_CURRENT}/"
-#         fi
-#     fi
-#     echo "${PROMPT_PATH}%{$reset_color%}%{$fg_bold[red]%}%{$BLUE%}%1~%{$reset_color%}"
-# }
-#
-# export PROMPT=$'$(current_directory) %{$GREEN%}$(current_git_branch)%{$BLACK%}%# '
-
-# zstyle ':vcs_info:git*' formats "- %F{red}%u%f%F{green}%f %b "
-# zstyle ':vcs_info:*' enable git
-# zstyle ':vcs_info:*' check-for-changes true
-# zstyle ':vcs_info:git*' unstagedstr '𥉉' #'
-
-# PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b ${vcs_info_msg_0_} "
 
 # History in cache directory:
 HISTSIZE=1000000
@@ -240,14 +162,15 @@ autoload edit-command-line; zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load aliases and shortcuts if existent.
-# [ -f "$HOME/.config/shortcutrc" ] && source "$HOME/.config/shortcutrd"
-[ -f "$HOME/.config/aliasrc" ] && source "$HOME/.config/aliasrc"
+# [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
+# [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
 
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
-# . $HOME/dotfiles/alias.sh
 . $HOME/dotfiles/functions.sh
+. $HOME/dotfiles/secrets.sh
 . $HOME/.asdf/asdf.sh
 
 export DOTNET_ROOT="$HOME/.dotnet"
@@ -256,48 +179,23 @@ export PATH="$DOTNET_ROOT:$PATH"
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
 
-# . $HOME/projects/Dev/Zsh_dir/zsh-haskell/haskell.plugin.zsh
-
-# zsh-git-prompt
-# . /home/angron/projects/Dev/Zsh_dir/zsh-git-prompt/zshrc.sh
-# PROMPT='%B%m%~%b$(git_super_status) %# '
-
-
 # Enabling cache for the completions for zsh
 zstyle ':completion::complete:*' use-cache 1
 
 bindkey "^r" history-incremental-search-backward
 
 export TERM='xterm-256color'
-# if [ -e /usr/share/terminfo/x/xterm-256color ]; then
-#         export TERM='xterm-256color'
-# else
-#         export TERM='xterm-color'
-# fi
+
+# Load ssh key path and load it to the agent
+eval `ssh-agent -s` &> /dev/null
+ssh-add -L &>/dev/null
+if [ $? -ne 0 ]; then
+     ssh-add $ssh_path &>/dev/null
+fi
 
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 # ibus-daemon -drx
 
-# Load aliases and shortcuts if existent.
-# [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc"
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
-# [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
-
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
-
-# Support keyboard navigation in the command prompt
-# bindkey "^[[1;3H" backward-word # Fn-Option-Left, Option-Home
-# bindkey "^[[1;3F" forward-word  # Fn-Option-Right, Option-End
-# bindkey "${terminfo[khome]}" beginning-of-line # Fn-Left, Home
-# bindkey "${terminfo[kend]}" end-of-line # Fn-Right, End
-# Ctrl-X-e and Ctrl-Space to edit in the editor
-
-# Lines configured by zsh-newuser-install
-# bindkey -e
-# # End of lines configured by zsh-newuser-install
-# # Share history between tmux windows
-# setopt SHARE_HISTORY
-# setopt hist_ignore_space
-# setopt histignoredups
