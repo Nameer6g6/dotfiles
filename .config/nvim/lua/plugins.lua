@@ -365,7 +365,7 @@ packer.startup(function()
   --
 
   -- Note
-  use "nvim-neorg/neorg"
+  use {"nvim-neorg/neorg", tag = "0.0.12"}
   use "nvim-neorg/neorg-telescope"
   -- use {"nvim-neorg/neorg",
   --   requires = {"nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope"}
