@@ -71,12 +71,12 @@ keymap('n', '<Space>gs', '<Cmd>Gitsigns select_hunk<CR>', opts)
 keymap('n', '<Space>gb', '<Cmd>Gitsigns toggle_current_line_blame<CR>', opts)
 
 -- Git-Conflict  keymaps
-keymap('n', 'co', '<Plug>(git-conflict-ours)')
-keymap('n', 'ct', '<Plug>(git-conflict-theirs)')
-keymap('n', 'cb', '<Plug>(git-conflict-both)')
-keymap('n', 'c0', '<Plug>(git-conflict-none)')
-keymap('n', 'c]', '<Plug>(git-conflict-prev-conflict)')
-keymap('n', 'c[', '<Plug>(git-conflict-next-conflict)')]')
+keymap('n', 'co', '<Plug>(git-conflict-ours)', opts)
+keymap('n', 'ct', '<Plug>(git-conflict-theirs)', opts)
+keymap('n', 'cb', '<Plug>(git-conflict-both)', opts)
+keymap('n', 'c0', '<Plug>(git-conflict-none)', opts)
+keymap('n', 'c]', '<Plug>(git-conflict-prev-conflict)', opts)
+keymap('n', 'c[', '<Plug>(git-conflict-next-conflict)', opts)
 
 -- inserting date
 keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
