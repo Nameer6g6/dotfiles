@@ -70,12 +70,6 @@ packer.startup(function()
       end
     }
     use 'nvim-pack/nvim-spectre'
-    use {
-      'folke/todo-comments.nvim',
-      config = function ()
-        require("todo-comments").setup {}
-      end
-    }
     use 'windwp/nvim-autopairs'
     use 'tversteeg/registers.nvim'
     use 'nacro90/numb.nvim'
@@ -86,13 +80,18 @@ packer.startup(function()
       end
     }
   -- use {
+  --   "AckslD/nvim-gfold.lua",
+  --   config = function()
+  --     require('gfold').setup()
+  --   end,
+  -- }
+  -- use {
   --   'goolord/alpha-nvim',
   --   requires = { 'kyazdani42/nvim-web-devicons' },
   --   config = function ()
   --     require'alpha'.setup(require'alpha.themes.startify'.opts)
   --   end
   -- }
-  -- use "glepnir/dashboard-nvim"
   -- use 'romgrk/barbar.nvim'
   use "rcarriga/nvim-notify"
   use "junegunn/fzf"
@@ -124,8 +123,31 @@ packer.startup(function()
   use 'theHamsta/nvim-dap-virtual-text'
   use "Pocco81/DAPInstall.nvim"
 
-  -- Commenting out plugin
+  -- Commenting plugin
   use 'scrooloose/nerdcommenter'
+  use {
+    "danymat/neogen",
+    config = function()
+      require('neogen').setup {}
+    end,
+    requires = "nvim-treesitter/nvim-treesitter",
+    tag = "*"
+  }
+  use {
+    'folke/todo-comments.nvim',
+    config = function ()
+      require("todo-comments").setup {}
+    end
+  }
+  use {
+    's1n7ax/nvim-comment-frame',
+    requires = {
+      { 'nvim-treesitter' }
+    },
+    config = function()
+      require('nvim-comment-frame').setup()
+    end
+  }
 
   -- Generic Programming Support
   use 'majutsushi/tagbar'
@@ -166,12 +188,11 @@ packer.startup(function()
   --       'nvim-lua/plenary.nvim'
   --     }
   -- }
-  -- use 'mhinz/vim-signify'
   -- use 'tpope/vim-fugitive'
   -- use 'rbong/vim-flog'
   -- use 'jreybert/vimagit'
-
-  use 'lewis6991/gitsigns.nvim'
+  use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+  use "lewis6991/gitsigns.nvim"
 	use {
 		'pwntester/octo.nvim',
 		requires = {
@@ -184,9 +205,11 @@ packer.startup(function()
 		end
 	}
   use 'sindrets/diffview.nvim'
-  use {'akinsho/git-conflict.nvim', config = function()
-    require('git-conflict').setup()
-  end}
+  use "akinsho/git-conflict.nvim"
+  use {
+    'ruifm/gitlinker.nvim',
+    requires = 'nvim-lua/plenary.nvim',
+  }
 
   -- Erlang Support
   use {'vim-erlang/vim-erlang-tags', opt = true, ft = "erlang"}
