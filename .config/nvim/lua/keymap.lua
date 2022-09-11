@@ -70,13 +70,17 @@ keymap('n', '<Space>gr', '<Cmd>Gitsigns reset_hunk<CR>', opts)
 keymap('n', '<Space>gs', '<Cmd>Gitsigns select_hunk<CR>', opts)
 keymap('n', '<Space>gb', '<Cmd>Gitsigns toggle_current_line_blame<CR>', opts)
 
--- Git-Conflict  keymaps
+-- Git-Conflict keymaps
 keymap('n', 'co', '<Plug>(git-conflict-ours)', opts)
 keymap('n', 'ct', '<Plug>(git-conflict-theirs)', opts)
 keymap('n', 'cb', '<Plug>(git-conflict-both)', opts)
 keymap('n', 'c0', '<Plug>(git-conflict-none)', opts)
 keymap('n', 'c]', '<Plug>(git-conflict-prev-conflict)', opts)
 keymap('n', 'c[', '<Plug>(git-conflict-next-conflict)', opts)
+
+-- Comment Frame keymaps
+keymap('n', '<Space>cc', ":lua require('nvim-comment-frame').add_comment()<CR>", opts)
+keymap('n', '<Space>C', ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", opts)
 
 -- inserting date
 keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
