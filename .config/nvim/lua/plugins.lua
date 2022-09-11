@@ -107,7 +107,6 @@ packer.startup(function()
   use {
     'kyazdani42/nvim-tree.lua',
     requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-tree'.setup {} end
   }
 	-- WARNING: Disabled marks
   -- use 'chentoast/marks.nvim'
@@ -161,14 +160,33 @@ packer.startup(function()
   use {'gabrielelana/vim-markdown', ft = "markdown"}
 
   -- Git Support
-  use 'gregsexton/gitv'
+  -- use {
+  --   'tanvirtin/vgit.nvim',
+  --     requires = {
+  --       'nvim-lua/plenary.nvim'
+  --     }
+  -- }
   -- use 'mhinz/vim-signify'
+  -- use 'tpope/vim-fugitive'
+  -- use 'rbong/vim-flog'
+  -- use 'jreybert/vimagit'
+
   use 'lewis6991/gitsigns.nvim'
-  use 'tpope/vim-fugitive'
-  use 'rbong/vim-flog'
-  use 'jreybert/vimagit'
-  use 'pwntester/octo.nvim'
-  -- use 'jaxbot/github-issues.vim'
+	use {
+		'pwntester/octo.nvim',
+		requires = {
+			'nvim-lua/plenary.nvim',
+			'nvim-telescope/telescope.nvim',
+			'kyazdani42/nvim-web-devicons',
+		},
+		config = function ()
+			require"octo".setup()
+		end
+	}
+  use 'sindrets/diffview.nvim'
+  use {'akinsho/git-conflict.nvim', config = function()
+    require('git-conflict').setup()
+  end}
 
   -- Erlang Support
   use {'vim-erlang/vim-erlang-tags', opt = true, ft = "erlang"}

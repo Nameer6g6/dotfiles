@@ -53,8 +53,8 @@ vim.opt_global.shortmess:remove("F"):append("c")
 -- vim.opt.listchars:append("space:⋅")
 -- vim.opt.listchars:append("eol:↴")
 -- vim.opt.listchars:append("tabs:\.") -- BUG: Check why not working
-vim.opt.listchars:append("trail:.")
-vim.opt.listchars:append("nbsp:.")
+-- vim.opt.listchars:append("trail:.")
+-- vim.opt.listchars:append("nbsp:.")
 
 vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
@@ -118,6 +118,7 @@ local is_linux = not is_wsl
 if (not is_linux and is_wsl) then
   -- TODO: change the clipboard config to lua style
   -- TODO: Choose best approach for clipboard on wsl
+  -- FIXME: clipboard isn't working properly
   -- vim.g.clipboard = {
   --   name = "win32yank-swl",
   --   copy = {
@@ -130,9 +131,9 @@ if (not is_linux and is_wsl) then
   --   },
   --   cache_enabled = false
   -- }
-  vim.cmd([[
-    autocmd TextYankPost * if v:event.operator ==# 'y' || v:event.operator ==# 'd' | call system(s:clip, u/0) | endif
-  ]])
+  -- vim.cmd([[
+  --   autocmd TextYankPost * if v:event.operator ==# 'y' || v:event.operator ==# 'd' | call system(s:clip, u/0) | endif
+  -- ]])
 
   -- vim.cmd([[
   -- let g:clipboard = {

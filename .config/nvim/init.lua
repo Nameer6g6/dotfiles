@@ -12,14 +12,19 @@ require "nvim_tree"
 require "treesitter"
 require "keymap"
 
--- NOTE: Config for calendar.vim
-vim.cmd([[
-let g:calendar_google_calendar = 1
-let g:calendar_google_task = 1
-source ~/.cache/calendar.vim/credentials.vim
-]])
+-- require('vgit').setup()
 
+-- require 'nvim-treesitter.install'.compilers = { 'clang' }
+-- -- NOTE: Config for calendar.vim
+-- vim.cmd([[
+-- let g:calendar_google_calendar = 1
+-- let g:calendar_google_task = 1
+-- source ~/.cache/calendar.vim/credentials.vim
+-- ]])
 
+-- vim.cmd([[
+--   autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
+-- ]])
 
 -- local nvim_metals_group = vim.api.nvim_create_augroup("nvim-metals", { clear = true })
 --   vim.api.nvim_create_autocmd("FileType", {

@@ -12,6 +12,8 @@ alias \
 # Command to check docker container IP
 command -v dokcer >/dev/null  && alias docker_container_rm="docker rm $(docker ps -a -q)"
 
+# change-commits="!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" \$@; }; f"
+
 # aliasing bins
 alias \
    tb="taskbook" \
@@ -20,10 +22,10 @@ alias \
 alias nuget="mono /usr/local/bin/nuget.exe"
 
 # shortcutting arch cleanup command
-if [ `cat /etc/*-release | grep -e "^ID" | cut -d = -f 2` "==" "arch" ] ; then
-   alias cleanup="yay -Rs `yay -Qdtq`"
-fi
-alias sln_gen="dotnet new sln && dotnet sln add ."
+# if [ `cat /etc/*-release | grep -e "^ID" | cut -d = -f 2` "==" "arch" ] ; then
+#    alias cleanup="yay -Rs `yay -Qdtq`"
+# fi
+# alias sln_gen="dotnet new sln && dotnet sln add ."
 alias dockerContainerIP="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
 
 # Workaround to enable alacritty interact with ibus
