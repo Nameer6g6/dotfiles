@@ -61,14 +61,22 @@ keymap('n', '<leader>9', '9gt', opts)
 keymap('n', '<leader>0', ':tablast<CR>', opts)
 
 -- Gitsigns keymaps
-keymap('n', '[h', '<Cmd>Gitsigns prev_hunk<CR>', opts)
-keymap('n', ']h', '<Cmd>Gitsigns next_hunk<CR>', opts)
+keymap('n', '<Space>g]', '<Cmd>Gitsigns prev_hunk<CR>', opts)
+keymap('n', '<Space>g[', '<Cmd>Gitsigns next_hunk<CR>', opts)
 keymap('n', '<Space>gd', '<Cmd>Gitsigns diffthis<CR>', opts)
 keymap('n', '<Space>ga', '<Cmd>Gitsigns stage_hunk<CR>', opts)
 keymap('n', '<Space>gu', '<Cmd>Gitsigns undo_stage_hunk<CR>', opts)
 keymap('n', '<Space>gr', '<Cmd>Gitsigns reset_hunk<CR>', opts)
 keymap('n', '<Space>gs', '<Cmd>Gitsigns select_hunk<CR>', opts)
 keymap('n', '<Space>gb', '<Cmd>Gitsigns toggle_current_line_blame<CR>', opts)
+
+-- Git-Conflict  keymaps
+keymap('n', 'co', '<Plug>(git-conflict-ours)')
+keymap('n', 'ct', '<Plug>(git-conflict-theirs)')
+keymap('n', 'cb', '<Plug>(git-conflict-both)')
+keymap('n', 'c0', '<Plug>(git-conflict-none)')
+keymap('n', 'c]', '<Plug>(git-conflict-prev-conflict)')
+keymap('n', 'c[', '<Plug>(git-conflict-next-conflict)')]')
 
 -- inserting date
 keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
