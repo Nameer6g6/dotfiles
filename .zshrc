@@ -339,6 +339,13 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 # export MSBuildSDKsPath=$DOTNET_ROOT/sdk/$(${DOTNET_ROOT}/dotnet --version)/Sdks
 # export PATH="${PATH}:${DOTNET_ROOT}"
 
+# Load ssh key path and load it to the agent
+eval `ssh-agent -s` &> /dev/null
+ssh-add -L &>/dev/null
+if [ $? -ne 0 ]; then
+     ssh-add $ssh_path &>/dev/null
+fi
+
 
 # asdf_update_dotnet_home() {
 #   local dotnet_path

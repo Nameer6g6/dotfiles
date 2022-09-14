@@ -82,6 +82,9 @@ keymap('n', 'c[', '<Plug>(git-conflict-next-conflict)', opts)
 keymap('n', '<Space>cc', ":lua require('nvim-comment-frame').add_comment()<CR>", opts)
 keymap('n', '<Space>C', ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", opts)
 
+-- Clean trailing spaces and lines
+keymap('n', "<leader>es", [[<Cmd>%s/\s\+$//e<CR> | <Cmd>%s/\n\+\%$//e<CR>]], opts)
+
 -- inserting date
 keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
 

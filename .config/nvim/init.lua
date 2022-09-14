@@ -13,7 +13,15 @@ require "nvim_tree"
 require "treesitter"
 require "keymap"
 
--- require('vgit').setup()
+vim.cmd([[
+match ExtraBeginingLine /\%^\n\+$/
+" FIXME: empty trailing lines are not highlighted
+" match ExtraEndingLine /^\n\+\%$/
+match ExtraWhitespace /\s\+$/
+highlight ExtraWhitespace ctermbg=red guibg=red
+highlight ExtraEndingLine ctermbg=red guibg=red
+highlight ExtraBeginingLine ctermbg=red guibg=red
+]])
 
 -- require 'nvim-treesitter.install'.compilers = { 'clang' }
 -- -- NOTE: Config for calendar.vim

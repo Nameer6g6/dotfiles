@@ -49,14 +49,10 @@ end
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
 vim.opt_global.shortmess:remove("F"):append("c")
 
--- listchars = 'tab:\·\ ,trail:.,extends:#,nbsp:.', -- Note: old vim option
--- vim.opt.listchars:append("space:⋅")
--- vim.opt.listchars:append("eol:↴")
--- vim.opt.listchars:append("tabs:\.") -- BUG: Check why not working
--- vim.opt.listchars:append("trail:.")
--- vim.opt.listchars:append("nbsp:.")
+vim.opt.listchars = {trail = '⁖', precedes = '«', tab = [[»\]], extends = '#', space = ' ', eol = '↴', extends = '#', nbsp = '.'}
+vim.opt.list = true
 
-vim.opt.shortmess:append "c"
+-- vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
@@ -73,10 +69,10 @@ vim.g.NERDCompactSexyComs = 1
 vim.g.NERDDefaultAlign = 'left'
 
 -- Automatically deletes all trailing whitespace and newlines at end of file on save.
-vim.cmd([[
-  autocmd BufWritePre * %s/\s\+$//e
-  autocmd BufWritepre * %s/\n\+\%$//e
-]])
+-- vim.cmd([[
+--   autocmd BufWritePre * %s/\s\+$//e
+--   autocmd BufWritepre * %s/\n\+\%$//e
+-- ]])
 
 -- Find file with `find`
 -- vim.cmd('set path+=**')
@@ -104,7 +100,6 @@ vim.cmd([[
 --  set cursorline
 --  set laststatus=2
 --  set showtabline=2
-vim.opt.listchars:append("extends:#")
 
 -- code to check whether this is linux or wsl
 local is_wsl = (function()
