@@ -106,6 +106,7 @@ end
 -- Calendar
 keymap('n', '<leader>cal', '<cmd>Calendar<CR>', opts)
 
+-- Dap
 keymap('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>', opts)
 keymap('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>', opts)
 keymap('n', '<leader>dsi', '<cmd>lua require"dap".step_into()<CR>', opts)
@@ -134,7 +135,7 @@ keymap("i", "jk", "<ESC>", opts)
 -- inserting date
 -- nnoremap <leader>td "=strftime("%Y-%m-%d")<CR>P
 -- inoremap <leader>td <C-R>=strftime("%Y-%m-%d")<CR>
-keymap('i', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
+keymap('i', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")<CR>", opts)
 
 -- NOTE: Visual mapping
 -- Stay in indent mode
@@ -168,4 +169,4 @@ keymap("t", "<C-\\><C-\\>", "<C-\\><C-N>", term_opts)
 
 -- keymap("n", "<leader>f", "<cmd>Telescope find_files<cr>", opts)
 -- keymap("n", "<leader>f", "<cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ previewer = false }))<cr>", opts)
-keymap("n", "<c-t>", "<cmd>Telescope live_grep<cr>", opts)
+keymap("n", "<leader>tg", "<cmd>Telescope live_grep<cr>", opts)
