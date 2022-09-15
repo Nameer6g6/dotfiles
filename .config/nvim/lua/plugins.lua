@@ -111,6 +111,8 @@ packer.startup(function()
   -- use 'chentoast/marks.nvim'
   use 'NFrid/due.nvim'
   -- use 'glepnir/dashboard-nvim'
+  use 'simrat39/symbols-outline.nvim'
+  use 'ludovicchabant/vim-gutentags'
 
   -- Status bar
   use {'glepnir/galaxyline.nvim' , branch= 'main' }
