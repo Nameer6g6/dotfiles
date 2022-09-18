@@ -1,5 +1,5 @@
 require("dap_configs.dap_virtual_text")
-require("dap_configs.debuggers_config.csharp")
+require("dap_configs.dapui")
 
 local dap_ok, _ = pcall(require, "dap")
 if not dap_ok then
