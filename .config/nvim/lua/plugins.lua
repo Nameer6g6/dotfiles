@@ -112,6 +112,7 @@ packer.startup(function()
   use 'NFrid/due.nvim'
   -- use 'glepnir/dashboard-nvim'
   use 'simrat39/symbols-outline.nvim'
+  use 'liuchengxu/vista.vim'
   use 'ludovicchabant/vim-gutentags'
 
   -- Status bar
@@ -190,9 +191,9 @@ packer.startup(function()
   --       'nvim-lua/plenary.nvim'
   --     }
   -- }
-  -- use 'tpope/vim-fugitive'
   -- use 'rbong/vim-flog'
   -- use 'jreybert/vimagit'
+  use 'tpope/vim-fugitive'
   use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
   use "lewis6991/gitsigns.nvim"
 	use {
@@ -220,7 +221,7 @@ packer.startup(function()
 
   -- Elixir Support
   -- use 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
-  use {'slashmili/alchemist.vim', ft = {"elixir", "eelixir"}}
+  -- use {'slashmili/alchemist.vim', ft = {"elixir", "eelixir"}}
   use {'BjRo/vim-extest', ft = {"elixir", "eelixir"}}
   use {'avdgaag/vim-phoenix', ft = {"elixir", "eelixir"}}
   use {'elixir-lang/vim-elixir', ft = {"elixir", "eelixir"}}
