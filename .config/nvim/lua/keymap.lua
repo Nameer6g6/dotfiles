@@ -18,7 +18,9 @@ local keymap = vim.api.nvim_set_keymap
 --   term_mode = "t",
 --   command_mode = "c",
 
--- NOTE: Normal mapping
+----------------------------------------------------------------------
+--                          Normal mapping                          --
+----------------------------------------------------------------------
 -- Better window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-j>", "<C-w>j", opts)
@@ -94,6 +96,13 @@ vim.cmd([[
   nnoremap <leader>tj :TagbarOpen j<CR>
   nnoremap <silent><expr> <Leader>tj bufname() =~# '.Tagbar.' ? "\<C-w>\<C-p>" : ":TagbarOpen j<CR>"]])
 
+-- Vista
+-- TODO: Fix setting dynamicall appropiate option tags
+keymap('n', "<Space>tv", ":Vista!! nvim_lsp<CR>", opts)
+
+-- SymbolsOutline
+keymap('n', "<Space>ts", ":SymbolsOutline<CR>", opts)
+
 -- Zen-mode
 keymap('n', "<Space>z", ":ZenMode<CR>", opts)
 
@@ -107,15 +116,15 @@ end
 keymap('n', '<leader>cal', '<cmd>Calendar<CR>', opts)
 
 -- Dap
-keymap('n', '<leader>dc', '<cmd>lua require"dap".continue()<CR>', opts)
-keymap('n', '<leader>dsv', '<cmd>lua require"dap".step_over()<CR>', opts)
-keymap('n', '<leader>dsi', '<cmd>lua require"dap".step_into()<CR>', opts)
-keymap('n', '<leader>dso', '<cmd>lua require"dap".step_out()<CR>', opts)
-keymap('n', '<leader>dtb', '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
-keymap('n', '<leader>dsbr', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', opts)
-keymap('n', '<leader>dsbm', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
-keymap('n', '<leader>dro', '<cmd>lua require"dap".repl.open()<CR>', opts)
-keymap('n', '<leader>drl', '<cmd>lua require"dap".repl.run_last()<CR>', opts)
+keymap('n', "<Space>dc",   '<cmd>lua require"dap".continue()<CR>', opts)
+keymap('n', "<F10>",       '<cmd>lua require"dap".step_over()<CR>', opts)
+keymap('n', "<F11>",       '<cmd>lua require"dap".step_into()<CR>', opts)
+keymap('n', "<F12>",       '<cmd>lua require"dap".step_out()<CR>', opts)
+keymap('n', '<Space>db',  '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
+keymap('n', '<Space>dB', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', opts)
+keymap('n', '<Space>dlp', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
+keymap('n', '<Space>ddr', '<cmd>lua require"dap".repl.open()<CR>', opts)
+keymap('n', '<Space>ddl', '<cmd>lua require"dap".repl.run_last()<CR>', opts)
 
 -- open link
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
@@ -128,8 +137,9 @@ keymap('n', '<Space>nj', ':Neorg journal today<CR>', opts)
 keymap('n', '<Space>nt', ':Neorg toc split<CR>', opts)
 keymap('n', '<Space>nc', ':Neorg toc close<CR>', opts)
 
-
--- NOTE: Insert mapping
+----------------------------------------------------------------------
+--                          Insert mapping                          --
+----------------------------------------------------------------------
 -- Press jk fast to enter
 keymap("i", "jk", "<ESC>", opts)
 -- inserting date
@@ -137,7 +147,7 @@ keymap("i", "jk", "<ESC>", opts)
 -- inoremap <leader>td <C-R>=strftime("%Y-%m-%d")<CR>
 keymap('i', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")<CR>", opts)
 
--- NOTE: Visual mapping
+-- Visual mapping
 -- Stay in indent mode
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
@@ -147,15 +157,16 @@ keymap("v", "<A-j>", ":m .+1<CR>==", opts)
 keymap("v", "<A-k>", ":m .-2<CR>==", opts)
 keymap("v", "p", '"_dP', opts)
 
-
--- NOTE: Visual Block mapping
+-- Visual Block mapping
 -- Move text up and down
 -- keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
 -- keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- NOTE: Terminal mapping
+----------------------------------------------------------------------
+--                         Terminal mapping                         --
+----------------------------------------------------------------------
 -- Better terminal navigation
 -- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
 -- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)

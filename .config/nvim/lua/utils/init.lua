@@ -1,14 +1,13 @@
-require("utils.options")
-require("utils.colorscheme")
-require("utils.blank_line")
-require("utils.commands")
 require("utils.auto_pairs")
-require("utils.numb")
+require("utils.blank_line")
+require("utils.colorscheme")
+require("utils.commands")
 require("utils.formatter")
-require("utils.zen_mode")
-require("utils.twilight")
 require("utils.marks")
-require("utils.tagbar")
+require("utils.numb")
+require("utils.options")
+require("utils.twilight")
+require("utils.zen_mode")
 
 
 -- WARNING: need checking
