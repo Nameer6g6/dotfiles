@@ -47,12 +47,12 @@ for k, v in pairs(options) do
 end
 
 vim.opt_global.completeopt = { "menuone", "noinsert", "noselect" }
-vim.opt_global.shortmess:remove("F"):append("c")
+-- TODO: disabled temporary
+-- vim.opt_global.shortmess:remove("f"):append("c")
 
 vim.opt.listchars = {trail = '⁖', precedes = '«', tab = [[»\]], extends = '#', space = ' ', eol = '↴', extends = '#', nbsp = '.'}
 vim.opt.list = true
 
--- vim.opt.shortmess:append "c"
 vim.cmd "set whichwrap+=<,>,[,],h,l"
 vim.cmd [[set iskeyword+=-]]
 vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
