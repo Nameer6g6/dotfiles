@@ -15,11 +15,13 @@ require("nvim-tree").setup {
   sync_root_with_cwd = false,
   reload_on_bufenter = false,
   respect_buf_cwd = false,
+  on_attach = "disable",
+  remove_keymaps = false,
+  select_prompts = false,
   view = {
     adaptive_size = false,
     centralize_selection = false,
     width = 30,
-    height = 30,
     hide_root_folder = false,
     side = "left",
     preserve_window_proportions = true,
@@ -32,6 +34,17 @@ require("nvim-tree").setup {
         -- user mappings go here
       },
     },
+    float = {
+      enable = false,
+      open_win_config = {
+        relative = "editor",
+        border = "rounded",
+        width = 30,
+        height = 30,
+        row = 1,
+        col = 1,
+      },
+    },
   },
   renderer = {
     add_trailing = false,
@@ -40,12 +53,14 @@ require("nvim-tree").setup {
     full_name = false,
     highlight_opened_files = "none",
     root_folder_modifier = ":~",
+    indent_width = 2,
     indent_markers = {
       enable = false,
       icons = {
         corner = "└ ",
         edge = "│ ",
         item = "│ ",
+        bottom = "─",
         none = "  ",
       },
     },
@@ -63,6 +78,7 @@ require("nvim-tree").setup {
       glyphs = {
         default = "",
         symlink = "",
+        bookmark = "",
         folder = {
           arrow_closed = "",
           arrow_open = "",
@@ -85,7 +101,7 @@ require("nvim-tree").setup {
       },
     },
     special_files = { "Cargo.toml", "Makefile", "README.md", "readme.md" },
-    -- symlink_destination = true,
+    symlink_destination = true
   },
   hijack_directories = {
     enable = true,
@@ -104,6 +120,7 @@ require("nvim-tree").setup {
   diagnostics = {
     enable = false,
     show_on_dirs = false,
+    debounce_delay = 50,
     icons = {
       hint = "",
       info = "",
@@ -117,14 +134,13 @@ require("nvim-tree").setup {
     exclude = {},
   },
   filesystem_watchers = {
-    enable = false,
-    interval = 100,
+    enable = true,
     debounce_delay = 50,
   },
   git = {
     enable = true,
     ignore = true,
-    -- show_on_dirs = true,
+    show_on_dirs = true,
     timeout = 400,
   },
   actions = {
@@ -136,7 +152,7 @@ require("nvim-tree").setup {
     },
     expand_all = {
       max_folder_discovery = 300,
-      -- exclude = {},
+      exclude = {}
     },
     open_file = {
       quit_on_open = false,

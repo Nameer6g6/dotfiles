@@ -55,23 +55,10 @@ packer.startup(function()
     }
     use 'nvim-telescope/telescope-media-files.nvim'
     use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use {
-      'numtostr/FTerm.nvim',
-      config = function ()
-        require'FTerm'.setup {
-            border = 'double',
-            dimensions  = {
-              height = 0.9, -- Height of the terminal window
-              width = 0.9, -- Width of the terminal window
-              -- x = 0.5, -- X axis of the terminal window
-              -- y = 0.5, -- Y axis of the terminal window
-            },
-          }
-      end
-    }
+    use "numtostr/FTerm.nvim"
     use 'nvim-pack/nvim-spectre'
     use 'windwp/nvim-autopairs'
-    use 'tversteeg/registers.nvim'
+    -- use "tversteeg/registers.nvim"
     use 'nacro90/numb.nvim'
     use {
       'haringsrob/nvim_context_vt',
