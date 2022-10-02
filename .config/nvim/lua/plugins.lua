@@ -58,7 +58,7 @@ packer.startup(function()
     use "numtostr/FTerm.nvim"
     use 'nvim-pack/nvim-spectre'
     use 'windwp/nvim-autopairs'
-    use 'tversteeg/registers.nvim'
+    -- use "tversteeg/registers.nvim"
     use 'nacro90/numb.nvim'
     use {
       'haringsrob/nvim_context_vt',
