@@ -62,12 +62,7 @@ vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
 vim.cmd "autocmd InsertEnter * silent! setlocal norelativenumber"
 vim.cmd "autocmd InsertLeave * silent! setlocal relativenumber"
 
--- NerdComment configs
-vim.g.NERDCreateDefaultMappings = 1
-vim.g.NERDSpaceDelims = 1
-vim.g.NERDCompactSexyComs = 1
-vim.g.NERDDefaultAlign = 'left'
-
+-- NOTE: Currently auto clear up is disabled and issue it by command
 -- Automatically deletes all trailing whitespace and newlines at end of file on save.
 -- vim.cmd([[
 --   autocmd BufWritePre * %s/\s\+$//e

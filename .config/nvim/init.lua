@@ -13,6 +13,7 @@ require "status_line"
 require "nvim_tree"
 require "treesitter"
 require "keymap"
+require "comment"
 
 vim.cmd([[
 match ExtraBeginingLine /\%^\n\+$/

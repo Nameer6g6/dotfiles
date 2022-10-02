@@ -114,7 +114,7 @@ packer.startup(function()
   use "Pocco81/DAPInstall.nvim"
 
   -- Commenting plugin
-  use 'scrooloose/nerdcommenter'
+  use "numToStr/Comment.nvim"
   use {
     "danymat/neogen",
     config = function()
@@ -129,15 +129,7 @@ packer.startup(function()
       require("todo-comments").setup {}
     end
   }
-  use {
-    's1n7ax/nvim-comment-frame',
-    requires = {
-      { 'nvim-treesitter' }
-    },
-    config = function()
-      require('nvim-comment-frame').setup()
-    end
-  }
+  use "s1n7ax/nvim-comment-frame"
 
   -- Generic Programming Support
   use 'majutsushi/tagbar'
