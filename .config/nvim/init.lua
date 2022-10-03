@@ -25,8 +25,8 @@ highlight ExtraEndingLine ctermbg=red guibg=red
 highlight ExtraBeginingLine ctermbg=red guibg=red
 ]])
 
--- require 'nvim-treesitter.install'.compilers = { 'clang' }
--- -- NOTE: Config for calendar.vim
+--
+-- Config for calendar.vim
 -- vim.cmd([[
 -- let g:calendar_google_calendar = 1
 -- let g:calendar_google_task = 1
