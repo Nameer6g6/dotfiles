@@ -84,7 +84,7 @@ tokyo_night.setup({
 -- Current avaialbe themes: day, storm, moon and night
 -- NOTE: set colorscheme based on time
 vim.cmd([[
-  if strftime("%H") >= 5 && strftime("%H") < 18
+  if strftime("%H") >= 12 && strftime("%H") < 16
     colorscheme tokyonight-day
   else
     colorscheme tokyonight-storm
