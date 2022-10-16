@@ -143,6 +143,7 @@ packer.startup(function()
 
   -- Distraction free
   use "folke/zen-mode.nvim"
+  use "Pocco81/true-zen.nvim"
   use "folke/twilight.nvim"
   use 'junegunn/goyo.vim'
   use 'junegunn/limelight.vim'
