@@ -8,7 +8,6 @@ require("utils.marks")
 require("utils.numb")
 require("utils.options")
 require("utils.twilight")
-require("utils.zen_mode")
 
 
 -- WARNING: need checking

@@ -209,7 +209,7 @@ myStartupHook = do
     -- spawnOnce "trayer --expand true  --transparent true  --alpha 255 --edge bottom --align right --expand true --SetDockType true --widthtype request"
     spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 2 --transparent true --alpha 0 --tint 0x292d3e --height 22"
     -- spawnOnce "xmodmap ~/.Xmodmap"
-    spawnOnce "setxkbmap -option caps:swapescape"
+    spawnOnce "setxkbmap -option caps:swapescape -option compose:ralt"
     spawnOnce "nitrogen --restore &"
     spawnOnce "clipit"
 

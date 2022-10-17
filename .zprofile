@@ -12,10 +12,11 @@ export PATH
 
 # Default programs:
 export EDITOR="nvim"
+export MANPAGER='nvim +Man!'
+export TERM='xterm-256color'
 export TERMINAL="st"
 export BROWSER="firefox"
 export READER="zathura"
-
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
@@ -37,7 +38,6 @@ if [[ $TERM == xterm-alacritty ]]; then
   . /etc/profile.d/vte.sh
   __vte_osc7
 fi
-
 
 export LF_ICONS="di=📁:\
 fi=📃:\

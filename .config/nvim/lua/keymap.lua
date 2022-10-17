@@ -42,100 +42,102 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- FTerm
-keymap('n', '<A-i>', '<CMD>lua require("FTerm").toggle()<CR>', opts)
-keymap('t', '<A-i>', '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
+keymap("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>', opts)
+keymap("t", "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 
 -- NvimTree
-keymap('n', '<C-n>', ':NvimTreeToggle<CR>', opts)
-keymap('n', '<leader>r', ':NvimTreeRefresh<CR>', opts)
-keymap('n', '<leader>n', ':NvimTreeFindFile<CR>', opts)
+keymap("n", "<C-n>", ":NvimTreeToggle<CR>", opts)
+keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", opts)
+keymap("n", "<leader>n", ":NvimTreeFindFile<CR>", opts)
 
 -- Go to tab by number
-keymap('n', '<leader>1', '1gt', opts)
-keymap('n', '<leader>2', '2gt', opts)
-keymap('n', '<leader>3', '3gt', opts)
-keymap('n', '<leader>4', '4gt', opts)
-keymap('n', '<leader>5', '5gt', opts)
-keymap('n', '<leader>6', '6gt', opts)
-keymap('n', '<leader>7', '7gt', opts)
-keymap('n', '<leader>8', '8gt', opts)
-keymap('n', '<leader>9', '9gt', opts)
-keymap('n', '<leader>0', ':tablast<CR>', opts)
+keymap("n", "<leader>1", "1gt", opts)
+keymap("n", "<leader>2", "2gt", opts)
+keymap("n", "<leader>3", "3gt", opts)
+keymap("n", "<leader>4", "4gt", opts)
+keymap("n", "<leader>5", "5gt", opts)
+keymap("n", "<leader>6", "6gt", opts)
+keymap("n", "<leader>7", "7gt", opts)
+keymap("n", "<leader>8", "8gt", opts)
+keymap("n", "<leader>9", "9gt", opts)
+keymap("n", "<leader>0", ":tablast<CR>", opts)
 
 -- Gitsigns keymaps
-keymap('n', '<Space>g]', '<Cmd>Gitsigns prev_hunk<CR>', opts)
-keymap('n', '<Space>g[', '<Cmd>Gitsigns next_hunk<CR>', opts)
-keymap('n', '<Space>gd', '<Cmd>Gitsigns diffthis<CR>', opts)
-keymap('n', '<Space>ga', '<Cmd>Gitsigns stage_hunk<CR>', opts)
-keymap('n', '<Space>gu', '<Cmd>Gitsigns undo_stage_hunk<CR>', opts)
-keymap('n', '<Space>gr', '<Cmd>Gitsigns reset_hunk<CR>', opts)
-keymap('n', '<Space>gs', '<Cmd>Gitsigns select_hunk<CR>', opts)
-keymap('n', '<Space>gb', '<Cmd>Gitsigns toggle_current_line_blame<CR>', opts)
+keymap("n", "<Space>g]", "<Cmd>Gitsigns prev_hunk<CR>", opts)
+keymap("n", "<Space>g[", "<Cmd>Gitsigns next_hunk<CR>", opts)
+keymap("n", "<Space>gd", "<Cmd>Gitsigns diffthis<CR>", opts)
+keymap("n", "<Space>ga", "<Cmd>Gitsigns stage_hunk<CR>", opts)
+keymap("n", "<Space>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>", opts)
+keymap("n", "<Space>gr", "<Cmd>Gitsigns reset_hunk<CR>", opts)
+keymap("n", "<Space>gs", "<Cmd>Gitsigns select_hunk<CR>", opts)
+keymap("n", "<Space>gb", "<Cmd>Gitsigns toggle_current_line_blame<CR>", opts)
 
 -- Git-Conflict keymaps
-keymap('n', 'co', '<Plug>(git-conflict-ours)', opts)
-keymap('n', 'ct', '<Plug>(git-conflict-theirs)', opts)
-keymap('n', 'cb', '<Plug>(git-conflict-both)', opts)
-keymap('n', 'c0', '<Plug>(git-conflict-none)', opts)
-keymap('n', 'c]', '<Plug>(git-conflict-prev-conflict)', opts)
-keymap('n', 'c[', '<Plug>(git-conflict-next-conflict)', opts)
+keymap("n", "co", "<Plug>(git-conflict-ours)", opts)
+keymap("n", "ct", "<Plug>(git-conflict-theirs)", opts)
+keymap("n", "cb", "<Plug>(git-conflict-both)", opts)
+keymap("n", "c0", "<Plug>(git-conflict-none)", opts)
+keymap("n", "c]", "<Plug>(git-conflict-prev-conflict)", opts)
+keymap("n", "c[", "<Plug>(git-conflict-next-conflict)", opts)
 
 -- Comment Frame keymaps
-keymap('n', '<Space>cc', ":lua require('nvim-comment-frame').add_comment()<CR>", opts)
-keymap('n', '<Space>C', ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", opts)
+keymap("n", "<Space>cc", ":lua require('nvim-comment-frame').add_comment()<CR>", opts)
+keymap("n", "<Space>C", ":lua require('nvim-comment-frame').add_multiline_comment()<CR>", opts)
 
 -- Clean trailing spaces and lines
-keymap('n', "<leader>es", [[<Cmd>%s/\s\+$//e<CR> | <Cmd>%s/\n\+\%$//e<CR>]], opts)
+keymap("n", "<leader>es", [[<Cmd>%s/\s\+$//e<CR> | <Cmd>%s/\n\+\%$//e<CR>]], opts)
 
 -- inserting date
-keymap('n', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")", opts)
+keymap("n", "<leader>td", '<C-R>=strftime("%Y-%m-%d")', opts)
 
 -- Tagbar
-keymap('n', "<F8>", ":TagbarToggle<CR>", opts)
-vim.cmd([[
+keymap("n", "<F8>", ":TagbarToggle<CR>", opts)
+vim.cmd [[
   nnoremap <leader>tj :TagbarOpen j<CR>
-  nnoremap <silent><expr> <Leader>tj bufname() =~# '.Tagbar.' ? "\<C-w>\<C-p>" : ":TagbarOpen j<CR>"]])
+  nnoremap <silent><expr> <Leader>tj bufname() =~# '.Tagbar.' ? "\<C-w>\<C-p>" : ":TagbarOpen j<CR>"]]
 
 -- Vista
 -- TODO: Fix setting dynamicall appropiate option tags
-keymap('n', "<Space>tv", ":Vista!! nvim_lsp<CR>", opts)
+keymap("n", "<Space>tv", ":Vista!! nvim_lsp<CR>", opts)
 
 -- SymbolsOutline
-keymap('n', "<Space>ts", ":SymbolsOutline<CR>", opts)
+keymap("n", "<Space>ts", ":SymbolsOutline<CR>", opts)
 
 -- Zen-mode
-keymap('n', "<Space>z", ":ZenMode<CR>", opts)
+keymap("n", "<Space>z", ":ZenMode<CR>", opts)
 
 -- BUG: not working
-if (vim.bo.filetype == "markdown" or vim.bo.filetype == "tex") then
-  keymap('n', "<F5>", ":lua require('nabla').action()<CR>", opts)
-  keymap('n', "<leader>p", ":lua require('nabla').popup()<CR> ", opts) -- " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
+if vim.bo.filetype == "markdown" or vim.bo.filetype == "tex" then
+  keymap("n", "<F5>", ":lua require('nabla').action()<CR>", opts)
+  keymap("n", "<leader>p", ":lua require('nabla').popup()<CR> ", opts) -- " Customize with popup({border = ...})  : `single` (default), `double`, `rounded`
 end
 
 -- Calendar
-keymap('n', '<leader>cal', '<cmd>Calendar<CR>', opts)
+keymap("n", "<leader>cal", "<cmd>Calendar<CR>", opts)
 
 -- Dap
-keymap('n', "<Space>dc",   '<cmd>lua require"dap".continue()<CR>', opts)
-keymap('n', "<F10>",       '<cmd>lua require"dap".step_over()<CR>', opts)
-keymap('n', "<F11>",       '<cmd>lua require"dap".step_into()<CR>', opts)
-keymap('n', "<F12>",       '<cmd>lua require"dap".step_out()<CR>', opts)
-keymap('n', '<Space>db',  '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
-keymap('n', '<Space>dB', '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', opts)
-keymap('n', '<Space>dlp', '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>', opts)
-keymap('n', '<Space>ddr', '<cmd>lua require"dap".repl.open()<CR>', opts)
-keymap('n', '<Space>ddl', '<cmd>lua require"dap".repl.run_last()<CR>', opts)
+keymap("n", "<Space>dc", '<cmd>lua require"dap".continue()<CR>', opts)
+keymap("n", "<F10>", '<cmd>lua require"dap".step_over()<CR>', opts)
+keymap("n", "<F11>", '<cmd>lua require"dap".step_into()<CR>', opts)
+keymap("n", "<F12>", '<cmd>lua require"dap".step_out()<CR>', opts)
+keymap("n", "<Space>db", '<cmd>lua require"dap".toggle_breakpoint()<CR>', opts)
+keymap("n", "<Space>dB", '<cmd>lua require"dap".set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', opts)
+keymap(
+  "n",
+  "<Space>dlp",
+  '<cmd>lua require"dap".set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>',
+  opts
+)
+keymap("n", "<Space>ddr", '<cmd>lua require"dap".repl.open()<CR>', opts)
+keymap("n", "<Space>ddl", '<cmd>lua require"dap".repl.run_last()<CR>', opts)
 
 -- open link
 keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
 
 -- Neorg
-keymap('n', '<Space>ngv', ':Neorg gtd views<CR>', opts)
-keymap('n', '<Space>nge', ':Neorg gtd edit<CR>', opts)
-keymap('n', '<Space>ngc', ':Neorg gtd capture<CR>', opts)
-keymap('n', '<Space>nj', ':Neorg journal today<CR>', opts)
-keymap('n', '<Space>nt', ':Neorg toc split<CR>', opts)
-keymap('n', '<Space>nc', ':Neorg toc close<CR>', opts)
+keymap("n", "<Space>nj", ":Neorg journal today<CR>", opts)
+keymap("n", "<Space>nt", ":Neorg toc split<CR>", opts)
+keymap("n", "<Space>nc", ":Neorg toc close<CR>", opts)
 
 ----------------------------------------------------------------------
 --                          Insert mapping                          --
@@ -145,7 +147,7 @@ keymap("i", "jk", "<ESC>", opts)
 -- inserting date
 -- nnoremap <leader>td "=strftime("%Y-%m-%d")<CR>P
 -- inoremap <leader>td <C-R>=strftime("%Y-%m-%d")<CR>
-keymap('i', "<leader>td", "<C-R>=strftime(\"%Y-%m-%d\")<CR>", opts)
+keymap("i", "<leader>td", '<C-R>=strftime("%Y-%m-%d")<CR>', opts)
 
 -- Visual mapping
 -- Stay in indent mode
