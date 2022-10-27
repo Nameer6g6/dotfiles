@@ -66,7 +66,8 @@ packer.startup(function()
       require("nvim_context_vt").setup()
     end,
   }
-  use { "kevinhwang91/nvim-bqf" }
+  use "kevinhwang91/nvim-bqf"
+  use "folke/trouble.nvim"
   -- use {
   --   "AckslD/nvim-gfold.lua",
   --   config = function()

@@ -8,7 +8,8 @@ require "utils.marks"
 require "utils.numb"
 require "utils.options"
 require "utils.twilight"
-require "utils.quickfix_config"
+require "utils.trouble_config"
+-- require "utils.quickfix_config"
 
 -- WARNING: need checking
 vim.cmd "hi diffAdded   ctermfg=green"
