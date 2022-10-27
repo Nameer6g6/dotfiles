@@ -28,10 +28,12 @@ include "%L"
 <Multi_key> <i>          <n>       <t>          : "∫"
 
 # German
-<Multi_key> <g> <s> <s> 	: "ß"
-<Multi_key> <g>	<u>  			: "ü"
-<Multi_key> <g>	<a>	<a> 	: "ä"
-<Multi_key> <g> <o> 			: "ö"
+<Multi_key> <g> <s> <s>   : "ß"
+<Multi_key> <g> <s> <s>   : "ß"
+<Multi_key> <g>	<u>       : "ü"
+<Multi_key> <g>	<a>	<a>   : "ä"
+<Multi_key> <g> <o>       : "ö"
+<Multi_key> <g> <e>       : "€"
 
 # Lowercase Greek
 <Multi_key> <a> <l> <p> : "α"
