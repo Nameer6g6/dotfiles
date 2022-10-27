@@ -4,11 +4,12 @@
 --     autocmd BufWritePost *.js,*.rs,*.lua FormatWrite
 --   augroup END
 --   ]], true)
-vim.cmd([[
+vim.cmd [[
   let g:neoformat_try_node_exe = 1
   let g:neoformat_enabled_purescript = ['purstidy']
+  let g:shfmt_opt="-ci"
   augroup fmt
     autocmd!
     autocmd BufWritePre * undojoin | Neoformat
   augroup END
-]])
+]]
