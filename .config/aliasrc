@@ -5,19 +5,19 @@ command -v nvim >/dev/null && alias vim="nvim" vimdiff="nvim -d" vimConf="nvim ~
 
 # git aliases
 alias \
-   gitAdog="git log --all --graph --decorate --oneline" \
-   gitAhusky="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %C(red)%an%C(reset)%C(bold yellow)%d%C(reset)' --all" \
-   gitAhusky2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''%C(white)%s%C(reset) %C(white)- %C(red)%an%C(reset)' --all"
+  gitAdog="git log --all --graph --decorate --oneline" \
+  gitAhusky="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(white)- %C(red)%an%C(reset)%C(bold yellow)%d%C(reset)' --all" \
+  gitAhusky2="git log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(bold yellow)%d%C(reset)%n''%C(white)%s%C(reset) %C(white)- %C(red)%an%C(reset)' --all"
 
 # Command to check docker container IP
-command -v dokcer >/dev/null  && alias docker_container_rm="docker rm $(docker ps -a -q)"
+command -v dokcer >/dev/null && alias docker_container_rm="docker rm $(docker ps -a -q)"
 
 # change-commits="!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" \$@; }; f"
 
 # aliasing bins
 alias \
-   tb="taskbook" \
-   newsboat="nbrun"
+  tb="taskbook" \
+  newsboat="nbrun"
 
 alias nuget="mono /usr/local/bin/nuget.exe"
 
@@ -42,47 +42,45 @@ alias pacmanFzf="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --
 
 # Colorize commands when possible.
 alias \
-   ls="exa --icons --group-directories-first"
-	grep="grep --color=auto" \
-	diff="diff --color=auto" \
-	ccat="highlight --out-format=ansi"
-
-# ls="colorls -h --group-directories-first"
+  ls="exa --icons --group-directories-first" \
+  grep="grep --color=auto" \
+  diff="diff --color=auto" \
+  ccat="highlight --out-format=ansi"
 
 # Verbosity and settings that you pretty much just always are going to want.
 alias \
- 	mkd="mkdir -pv" \
- 	duLsHid="du -sch .[!.]* * | sort -h" \
-   yt="youtube-dl --add-metadata -i" \
-   xmonadRecompile="PATH=/usr/bin; xmonad --recompile"
+  mkd="mkdir -pv" \
+  duLsHid="du -sch .[!.]* * | sort -h" \
+  yt="youtube-dl --add-metadata -i" \
+  xmonadRecompile="PATH=/usr/bin; xmonad --recompile" \
+  nixUpdate="nix-channel --update && nix-env -u '*'"
 #  	cp="cp -iv" \
 #  	mv="mv -iv" \
 #  	rm="rm -vI" \
 #  	yta="yt -x -f bestaudio/best" \
 #  	ffmpeg="ffmpeg -hide_banner"
 
-
 # These common commands are just too long! Abbreviate them.
 alias \
-   ka="killall" \
-   e="$EDITOR" \
-   v="$EDITOR" \
-   z="zathura" \
-   psDir="cd $HOME/workspace/haskell/PureScript_dir" \
-   hsDir="cd $HOME/workspace/haskell" \
-   rbDir="cd $HOME/workspace/ruby" \
-   raDir="cd $HOME/workspace/rails" \
-   jsDir="cd $HOME/workspace/javascript" \
-   exDir="cd $HOME/workspace/elixir" \
-   csDir="cd $HOME/workspace/csharp" \
-   rsDir="cd $HOME/workspace/rust" \
-   fsDir="cd $HOME/workspace/fsharp" \
-   pyDir="cd $HOME/workspace/python" \
-   alDir="cd $HOME/workspace/algorithms/" \
-   ntDir="cd $HOME/Documents/Neorg/" \
-   gtdInbox="cd $HOME/Documents/Neorg/gtd && vim inbox.norg" \
-   vimDir="cd $HOME/.config/nvim/" \
- 	 lf="lfrun"
+  ka="killall" \
+  e="$EDITOR" \
+  v="$EDITOR" \
+  z="zathura" \
+  psDir="cd $HOME/workspace/haskell/PureScript_dir" \
+  hsDir="cd $HOME/workspace/haskell" \
+  rbDir="cd $HOME/workspace/ruby" \
+  raDir="cd $HOME/workspace/rails" \
+  jsDir="cd $HOME/workspace/javascript" \
+  exDir="cd $HOME/workspace/elixir" \
+  csDir="cd $HOME/workspace/csharp" \
+  rsDir="cd $HOME/workspace/rust" \
+  fsDir="cd $HOME/workspace/fsharp" \
+  pyDir="cd $HOME/workspace/python" \
+  alDir="cd $HOME/workspace/algorithms/" \
+  ntDir="cd $HOME/Documents/Neorg/" \
+  gtdInbox="cd $HOME/Documents/Neorg/gtd && vim inbox.norg" \
+  vimDir="cd $HOME/.config/nvim/" \
+  lf="lfrun"
 # 	g="git" \
 # 	trem="transmission-remote" \
 # 	YT="youtube-viewer" \
@@ -98,9 +96,3 @@ alias \
 # 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
 # 	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
 # 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
-
-# Frameworks commands abbreviations
-alias \
-   djServer="python manage.py runserver"
-   djCli="python manage.py shell"
-   djRoutes="python manage.py show_urls"
