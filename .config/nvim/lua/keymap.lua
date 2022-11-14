@@ -97,8 +97,7 @@ vim.cmd [[
   nnoremap <silent><expr> <Leader>tj bufname() =~# '.Tagbar.' ? "\<C-w>\<C-p>" : ":TagbarOpen j<CR>"]]
 
 -- Vista
--- TODO: Fix setting dynamicall appropiate option tags
-keymap("n", "<Space>tv", ":Vista!! nvim_lsp<CR>", opts)
+keymap("n", "<Space>tv", ":Vista<CR>", opts)
 
 -- SymbolsOutline
 keymap("n", "<Space>ts", ":SymbolsOutline<CR>", opts)
