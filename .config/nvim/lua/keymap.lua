@@ -137,6 +137,7 @@ keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>')
 keymap("n", "<Space>nj", ":Neorg journal today<CR>", opts)
 keymap("n", "<Space>nt", ":Neorg toc split<CR>", opts)
 keymap("n", "<Space>nc", ":Neorg toc close<CR>", opts)
+keymap("n", "<Space>ns", ":Neorg index<CR>", opts)
 
 ----------------------------------------------------------------------
 --                          Insert mapping                          --
