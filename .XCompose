@@ -28,13 +28,13 @@ include "%L"
 <Multi_key> <i>          <n>       <t>          : "∫"
 
 # German
-<Multi_key> <g> <s> <s>   : "ß"
+<Multi_key> <g> <s>       : "ß"
 <Multi_key> <g>	<u>       : "ü"
 <Multi_key> <g>	<U>       : "Ü"
 <Multi_key> <g>	<a>       : "ä"
 <Multi_key> <g>	<A>       : "Ä"
 <Multi_key> <g> <o>       : "ö"
-<Multi_key> <g> <o>       : "Ö"
+<Multi_key> <g> <O>       : "Ö"
 <Multi_key> <g> <e>       : "€"
 
 # Lowercase Greek
