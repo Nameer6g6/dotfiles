@@ -15,7 +15,7 @@ require "treesitter"
 require "keymap"
 require "comment"
 
-vim.cmd([[
+vim.cmd [[
 match ExtraBeginingLine /\%^\n\+$/
 " FIXME: empty trailing lines are not highlighted
 " match ExtraEndingLine /^\n\+\%$/
@@ -23,7 +23,10 @@ match ExtraWhitespace /\s\+$/
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight ExtraEndingLine ctermbg=red guibg=red
 highlight ExtraBeginingLine ctermbg=red guibg=red
-]])
+]]
+
+rcsv_colorpairs =
+  [['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', 'magenta'], ['NONE', 'NONE'], ['darkred', 'darkred'], ['darkblue', 'darkblue'], ['darkgreen', 'darkgreen'], ['darkmagenta', 'darkmagenta'], ['darkcyan', 'darkcyan']]
 
 --
 -- Config for calendar.vim
