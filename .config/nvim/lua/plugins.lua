@@ -230,7 +230,6 @@ packer.startup(function()
   -- use 'sriharshachilakapati/vimmer-ps'
 
   -- Fsharp Support
-  use { "lucasteles/fsi.vim", ft = "fsharp" }
   use { "yatli/fvim", ft = "fsharp" }
 
   -- Crystal Support
@@ -339,7 +338,6 @@ packer.startup(function()
   use "quangnguyen30192/cmp-nvim-tags"
   use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
   use "ray-x/cmp-treesitter"
-  use "p00f/nvim-ts-rainbow"
   use "kdheepak/cmp-latex-symbols"
   use "hrsh7th/cmp-nvim-lsp-document-symbol"
   use "hrsh7th/cmp-calc"

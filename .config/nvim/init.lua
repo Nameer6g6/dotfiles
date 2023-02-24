@@ -2,7 +2,6 @@ require "plugins"
 require "utils"
 require "notify_configs"
 require "dap_configs"
-require "neorg_configs"
 require "git"
 require "tags"
 require "cmp_configs"
@@ -14,6 +13,8 @@ require "nvim_tree"
 require "treesitter"
 require "keymap"
 require "comment"
+require "neorg_configs"
+require "neotest_configs"
 
 vim.cmd [[
 match ExtraBeginingLine /\%^\n\+$/
@@ -23,6 +24,7 @@ match ExtraWhitespace /\s\+$/
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight ExtraEndingLine ctermbg=red guibg=red
 highlight ExtraBeginingLine ctermbg=red guibg=red
+<<<<<<< HEAD
 ]]
 
 rcsv_colorpairs =
