@@ -24,7 +24,11 @@ match ExtraWhitespace /\s\+$/
 highlight ExtraWhitespace ctermbg=red guibg=red
 highlight ExtraEndingLine ctermbg=red guibg=red
 highlight ExtraBeginingLine ctermbg=red guibg=red
+<<<<<<< HEAD
 ]]
+
+rcsv_colorpairs =
+  [['red', 'red'], ['blue', 'blue'], ['green', 'green'], ['magenta', 'magenta'], ['NONE', 'NONE'], ['darkred', 'darkred'], ['darkblue', 'darkblue'], ['darkgreen', 'darkgreen'], ['darkmagenta', 'darkmagenta'], ['darkcyan', 'darkcyan']]
 
 --
 -- Config for calendar.vim

@@ -156,6 +156,7 @@ packer.startup(function()
   use "ap/vim-css-color"
   use "cakebaker/scss-syntax.vim"
   use "othree/html5.vim"
+  use "mechatroner/rainbow_csv"
   -- use 'chemzqm/vim-cssfmt'
 
   --use 'LanguageTool'
