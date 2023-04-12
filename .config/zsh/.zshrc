@@ -198,3 +198,6 @@ export QT_IM_MODULE=ibus
 # ibus-daemon -drx
 
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
+
+# Custom unstable & env specific alias
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias.sh"
