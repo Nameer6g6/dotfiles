@@ -179,14 +179,17 @@ myLayoutHook = minimize . BW.boringWindows $ avoidStruts $ gaps $ smartBorders m
 myKeys =
     [ -- myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
       -- ((mod4Mask, xK_p                   ), spawn "j4-dmenu-desktop --dmenu=\"dmenu_run -fn 'monospace:regular:pixelsize=12' -nb '#282c34' -sf '#282c34' -sb '#98c379' -nf '#abb2bf'\"" ) ,
-      ((mod4Mask, xK_p), spawn "dmenu_run -i -p 'Packages' -fn 'Fira Mono:bold:pixelsize=15' -nb '#5b247a' -nf '#ce9ffc' -sf '#3425AF' -sb '#ce9ffc'")
+      -- ((mod4Mask, xK_p), spawn "dmenu_run -i -p 'Packages' -fn 'Fira Mono:bold:pixelsize=15' -nb '#5b247a' -nf '#ce9ffc' -sf '#3425AF' -sb '#ce9ffc'")
+      ((mod4Mask, xK_p), spawn "rofi -show run")
     , ((mod4Mask, xK_i), spawn "kill -s USR1 $(pidof deadd-notification-center)")
     , ((mod4Mask .|. controlMask, xK_i), (spawn . localBin) "dunicode")
     , ((mod4Mask .|. shiftMask, xK_i), (spawn . localBin) "dunicode 1")
     , ((mod4Mask .|. shiftMask, xK_e), spawn "nemo")
     , ((mod4Mask .|. shiftMask, xK_n), spawn "joplin-desktop")
+    , ((mod4Mask .|. shiftMask, xK_t), spawn "nixGL telegram-desktop")
     , ((mod4Mask .|. shiftMask, xK_w), spawn "chromium")
-    , ((mod4Mask .|. controlMask, xK_g), spawn "termite")
+    , ((mod4Mask .|. shiftMask, xK_b), spawn "brave")
+    , ((mod4Mask .|. shiftMask, xK_d), spawn "discord")
     , ((mod4Mask .|. controlMask, xK_k), spawn "kitty")
     , ((mod1Mask .|. controlMask, xK_l), spawn "i3lock-fancy")
     , ((mod1Mask, xK_m), withFocused minimizeWindow)
