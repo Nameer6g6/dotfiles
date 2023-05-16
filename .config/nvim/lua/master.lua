@@ -14,12 +14,14 @@ local has = function(x)
   return vim.fn.has(x) == 1
 end
 
-local is_linux = has "Linux"
-local is_soydows = has "win32"
+local is_linux = has "linux"
+local is_wsl = has "wsl"
+local is_soydows = has "win32" or has "win64"
 
 if is_soydows then
-  require "windows"
-end
-if is_linux then
-  require "linux"
+  require "os/windows"
+elseif is_wsl then
+  print "os/wsl"
+elseif is_linux then
+  require "os/linux"
 end
