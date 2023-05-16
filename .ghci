@@ -4,5 +4,5 @@
 import qualified Data.Text as T
 import qualified Data.Text.IO as TIO
 import qualified Data.Map.Strict as MS
-import Data.Char
+import qualified Data.Char as C
 import Data.List
