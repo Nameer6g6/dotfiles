@@ -21,7 +21,7 @@ local is_soydows = has "win32" or has "win64"
 if is_soydows then
   require "os/windows"
 elseif is_wsl then
-  print "os/wsl"
+  require "os/wsl"
 elseif is_linux then
   require "os/linux"
 end
