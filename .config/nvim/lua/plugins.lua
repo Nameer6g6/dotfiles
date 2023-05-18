@@ -196,6 +196,7 @@ packer.startup(function(use)
   -- Lsp
   use { "williamboman/mason.nvim", run = ":MasonUpdate" }
   use "neovim/nvim-lspconfig"
+  use "williamboman/mason-lspconfig.nvim"
   use "nvim-lua/lsp_extensions.nvim"
   use "ray-x/lsp_signature.nvim"
   use "onsails/lspkind.nvim"

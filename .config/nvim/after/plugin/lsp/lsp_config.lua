@@ -1,5 +1,21 @@
-local status, lsp = pcall(require, "lspconfig")
+-- Mason setup
+local status, mason = pcall(require, "mason")
 if not status then
+  vim.notify "Error: mason isn't working"
+  return
+end
+mason.setup()
+
+-- mason_lspconfig setup
+local status2, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not status2 then
+  vim.notify "Error: mason_lspconfig isn't working"
+  return
+end
+mason_lspconfig.setup()
+
+local status3, lsp = pcall(require, "lspconfig")
+if not status3 then
   vim.notify "Error: lspconfig isn't working"
   return
 end
@@ -70,7 +86,7 @@ lsp.purescriptls.setup {
 }
 
 lsp.omnisharp.setup {
-  cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
+  -- cmd = { "dotnet", "/path/to/omnisharp/OmniSharp.dll" },
 
   -- Enables support for reading code style, naming convention and analyzer
   -- settings from .editorconfig.
