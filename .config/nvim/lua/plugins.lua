@@ -43,12 +43,9 @@ packer.startup(function(use)
   use { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } }
   use { "andymass/vim-matchup", event = "VimEnter" } -- Load on an autocommand event
   use "nvim-lua/plenary.nvim"
-  use "nvim-telescope/telescope.nvim"
   use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   use "nvim-treesitter/playground"
   -- use "ThePrimeagen/harpoon"
-  use "nvim-telescope/telescope-file-browser.nvim"
-  use "nvim-telescope/telescope-media-files.nvim"
   use "numtostr/FTerm.nvim"
   use "nvim-pack/nvim-spectre"
   use "windwp/nvim-autopairs"
@@ -63,6 +60,13 @@ packer.startup(function(use)
   -- use "ludovicchabant/vim-gutentags"
   use "akinsho/bufferline.nvim"
   use "lukas-reineke/indent-blankline.nvim"
+
+  -- Telescope
+  use "nvim-telescope/telescope.nvim"
+  use "nvim-telescope/telescope-file-browser.nvim"
+  use "nvim-telescope/telescope-media-files.nvim"
+  use "nvim-neorg/neorg-telescope"
+  -- use 'luc-tielen/telescope_hoogle'
 
   -- File explorer
   use "nvim-tree/nvim-tree.lua"
@@ -113,7 +117,6 @@ packer.startup(function(use)
   -- use {'neovimhaskell/haskell-vim', ft = 'haskell'}
   use { "sdiehl/vim-ormolu", ft = "haskell" }
   use { "monkoose/fzf-hoogle.vim", ft = "haskell" }
-  -- use 'luc-tielen/telescope_hoogle'
   -- use 'Twinside/vim-haskellFold'
   -- use 'enomsg/vim-haskellConcealPlus'
 
@@ -239,7 +242,6 @@ packer.startup(function(use)
     "nvim-neorg/neorg",
     run = ":Neorg sync-parsers",
   }
-  use "nvim-neorg/neorg-telescope"
   use "nyngwang/NeoWell.lua"
   use "stevearc/gkeep.nvim"
 
