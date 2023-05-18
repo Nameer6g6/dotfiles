@@ -34,7 +34,7 @@ end
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
-return require("packer").startup(function(use)
+packer.startup(function(use)
   -- Utility
   use "wbthomason/packer.nvim" -- Packer can manage itself
   use "rstacruz/vim-closer" -- Simple plugins can be specified as strings
@@ -46,7 +46,7 @@ return require("packer").startup(function(use)
   use "nvim-telescope/telescope.nvim"
   use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   use "nvim-treesitter/playground"
-  use "ThePrimeagen/harpoon"
+  -- use "ThePrimeagen/harpoon"
   use "nvim-telescope/telescope-file-browser.nvim"
   use "nvim-telescope/telescope-media-files.nvim"
   use "numtostr/FTerm.nvim"
@@ -60,17 +60,15 @@ return require("packer").startup(function(use)
   use "tpope/vim-surround"
   use "christoomey/vim-sort-motion"
   use "NFrid/due.nvim"
-  use "liuchengxu/vista.vim"
-  use "simrat39/symbols-outline.nvim"
   -- use "ludovicchabant/vim-gutentags"
   use "akinsho/bufferline.nvim"
+  use "lukas-reineke/indent-blankline.nvim"
 
   -- File explorer
   use "nvim-tree/nvim-tree.lua"
   use "nvim-tree/nvim-web-devicons"
 
   -- Generic Programming
-  use "lukas-reineke/indent-blankline.nvim"
   use "mbbill/undotree"
   use "chr4/nginx.vim"
   use "sbdchd/neoformat"
@@ -97,6 +95,8 @@ return require("packer").startup(function(use)
   use { "vim-erlang/vim-erlang-tags", opt = true, ft = "erlang" }
 
   -- Elixir
+  use { "brendalf/mix.nvim", ft = { "elixir", "eelixir" } }
+  -- use 'slashmili/alchemist.vim'
   -- use 'awetzel/elixir.nvim', { 'do': 'yes \| ./install.sh' }
   -- use {'slashmili/alchemist.vim', ft = {"elixir", "eelixir"}}
   -- use { "BjRo/vim-extest", ft = { "elixir", "eelixir" } }
@@ -171,6 +171,7 @@ return require("packer").startup(function(use)
   -- Theme
   use "tjdevries/colorbuddy.vim"
   use "folke/tokyonight.nvim"
+  use "norcalli/nvim-colorizer.lua"
   -- use "overcache/NeoSolarized"
   -- use {
   --   "rose-pine/neovim",
@@ -216,6 +217,8 @@ return require("packer").startup(function(use)
   use "nvim-lua/lsp_extensions.nvim"
   use "ray-x/lsp_signature.nvim"
   use "onsails/lspkind.nvim"
+  use "nvimdev/lspsaga.nvim" -- LSP UI
+  use "jose-elias-alvarez/null-ls.nvim"
 
   -- Completion
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -249,6 +252,15 @@ return require("packer").startup(function(use)
   -- use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- Note
-  use "nvim-neorg/neorg"
+  use {
+    "nvim-neorg/neorg",
+    run = ":Neorg sync-parsers",
+  }
   use "nvim-neorg/neorg-telescope"
+  use "nyngwang/NeoWell.lua"
+  use "stevearc/gkeep.nvim"
+
+  -- Tags
+  use "simrat39/symbols-outline.nvim"
+  use "liuchengxu/vista.vim"
 end)
