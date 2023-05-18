@@ -172,8 +172,8 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 . $HOME/dotfiles/secrets.sh
 . $HOME/.asdf/asdf.sh
 
-export DOTNET_ROOT="$HOME/.dotnet"
-export PATH="$DOTNET_ROOT:$PATH"
+# export DOTNET_ROOT="$HOME/.dotnet"
+# export PATH="$DOTNET_ROOT:$PATH"
 
 fpath=(${ASDF_DIR}/completions $fpath)
 autoload -Uz compinit && compinit
@@ -200,4 +200,4 @@ export QT_IM_MODULE=ibus
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
 # Custom unstable & env specific alias
-[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias.sh" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias.sh"
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias"

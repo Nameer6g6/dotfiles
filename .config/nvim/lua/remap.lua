@@ -1,112 +1,109 @@
--- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+-- keymap("n", "<leader>pv", vim.cmd.Ex)
 
 local opts = { noremap = true, silent = true }
+local opts_nowait = { noremap = true, silent = true, nowait = true }
 
-local term_opts = { silent = true }
-
--- Shorten function name local keymap = vim.api.nvim_set_keymap
+-- local term_opts = { silent = true }
 
 -- vim.g.mapleader = " "
 
-function keymapper(mode, shortcut, command, opt)
-  opt = opt or {}
-  vim.keymap.set(mode, shortcut, command, opt)
-end
+-- Shorten function to local keymap
+local keymap = vim.keymap.set
 
--- vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("n", "J", ":m '>+1<CR>gv=gv")
+-- keymap("n", "<leader>pv", vim.cmd.Ex)
+keymap("n", "J", ":m '>+1<CR>gv=gv")
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv")
+keymap("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "J", "mzJ`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz")
-vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")
-vim.keymap.set("n", "N", "Nzzzv")
+keymap("n", "J", "mzJ`z")
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
+keymap("n", "n", "nzzzv")
+keymap("n", "N", "Nzzzv")
 
-vim.keymap.set("n", "<leader>vwm", function()
+keymap("n", "<leader>vwm", function()
   require("vim-with-me").StartVimWithMe()
 end)
-vim.keymap.set("n", "<leader>svwm", function()
+keymap("n", "<leader>svwm", function()
   require("vim-with-me").StopVimWithMe()
 end)
 
 -- FTerm
-keymapper("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>', opts)
-keymapper("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>', opts)
-vim.keymap.set("t", "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
+keymap("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>', opts)
+keymap("n", "<A-i>", '<CMD>lua require("FTerm").toggle()<CR>', opts)
+keymap("t", "<A-i>", '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>', opts)
 
 -- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
+keymap("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+keymap({ "n", "v" }, "<leader>y", [["+y]])
+keymap("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+keymap({ "n", "v" }, "<leader>d", [["_d]])
 
-keymapper("i", "<C-c>", "<Esc>")
+keymap("i", "<C-c>", "<Esc>")
 
-vim.keymap.set("n", "Q", "<nop>")
-vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
-vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+keymap("n", "Q", "<nop>")
+keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
+keymap("n", "<leader>f", vim.lsp.buf.format)
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+keymap("n", "<C-k>", "<cmd>cnext<CR>zz")
+keymap("n", "<C-j>", "<cmd>cprev<CR>zz")
+keymap("n", "<leader>k", "<cmd>lnext<CR>zz")
+keymap("n", "<leader>j", "<cmd>lprev<CR>zz")
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
+keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
-vim.keymap.set("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>")
-vim.keymap.set("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
+keymap("n", "<leader>vpp", "<cmd>e ~/.dotfiles/nvim/.config/nvim/lua/theprimeagen/packer.lua<CR>")
+keymap("n", "<leader>mr", "<cmd>CellularAutomaton make_it_rain<CR>")
 
-vim.keymap.set("n", "<leader><leader>", function()
+keymap("n", "<leader><leader>", function()
   vim.cmd "so"
 end)
 
 -- NvimTree
-keymapper("n", "<C-o>", ":NvimTreeToggle<CR>", opts)
-keymapper("n", "<leader>r", ":NvimTreeRefresh<CR>", opts)
-keymapper("n", "<leader>n", ":NvimTreeFindFile<CR>", opts)
+keymap("n", "<C-o>", ":NvimTreeToggle<CR>", opts)
+keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", opts)
+keymap("n", "<leader>n", ":NvimTreeFindFile<CR>", opts)
 
 local builtin = require "telescope.builtin"
-vim.keymap.set("n", "<leader>ff", builtin.find_files, {})
-vim.keymap.set("n", "<leader>fg", builtin.live_grep, {})
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
-vim.keymap.set("n", "<leader>fh", builtin.help_tags, {})
-vim.keymap.set("n", "<C-p>", builtin.git_files, {})
-vim.keymap.set("n", "<leader>fs", function()
+keymap("n", "<leader>ff", builtin.find_files, {})
+keymap("n", "<leader>fg", builtin.live_grep, {})
+keymap("n", "<leader>fb", builtin.buffers, {})
+keymap("n", "<leader>fh", builtin.help_tags, {})
+keymap("n", "<C-p>", builtin.git_files, {})
+keymap("n", "<leader>fs", function()
   builtin.grep_string { search = vim.fn.input "Grep > " }
 end)
 
 -- Do not yank with x
-keymapper("n", "x", '"_x')
+keymap("n", "x", '"_x')
 
 -- Increment/Decrement
-keymapper("n", "+", "<C-a>")
-keymapper("n", "-", "<C-x>")
+keymap("n", "+", "<C-a>")
+keymap("n", "-", "<C-x>")
 
 -- Delete word backword
 -- keymapper("n", "dw", 'vb"_d')
 
 -- Select all
-keymapper("n", "<C-a>", "gg<S-v>G", opts)
+keymap("n", "<C-a>", "gg<S-v>G", opts)
 
 -- New tab
-keymapper("n", "te", ":tabedit<CR>", opts)
+keymap("n", "te", ":tabedit<CR>", opts)
 
 -- Split window
-keymapper("n", "ss", ":split<Return><C-w>w", opts)
-keymapper("n", "sv", ":vsplit<Return><C-w>w", opts)
+keymap("n", "ss", ":split<Return><C-w>w", opts)
+keymap("n", "sv", ":vsplit<Return><C-w>w", opts)
 
 -- Resize windows
-keymapper("n", "<left>", "<C-w><", opts)
-keymapper("n", "<right>", "<C-w>>", opts)
-keymapper("n", "<up>", "<C-w>+", opts)
-keymapper("n", "<down>", "<C-w>-", opts)
+keymap("n", "<left>", "<C-w><", opts)
+keymap("n", "<right>", "<C-w>>", opts)
+keymap("n", "<up>", "<C-w>+", opts)
+keymap("n", "<down>", "<C-w>-", opts)
 
 -- Copy to clipboard
 vim.api.nvim_set_keymap("v", "<space>y", '"+y', opts)
@@ -120,4 +117,43 @@ vim.api.nvim_set_keymap("n", "<space>P", '"+P', opts)
 vim.api.nvim_set_keymap("v", "<space>p", '"+p', opts)
 vim.api.nvim_set_keymap("v", "<space>P", '"+P', opts)
 
--- print(vim.fn.has "Linux")
+-- NeoWell
+keymap("n", "<space>\\", function()
+  vim.cmd "NeoWellToggle"
+end, opts_nowait)
+keymap("n", "<space>/", function()
+  vim.cmd "NeoWellAppend"
+end, opts_nowait)
+-- FIX: bug with NeoWellJump being missing
+keymap("n", "<CR>", function()
+  -- vim.cmd "NeoZoomToggle" -- remove this if you don't know what it is
+  vim.cmd "NeoWellJump"
+end, opts_nowait)
+keymap("n", "<Leader>r", function()
+  vim.cmd "NeoWellEdit"
+end, opts_nowait)
+keymap("n", "<Leader>d", function()
+  vim.cmd "NeoWellOut"
+end, opts_nowait)
+keymap("n", "<Leader>D", function()
+  vim.cmd "NeoWellWipeOut"
+end, opts_nowait)
+
+-- Gitsigns
+keymap("n", "<Space>g]", "<Cmd>Gitsigns prev_hunk<CR>", opts)
+keymap("n", "<Space>g[", "<Cmd>Gitsigns next_hunk<CR>", opts)
+keymap("n", "<Space>gd", "<Cmd>Gitsigns diffthis<CR>", opts)
+keymap("n", "<Space>ga", "<Cmd>Gitsigns stage_hunk<CR>", opts)
+keymap("n", "<Space>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>", opts)
+keymap("n", "<Space>gr", "<Cmd>Gitsigns reset_hunk<CR>", opts)
+keymap("n", "<Space>gs", "<Cmd>Gitsigns select_hunk<CR>", opts)
+keymap("n", "<Space>gb", "<Cmd>Gitsigns toggle_current_line_blame<CR>", opts)
+
+-- inserting date
+keymap("n", "<leader>td", '<C-R>=strftime("%Y-%m-%d")', opts)
+
+-- open link
+keymap("n", "gx", [[:silent execute '!$BROWSER ' . shellescape(expand('<cfile>'), 1)<CR>]], opts)
+
+-- Exiting Terminal mode remapping
+keymap("t", "<C-\\><C-\\>", "<C-\\><C-N>", opts)
