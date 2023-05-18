@@ -1,4 +1,4 @@
-require("notify").setup({
+require("notify").setup {
   -- Animation style (see below for details)
   stages = "fade_in_slide_out",
 
@@ -29,9 +29,9 @@ require("notify").setup({
     DEBUG = "",
     TRACE = "✎",
   },
-})
+}
 
-vim.cmd([[
+vim.cmd [[
   highlight NotifyERRORBorder guifg=#8A1F1F
   highlight NotifyWARNBorder guifg=#79491D
   highlight NotifyINFOBorder guifg=#4F6752
@@ -52,4 +52,4 @@ vim.cmd([[
   highlight link NotifyINFOBody Normal
   highlight link NotifyDEBUGBody Normal
   highlight link NotifyTRACEBody Normal
-]])
+]]
