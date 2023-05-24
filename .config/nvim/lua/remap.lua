@@ -69,15 +69,56 @@ keymap("n", "<C-o>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", opts)
 keymap("n", "<leader>n", ":NvimTreeFindFile<CR>", opts)
 
-local builtin = require "telescope.builtin"
-keymap("n", "<leader>ff", builtin.find_files, {})
-keymap("n", "<leader>fg", builtin.live_grep, {})
-keymap("n", "<leader>fb", builtin.buffers, {})
-keymap("n", "<leader>fh", builtin.help_tags, {})
-keymap("n", "<C-p>", builtin.git_files, {})
-keymap("n", "<leader>fs", function()
-  builtin.grep_string { search = vim.fn.input "Grep > " }
-end)
+-- Telescope
+local tel_status, telescope = pcall(require, "telescope")
+local bui_status, builtin = pcall(require, "telescope.builtin")
+if tel_status and bui_status then
+  local function telescope_buffer_dir()
+    return vim.fn.expand "%:p:h"
+  end
+
+  keymap("n", "<leader>ff", builtin.find_files, {})
+  keymap("n", "<leader>fg", builtin.live_grep, {})
+  keymap("n", "<leader>fb", builtin.buffers, {})
+  keymap("n", "<leader>fh", builtin.help_tags, {})
+  keymap("n", "<leader>fp", builtin.git_files, {})
+  keymap("n", "<leader>fs", function()
+    builtin.grep_string { search = vim.fn.input "Grep > " }
+  end)
+  vim.keymap.set("n", ";f", function()
+    builtin.find_files {
+        no_ignore = false,
+        hidden = true,
+    }
+  end)
+  vim.keymap.set("n", ";r", function()
+    builtin.live_grep()
+  end)
+  vim.keymap.set("n", "\\\\", function()
+    builtin.buffers()
+  end)
+  vim.keymap.set("n", ";t", function()
+    builtin.help_tags()
+  end)
+  vim.keymap.set("n", ";;", function()
+    builtin.resume()
+  end)
+  vim.keymap.set("n", ";e", function()
+    builtin.diagnostics()
+  end)
+  vim.keymap.set("n", "sf", function()
+    telescope.extensions.file_browser.file_browser {
+        path = "%:p:h",
+        cwd = telescope_buffer_dir(),
+        respect_gitignore = false,
+        hidden = true,
+        grouped = true,
+        previewer = true,
+        initial_mode = "normal",
+        layout_config = { height = 40 },
+    }
+  end)
+end
 
 -- Do not yank with x
 keymap("n", "x", '"_x')
@@ -149,7 +190,7 @@ keymap("n", "<Space>gr", "<Cmd>Gitsigns reset_hunk<CR>", opts)
 keymap("n", "<Space>gs", "<Cmd>Gitsigns select_hunk<CR>", opts)
 keymap("n", "<Space>gb", "<Cmd>Gitsigns toggle_current_line_blame<CR>", opts)
 
--- Git-Conflict 
+-- Git-Conflict
 keymap("n", "co", "<Plug>(git-conflict-ours)", opts)
 keymap("n", "ct", "<Plug>(git-conflict-theirs)", opts)
 keymap("n", "cb", "<Plug>(git-conflict-both)", opts)

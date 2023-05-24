@@ -327,14 +327,12 @@ unset DOCKER_HOST
 
 export wsl_ip="172.29.16.1"
 
-
-
 alias winWorkspace="cd /mnt/c/Users/NameerKamalMattiMtor/workspace/"
 # export PATH="$PATH:/opt/mssql-tools/bin"
 
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$HOME/.dotnet
-export PATH="$PATH:$HOME/.dotnet/tools"
+# export DOTNET_ROOT=$HOME/.dotnet
+# export PATH=$PATH:$HOME/.dotnet
+# export PATH="$PATH:$HOME/.dotnet/tools"
 # export DOTNET_ROOT=/usr/share/dotnet
 # export MSBuildSDKsPath=$DOTNET_ROOT/sdk/$(${DOTNET_ROOT}/dotnet --version)/Sdks
 # export PATH="${PATH}:${DOTNET_ROOT}"
@@ -358,5 +356,8 @@ fi
 #     export MSBuildSDKsPath="$DOTNET_ROOT/sdk/$DOTNET_VERSION/Sdks"
 #   fi
 # }
+
+# to resolve javascript heap out of memoory issue
+export NODE_OPTIONS=--max_old_space_size=8198
 
 [ -f "/home/nameer/.ghcup/env" ] && source "/home/nameer/.ghcup/env" # ghcup-env
