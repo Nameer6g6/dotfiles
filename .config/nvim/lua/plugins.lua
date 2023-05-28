@@ -117,6 +117,7 @@ packer.startup(function(use)
   -- use {'neovimhaskell/haskell-vim', ft = 'haskell'}
   use { "sdiehl/vim-ormolu", ft = "haskell" }
   use { "monkoose/fzf-hoogle.vim", ft = "haskell" }
+  use { "mrcjkb/haskell-tools.nvim", ft = { "haskell", "lhaskell", "cabal", "cabalproject" } }
   -- use 'Twinside/vim-haskellFold'
   -- use 'enomsg/vim-haskellConcealPlus'
 
@@ -199,6 +200,7 @@ packer.startup(function(use)
   -- Lsp
   use { "williamboman/mason.nvim", run = ":MasonUpdate" }
   use "neovim/nvim-lspconfig"
+  use "RishabhRD/nvim-lsputils"
   use "williamboman/mason-lspconfig.nvim"
   use "nvim-lua/lsp_extensions.nvim"
   use "ray-x/lsp_signature.nvim"

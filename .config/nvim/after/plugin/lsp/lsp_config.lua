@@ -22,7 +22,7 @@ end
 
 local protocl = require "vim.lsp.protocol"
 
-local on_attach = function(client, bufnr)
+local on_attach = function(client, _)
   if client.server_capabailities.documentFormattingProvier then
     vim.api.nvim_command [[ augroup Format]]
     vim.api.nvim_command [[ autocmd! * <buffer> ]]
