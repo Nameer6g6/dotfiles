@@ -189,6 +189,7 @@ myKeys =
     , ((mod4Mask .|. shiftMask, xK_t), spawn "nixGL telegram-desktop")
     , ((mod4Mask .|. shiftMask, xK_w), spawn "chromium")
     , ((mod4Mask .|. shiftMask, xK_b), spawn "brave")
+    , ((mod4Mask .|. shiftMask, xK_s), spawn "maim -s | xclip -selection clipboard -t image/png")
     , ((mod4Mask .|. shiftMask, xK_d), spawn "discord")
     , ((mod4Mask .|. controlMask, xK_k), spawn "kitty")
     , ((mod1Mask .|. controlMask, xK_l), spawn "i3lock-fancy")
