@@ -69,6 +69,18 @@ keymap("n", "<C-o>", ":NvimTreeToggle<CR>", opts)
 keymap("n", "<leader>r", ":NvimTreeRefresh<CR>", opts)
 keymap("n", "<leader>n", ":NvimTreeFindFile<CR>", opts)
 
+-- Go to tab by number
+keymap("n", "<leader>1", "1gt", opts)
+keymap("n", "<leader>2", "2gt", opts)
+keymap("n", "<leader>3", "3gt", opts)
+keymap("n", "<leader>4", "4gt", opts)
+keymap("n", "<leader>5", "5gt", opts)
+keymap("n", "<leader>6", "6gt", opts)
+keymap("n", "<leader>7", "7gt", opts)
+keymap("n", "<leader>8", "8gt", opts)
+keymap("n", "<leader>9", "9gt", opts)
+keymap("n", "<leader>0", ":tablast<CR>", opts)
+
 -- Telescope
 local tel_status, telescope = pcall(require, "telescope")
 local bui_status, builtin = pcall(require, "telescope.builtin")
