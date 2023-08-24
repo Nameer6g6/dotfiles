@@ -37,7 +37,7 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   -- Utility
   use "wbthomason/packer.nvim" -- Packer can manage itself
-  use "rstacruz/vim-closer"    -- Simple plugins can be specified as strings
+  use "rstacruz/vim-closer" -- Simple plugins can be specified as strings
 
   -- Lazy loading: Load on specific commands
   use { "tpope/vim-dispatch", opt = true, cmd = { "Dispatch", "Make", "Focus", "Start" } }
@@ -46,7 +46,6 @@ packer.startup(function(use)
   use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   use "nvim-treesitter/playground"
   -- use "ThePrimeagen/harpoon"
-  use "numtostr/FTerm.nvim"
   use "nvim-pack/nvim-spectre"
   use "windwp/nvim-autopairs"
   use "nacro90/numb.nvim"
@@ -199,30 +198,28 @@ packer.startup(function(use)
 
   -- Lsp
   use { "williamboman/mason.nvim", run = ":MasonUpdate" }
-  use "neovim/nvim-lspconfig"
   use "williamboman/mason-lspconfig.nvim"
   use "mfussenegger/nvim-lint"
   use "nvim-lua/lsp_extensions.nvim"
   use "ray-x/lsp_signature.nvim"
   use "onsails/lspkind.nvim"
   use "nvimdev/lspsaga.nvim" -- LSP UI
-  use "jose-elias-alvarez/null-ls.nvim"
 
   -- Completion
-  use "hrsh7th/nvim-cmp"         -- The completion plugin
-  use "hrsh7th/cmp-nvim-lsp"     -- LSP source for nvim builtin LSP
+  use "hrsh7th/nvim-cmp" -- The completion plugin
+  use "hrsh7th/cmp-nvim-lsp" -- LSP source for nvim builtin LSP
   use "hrsh7th/cmp-nvim-lua"
-  use "hrsh7th/cmp-buffer"       -- buffer words completions
-  use "hrsh7th/cmp-path"         -- path completions
-  use "hrsh7th/cmp-cmdline"      -- cmdline completions
+  use "neovim/nvim-lspconfig"
+  use "hrsh7th/cmp-buffer" -- buffer words completions
+  use "hrsh7th/cmp-path" -- path completions
+  use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "quangnguyen30192/cmp-nvim-tags"
-  use "saadparwaiz1/cmp_luasnip" -- Snippets source for nvim-cmp
   use "ray-x/cmp-treesitter"
   use "kdheepak/cmp-latex-symbols"
   use "hrsh7th/cmp-nvim-lsp-document-symbol"
   use "hrsh7th/cmp-calc"
   use "hrsh7th/cmp-emoji"
-  use { "f3fora/cmp-spell", ft = { "markdown", "text", "norg" } }
+  -- use { "f3fora/cmp-spell", ft = { "markdown", "text", "norg" } }
   use "onsails/lspkind-nvim"
   use {
     "0styx0/abbreinder.nvim",
@@ -237,6 +234,7 @@ packer.startup(function(use)
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
+  use "saadparwaiz1/cmp_luasnip"
   -- use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
 
   -- Note
