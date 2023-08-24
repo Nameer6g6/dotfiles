@@ -18,12 +18,12 @@ due.setup {
   pattern_end = '>',        -- end for a date string pattern
   -- lua patterns: in brackets are 'groups of data', their order is described
   -- accordingly. More about lua patterns: https://www.lua.org/pil/20.2.html
-  date_pattern = '(%d%d)%-(%d%d)',                            -- m, d
-  datetime_pattern = date_pattern .. ' (%d+):(%d%d)',         -- m, d, h, min
-  datetime12_pattern = datetime_pattern .. ' (%a%a)',         -- m, d, h, min, am/pm
-  fulldate_pattern = '(%d%d%d%d)%-' .. date_pattern,          -- y, m, d
-  fulldatetime_pattern = '(%d%d%d%d)%-' .. datetime_pattern,  -- y, m, d, h, min
-  fulldatetime12_pattern = fulldatetime_pattern .. ' (%a%a)', -- y, m, d, h, min, am/pm
+  date_pattern = '(%d%d)%-(%d%d)',                               -- m, d
+  datetime_pattern = '(%d%d)%-(%d%d) (%d+):(%d%d)',              -- m, d, h, min
+  datetime12_pattern = '(%d%d)%-(%d%d) (%d+):(%d%d) (%a%a)',     -- m, d, h, min, am/pm
+  fulldate_pattern = '(%d%d%d%d)%- , -- y, m, d',
+  fulldatetime_pattern = '(%d%d%d%d)%-(%d%d)%-(%d%d)',           -- y, m, d, h, min
+  fulldatetime12_pattern = '(%d%d%d%d)%-(%d%d)%-(%d%d) (%a%a)',  -- y, m, d, h, min, am/pm
   -- idk how to allow to define the order by config yet,
   -- but you can help me figure it out...
 
