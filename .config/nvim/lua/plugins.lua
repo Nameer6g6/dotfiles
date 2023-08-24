@@ -77,6 +77,7 @@ packer.startup(function(use)
   use "vmchale/dhall-vim"
   use "mhartington/formatter.nvim"
   use "ethanholz/nvim-lastplace"
+  use "rest-nvim/rest.nvim"
 
   -- Distraction free
   use "folke/zen-mode.nvim"

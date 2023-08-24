@@ -311,5 +311,10 @@ keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
 keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
 keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
 
+-- restnvim
+keymap("n", "<Space>rs", "<Plug>RestNvim")
+keymap("n", "<Space>rp", "<Plug>RestNvimPreview")
+keymap("n", "<Space>rl", "<Plug>RestNvimLast")
+
 -- Floating terminal
 keymap({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
