@@ -58,6 +58,8 @@ packer.startup(function(use)
   -- use "ludovicchabant/vim-gutentags"
   use "akinsho/bufferline.nvim"
   use "lukas-reineke/indent-blankline.nvim"
+  use "epwalsh/obsidian.nvim"
+
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
