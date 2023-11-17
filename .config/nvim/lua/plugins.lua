@@ -59,7 +59,8 @@ packer.startup(function(use)
   use "akinsho/bufferline.nvim"
   use "lukas-reineke/indent-blankline.nvim"
   use "epwalsh/obsidian.nvim"
-
+  use "Bekaboo/dropbar.nvim"
+  use "rest-nvim/rest.nvim"
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
@@ -172,6 +173,7 @@ packer.startup(function(use)
   }
   use "folke/todo-comments.nvim"
   use "s1n7ax/nvim-comment-frame"
+  use "LudoPinelli/comment-box.nvim"
 
   -- Theme
   use "tjdevries/colorbuddy.vim"

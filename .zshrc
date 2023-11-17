@@ -360,4 +360,8 @@ fi
 # to resolve javascript heap out of memoory issue
 export NODE_OPTIONS=--max_old_space_size=8198
 
+. ~/.config/custom_alis
+
+export GOPASS_CLIPBOARD_COPY_CMD="/home/nameer/.local/bin/xclip"
+
 [ -f "/home/nameer/.ghcup/env" ] && source "/home/nameer/.ghcup/env" # ghcup-env

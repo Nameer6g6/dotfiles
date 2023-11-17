@@ -318,3 +318,6 @@ keymap("n", "<Space>rl", "<Plug>RestNvimLast")
 
 -- Floating terminal
 keymap({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+
+keymap("n", "<leader>f", ":Format<CR>", opts)
+keymap("n", "<leader>F", ":FormatWrite<CR>", opts)
