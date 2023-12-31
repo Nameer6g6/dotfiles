@@ -42,7 +42,7 @@ alias pacmanFzf="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --
 
 # Colorize commands when possible.
 alias \
-  ls="exa --icons --group-directories-first" \
+  ls="eza --icons --group-directories-first" \
   grep="grep --color=auto" \
   diff="diff --color=auto" \
   ccat="highlight --out-format=ansi"
@@ -77,10 +77,10 @@ alias \
   fsDir="cd $HOME/workspace/fsharp" \
   pyDir="cd $HOME/workspace/python" \
   alDir="cd $HOME/workspace/algorithms/" \
-  ntDir="cd $HOME/Documents/Neorg/" \
-  gtdInbox="cd $HOME/Documents/Neorg/gtd && vim inbox.norg" \
+  ntDir="cd $HOME/Documents/notes/" \
   vimDir="cd $HOME/.config/nvim/" \
   lf="lfrun"
+
 # 	g="git" \
 # 	trem="transmission-remote" \
 # 	YT="youtube-viewer" \
