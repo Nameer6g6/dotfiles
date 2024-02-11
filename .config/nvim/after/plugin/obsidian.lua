@@ -1,6 +1,7 @@
 local status, obs = pcall(require, "obsidian")
 if not status then
-  return
+  vim.notify "Warning: Obsidian is not working"
+	return
 end
 
 os.setlocale("ja_JP.utf8")

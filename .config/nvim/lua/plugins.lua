@@ -245,7 +245,6 @@ packer.startup(function(use)
     "nvim-neorg/neorg",
     run = ":Neorg sync-parsers",
   }
-  use "nyngwang/NeoWell.lua"
   use "stevearc/gkeep.nvim"
 
   -- Tags
