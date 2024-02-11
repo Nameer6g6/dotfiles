@@ -59,7 +59,7 @@ packer.startup(function(use)
   use "akinsho/bufferline.nvim"
   use "lukas-reineke/indent-blankline.nvim"
   use "epwalsh/obsidian.nvim"
-  use "Bekaboo/dropbar.nvim"
+  -- use "Bekaboo/dropbar.nvim"
 
   -- Telescope
   use "nvim-telescope/telescope.nvim"
