@@ -30,14 +30,6 @@ return {
   -- disable trouble
   { "folke/trouble.nvim", enabled = false },
 
-  -- add symbols-outline
-  {
-    "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
-    keys = { { "<leader>cs", "<cmd>SymbolsOutline<cr>", desc = "Symbols Outline" } },
-    config = true,
-  },
-
   -- override nvim-cmp and add cmp-emoji
   {
     "hrsh7th/nvim-cmp",
@@ -261,5 +253,18 @@ return {
         end, { "i", "s" }),
       })
     end,
+  },
+  {
+    "epwalsh/pomo.nvim",
+    version = "*", -- Recommended, use latest release instead of latest commit
+    lazy = true,
+    cmd = { "TimerStart", "TimerRepeat" },
+    dependencies = {
+      -- Optional, but highly recommended if you want to use the "Default" timer
+      "rcarriga/nvim-notify",
+    },
+    opts = {
+      -- See below for full list of options 👇
+    },
   },
 }

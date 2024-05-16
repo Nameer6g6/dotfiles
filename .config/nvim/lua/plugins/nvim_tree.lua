@@ -243,7 +243,7 @@ return {
         quit_on_open = false,
 
         eject = true,
-        resize_window = true,
+        resize_window = false,
         window_picker = {
           enable = true,
           picker = "default",

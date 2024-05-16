@@ -6,7 +6,30 @@ return {
     "TimUntersberger/neogit",
   },
   {
+    "f-person/git-blame.nvim",
+    config = function()
+      require("gitblame").setup({
+        --Note how the `gitblame_` prefix is omitted in `setup`
+        enabled = false,
+        message_when_not_committed = "Oh please, commit this !",
+        -- display_virtual_text = 0
+        -- ignored_filetypes = ['lua', 'c']
+        -- delay = 1000 --  default is 250
+      })
+    end,
+  },
+  {
     "lewis6991/gitsigns.nvim",
+    keys = {
+      { "<Space>g]", "<Cmd>Gitsigns prev_hunk<CR>" },
+      { "<Space>g[", "<Cmd>Gitsigns next_hunk<CR>" },
+      { "<Space>gd", "<Cmd>Gitsigns diffthis<CR>" },
+      { "<Space>ga", "<Cmd>Gitsigns stage_hunk<CR>" },
+      { "<Space>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>" },
+      { "<Space>gr", "<Cmd>Gitsigns reset_hunk<CR>" },
+      { "<Space>gs", "<Cmd>Gitsigns select_hunk<CR>" },
+      { "<Space>gb", "<Cmd>Gitsigns toggle_current_line_blame<CR>" },
+    },
     opts = {
       signs = {
 
@@ -72,6 +95,14 @@ return {
         incoming = "DiffText",
         current = "DiffAdd",
       },
+    },
+    keys = {
+      { "co", "<Plug>(git-conflict-ours)" },
+      { "ct", "<Plug>(git-conflict-theirs)" },
+      { "cb", "<Plug>(git-conflict-both)" },
+      { "c0", "<Plug>(git-conflict-none)" },
+      { "c]", "<Plug>(git-conflict-prev-conflict)" },
+      { "c[", "<Plug>(git-conflict-next-conflict)" },
     },
   },
   {
