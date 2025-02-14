@@ -3,7 +3,7 @@ include "%L"
 # Mathematical Symbols
 <Multi_key> <equal>      <asciitilde>           : "≈"
 <Multi_key> <equal>      <slash>                : "≠"
-<Multi_key> <equal>      <equal>                : "≡"
+<Multi_key> <equal>      <equal>                : "≡" 
 <Multi_key> <equal>      <equal>   <equal>      : "≣"
 <Multi_key> <greater>    <greater>              : "≫"
 <Multi_key> <less>       <less>                 : "≪"
@@ -29,13 +29,20 @@ include "%L"
 
 # German
 <Multi_key> <g> <s>       : "ß"
-<Multi_key> <g>	<u>       : "ü"
-<Multi_key> <g>	<U>       : "Ü"
-<Multi_key> <g>	<a>       : "ä"
-<Multi_key> <g>	<A>       : "Ä"
+<Multi_key> <g> <u>       : "ü"
+<Multi_key> <g> <U>       : "Ü"
+<Multi_key> <g> <a>       : "ä"
+<Multi_key> <g> <A>       : "Ä"
 <Multi_key> <g> <o>       : "ö"
 <Multi_key> <g> <O>       : "Ö"
 <Multi_key> <g> <e>       : "€"
+<Multi_key> <g> <q>       : "„“"
+<Multi_key> <q> <q>       : "„"
+<Multi_key> <q> <Q>       : "“"
+
+
+# Serbian
+<Multi_key> <s> <s>       : "š"
 
 # Lowercase Greek
 # <Multi_key> <a> <l> <p> : "α"
