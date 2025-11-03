@@ -201,3 +201,51 @@ export QT_IM_MODULE=ibus
 
 # Custom unstable & env specific alias
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias"
+
+
+if [[ ! -f ~/.zpm/zpm.zsh ]]; then
+  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
+fi
+source ~/.zpm/zpm.zsh
+
+# zpm plugins
+zpm load zpm-zsh/bookmarks
+zpm load zpm-zsh/ls
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+
+# Enable bash auto completion in zsh
+autoload -U +X bashcompinit && bashcompinit
+
+if [ -f "$HOME/test_dir/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/path.zsh.inc"; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc"; fi
+
+# enable completion for kubectl
+[[ -f "$HOME/.config/zsh/kubectl_complete" ]] && source "$HOME/.config/zsh/kubectl_complete"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f "$HOME/test_dir/google-cloud-sdk/path.zsh.inc" ]; then . '$HOME/test_dir/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc"; fi
+
+# Terraform autocompletion
+command -v terraform >/dev/null 2>&1 && complete -o nospace -C /usr/bin/terraform terraform
+
+# azure autocompletion
+command -v az >/dev/null 2>&1 && source $HOME/.config/zsh/az.completion
+
+# asdf
+if command -v asdf >/dev/null 2>&1; then
+  export ASDF_DATA_DIR="$HOME/.asdf"
+  export PATH="$ASDF_DATA_DIR/shims:$PATH"
+  # append completions 
+  fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
+  autoload -Uz compinit && compinit
+fi
+
