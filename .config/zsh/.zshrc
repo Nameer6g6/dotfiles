@@ -5,16 +5,17 @@ autoload -U colors && colors
 if [[ -s $ZDOTDIR/.zshrc.local ]]; then
   source $ZDOTDIR/.zshrc.local
 fi
-# Add all files in ~/.zsh as autoloaded functions
-fpath=($ZDOTDIR $fpath)
-autoload $(ls $ZDOTDIR)
+
+# BUG: Not working
+# Add all files in ~/.zsh as autoloaded functions fpath=($ZDOTDIR $fpath)
+# autoload $(ls $ZDOTDIR)
 
 # Different useful things making Zsh more powerful
 autoload -U zmv
+
 setopt extended_glob
 
 # The following lines were added by compinstall
-
 zstyle ':completion:*' completer _complete _ignored
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*' list-prompt '%SAt %p: Hit TAB for more, or the character to insert%s'
@@ -145,15 +146,15 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
-lfcd () {
-    tmp="$(mktemp)"
-    lf -last-dir-path="$tmp" "$@"
-    if [ -f "$tmp" ]; then
-        dir="$(cat "$tmp")"
-        rm -f "$tmp"
-        [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
-    fi
-}
+# lfcd () {
+#     tmp="$(mktemp)"
+#     lf -last-dir-path="$tmp" "$@"
+#     if [ -f "$tmp" ]; then
+#         dir="$(cat "$tmp")"
+#         rm -f "$tmp"
+#         [ -d "$dir" ] && [ "$dir" != "$(pwd)" ] && cd "$dir"
+#     fi
+# }
 # bindkey -s '^o' 'lfcd\n'
 
 # Edit line in vim with ctrl-e:
@@ -168,9 +169,14 @@ bindkey '^e' edit-command-line
 # Load zsh-syntax-highlighting; should be last.
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
-. $HOME/dotfiles/functions.sh
-. $HOME/dotfiles/secrets.sh
-. $HOME/.asdf/asdf.sh
+[ -f $HOME/dotfiles/functions.sh ] && . $HOME/dotfiles/functions.sh
+[ -f $HOME/dotfiles/secrets.sh   ] && . $HOME/dotfiles/secrets.sh
+
+# Auto completions for asdf
+# append completions to fpath
+fpath=(${ASDF_DIR}/completions $fpath)
+# initialise completions with ZSH's compinit
+autoload -Uz compinit && compinit
 
 # export DOTNET_ROOT="$HOME/.dotnet"
 # export PATH="$DOTNET_ROOT:$PATH"
@@ -197,6 +203,7 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 # ibus-daemon -drx
 
+export GOPASS_CLIPBOARD_COPY_CMD="/home/nameer/.local/bin/xclip"
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
 # Custom unstable & env specific alias

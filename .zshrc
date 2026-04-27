@@ -7,10 +7,8 @@ precmd_functions+=(precmd)
 preexec_functions+=(preexec)
 
 # Enable local overrides for zsh configuration
-# if [[ -s ~/.zsh/.zshrc.local ]]; then
-if [[ -s $ZDOTDIR/.zshrc.local ]]; then
-  source $ZDOTDIR/.zshrc.local
-fi
+# [[ -s ~/.zsh/.zshrc.local ]] &&  source $ZDOTDIR/.zshrc.local
+
 # Add all files in ~/.zsh as autoloaded functions
 fpath=($ZDOTDIR $fpath)
 autoload $(ls $ZDOTDIR)
@@ -252,7 +250,6 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # . $HOME/dotfiles/alias.sh
 # . $HOME/dotfiles/functions.sh
-. $HOME/.asdf/asdf.sh
 
 # export DOTNET_ROOT="/usr/share/dotnet/sdk/3.1.420/Current"
 # export DOTNET_ROOT="$HOME/.dotnet"
@@ -360,8 +357,8 @@ fi
 # to resolve javascript heap out of memoory issue
 export NODE_OPTIONS=--max_old_space_size=8198
 
-. ~/.config/custom_alis
-
 export GOPASS_CLIPBOARD_COPY_CMD="/home/nameer/.local/bin/xclip"
 
-[ -f "/home/nameer/.ghcup/env" ] && source "/home/nameer/.ghcup/env" # ghcup-env
+#[ -f "/home/nameer/.ghcup/env" ] && source "/home/nameer/.ghcup/env" # ghcup-env
+
+[ -f "/home/angron/.ghcup/env" ] && source "/home/angron/.ghcup/env" # ghcup-env

@@ -10,12 +10,15 @@ BINPATH="$HOME/.local/bin"
 path+=("$BINPATH" ${BINPATH}/*/)
 export PATH
 
+# Check whether brave or brave-beta
+browser_bin=$( [[ -f /usr/bin/brave ]] && echo brave || [[ -f /usr/bin/brave-beta ]] && echo brave-beta )
+
 # Default programs:
 export EDITOR="nvim"
 export MANPAGER='nvim +Man!'
 export TERM='xterm-256color'
 export TERMINAL="st"
-export BROWSER="firefox"
+export BROWSER="$browser_bin"
 export READER="zathura"
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -26,6 +29,13 @@ export GOBIN="$GOPATH/bin"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
+
+
+# TODO: Make it dynamically scale if the display was 4k
+# Display for 4k
+export QT_SCALE_FACTOR=1.5
+
+
 # Checking zshrc config
 # if test -n "$ZDOTDIR" && test -r "$ZDOTDIR/.zshrc" ; then
 #    export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
@@ -34,10 +44,18 @@ export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 # fi
 
 # if [[ $TERM == xterm-termite ]]; then
-if [[ $TERM == xterm-alacritty ]]; then
-  . /etc/profile.d/vte.sh
-  __vte_osc7
+# if [[ $TERM == xterm-alacritty ]]; then
+#   . /etc/profile.d/vte.sh
+#   __vte_osc7
+# fi
+
+# Load ssh key path and load it to the agent
+eval `ssh-agent -s` &> /dev/null
+ssh-add -L &>/dev/null
+if [ $? -ne 0 ]; then
+     ssh-add $ssh_path &>/dev/null
 fi
+ls /tmp/ssh-*/agent.*| head -n 1 | xargs -I {}  echo "SSH_AUTH_SOCK={}" > $HOME/.config/sshPat
 
 export LF_ICONS="di=📁:\
 fi=📃:\

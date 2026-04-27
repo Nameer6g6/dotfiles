@@ -1,3 +1,4 @@
+set ratios 1:2:3
 # Luke's lf settings
 
 # Basic vars
@@ -17,15 +18,15 @@ set cleaner ~/.config/lf/cleaner
 # cmds/functions
 cmd open ${{
     case $(file --mime-type $f -b) in
-	image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        image/vnd.djvu|application/pdf|application/octet-stream) setsid -f zathura $fx >/dev/null 2>&1 ;;
         text/*) $EDITOR $fx;;
-	image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
-	image/svg+xml) display -- $f ;;
-	image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select ;;
-	audio/*) mpv --audio-display=no $f ;;
-	video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
-	# application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
-	application/pgp-encrypted) $EDITOR $fx ;;
+        image/x-xcf) setsid -f gimp $f >/dev/null 2>&1 ;;
+        image/svg+xml) display -- $f ;;
+        image/*) rotdir $f | grep -i "\.\(png\|jpg\|jpeg\|gif\|webp\|tif\|ico\)\(_large\)*$" | sxiv -aio 2>/dev/null | lf-select ;;
+        audio/*) mpv --audio-display=no $f ;;
+        video/*) setsid -f mpv $f -quiet >/dev/null 2>&1 ;;
+        # application/pdf|application/vnd*|application/epub*) setsid -f zathura $fx >/dev/null 2>&1 ;;
+        application/pgp-encrypted) $EDITOR $fx ;;
         *) for f in $fx; do setsid -f $OPENER $f >/dev/null 2>&1; done;;
     esac
 }}
@@ -37,9 +38,37 @@ cmd extract ${{
 	set -f
 	printf "%s\n\t" "$fx"
 	printf "extract?[y/N]"
+  dirName="${fx%.*}"
 	read ans
-	[ $ans = "y" ] && ext $fx
+	[ $ans = "y" ] && {
+		case $fx in
+			*.tar.bz2)   tar xjf $fx            ;;
+			*.tar.gz)    tar xzf $fx            ;;
+			*.bz2)       bunzip2 $fx            ;;
+			*.rar)       unrar x $fx            ;;
+			# *.rar)       unrar e $fx $dirName   ;;
+			*.gz)        gunzip $fx             ;;
+			*.tar)       tar xf $fx             ;;
+			*.tbz2)      tar xjf $fx            ;;
+			*.tgz)       tar xzf $fx            ;;
+			# *.zip)       unzip $fx              ;;
+		  *.zip)       unzip $fx -d $dirName  ;;
+			*.Z)         uncompress $fx         ;;
+			*.7z)        7z x $fx               ;;
+			*.tar.xz)    tar xf $fx             ;;
+		esac
+	}
 }}
+
+# NOTE: This got relaced by the code above and to be deleted
+# cmd extract ${{
+# 	clear; tput cup $(($(tput lines)/3)); tput bold
+# 	set -f
+# 	printf "%s\n\t" "$fx"
+# 	printf "extract?[y/N]"
+# 	read ans
+# 	[ $ans = "y" ] && ext $fx
+# }}
 
 cmd delete ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
@@ -64,7 +93,7 @@ cmd dragFile ${{
 	clear; tput cup $(($(tput lines)/3)); tput bold
 	set -f
 	printf "%s\n\t" "$fx"
-	dragon $fx
+	dragon-drop $fx
 }}
 
 
@@ -155,9 +184,10 @@ map <c-e> down
 map <c-y> up
 map V push :!nvim<space>
 
+map Y $printf "%s" "$fx" | xclip -selection clipboard
+
 # Source Bookmarks
 # source "~/.config/lf/shortcutrc"
 
-
-push m-
-map Q push '-q
+# push m-
+# map Q push '-q

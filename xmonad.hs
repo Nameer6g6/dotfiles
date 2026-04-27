@@ -5,43 +5,46 @@ import Data.Word (Word32)
 import Graphics.X11.ExtraTypes.XF86 qualified as XF86
 import System.IO (hPutStrLn)
 import XMonad
-import XMonad.Actions.Minimize (withLastMinimized, minimizeWindow, maximizeWindow)
+import XMonad.Actions.Minimize (maximizeWindow, minimizeWindow, withLastMinimized)
 import XMonad.Hooks.DynamicLog (
-    ppHiddenNoWindows
-  , ppExtras
-  , ppTitle
-  , ppSep
-  , ppCurrent
-  , ppVisible
-  , ppUrgent
-  , ppOutput
-  , xmobarColor
-  , wrap
-  , dynamicLogWithPP
-  , xmobarPP
-  , shorten)
+  dynamicLogWithPP,
+  ppCurrent,
+  ppExtras,
+  ppHiddenNoWindows,
+  ppOutput,
+  ppSep,
+  ppTitle,
+  ppUrgent,
+  ppVisible,
+  shorten,
+  wrap,
+  xmobarColor,
+  xmobarPP,
+ )
 import XMonad.Hooks.EwmhDesktops (ewmh)
-import XMonad.Hooks.ManageDocks (manageDocks, avoidStruts, docks)
-import XMonad.Hooks.UrgencyHook (UrgencyHook(..), withUrgencyHook)
+import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
+import XMonad.Hooks.UrgencyHook (UrgencyHook (..), withUrgencyHook)
 import XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.Fullscreen (fullscreenFull)
 import XMonad.Layout.Minimize (minimize)
 import XMonad.Layout.NoBorders (noBorders, smartBorders)
-import XMonad.Layout.Spacing (spacingRaw, Border(..))
+import XMonad.Layout.Spacing (Border (..), spacingRaw)
 import XMonad.Layout.Tabbed (
-      activeColor
-    , activeBorderColor
-    , activeTextColor
-    , inactiveColor
-    , inactiveTextColor
-    , inactiveBorderColor
-    , tabbed
-    , shrinkText)
+  activeBorderColor,
+  activeColor,
+  activeTextColor,
+  inactiveBorderColor,
+  inactiveColor,
+  inactiveTextColor,
+  shrinkText,
+  tabbed,
+ )
 import XMonad.StackSet qualified as W
 import XMonad.Util.EZConfig (additionalKeys)
 import XMonad.Util.NamedWindows (getName)
 import XMonad.Util.Run (safeSpawn, spawnPipe)
 import XMonad.Util.SpawnOnce (spawnOnce)
+import XMonad.Hooks.ManageHelpers
 
 -- import XMonad.Actions.SpawnOn
 -- import XMonad.Hooks.ManageHelpers
@@ -69,21 +72,26 @@ myFocusedBorderColor = "#89DDFF"
 
 myWorkspaces :: [String]
 myWorkspaces = ["一", "二", "三", "四", "五", "六", "七", "八", "九"]
-  where
-    clickable l =
-        [ "<action=xdotool key mod4Mask+" ++ show n ++ ">" ++ ws ++ "</action>"
-        | (i, ws) <- zip [1 .. 9] l
-        , let n = i
-        ]
+ where
+  clickable l =
+    [ "<action=xdotool key mod4Mask+" ++ show n ++ ">" ++ ws ++ "</action>"
+    | (i, ws) <- zip [1 .. 9] l
+    , let n = i
+    ]
 
 data LibNotifyUrgencyHook = LibNotifyUrgencyHook deriving (Read, Show)
 
-instance UrgencyHook LibNotifyUrgencyHook where
-    urgencyHook LibNotifyUrgencyHook w = do
-        name <- getName w
-        Just idx <- W.findTag w <$> gets windowset
+-- autoStartAppsList :: String -> [String]
+-- autoStartAppsList f = do
+--   file <- readFile f
+--   pure $ if file
 
-        safeSpawn "notify-send" [show name, "workspace" ++ idx]
+instance UrgencyHook LibNotifyUrgencyHook where
+  urgencyHook LibNotifyUrgencyHook w = do
+    name <- getName w
+    Just idx <- W.findTag w <$> gets windowset
+
+    safeSpawn "notify-send" [show name, "workspace" ++ idx]
 
 -- xmobarEscape = concatMap doubleLts
 --    where doubleLts '<' = "<<"
@@ -102,27 +110,27 @@ gaps = spacingRaw True (Border 0 0 0 0) False (Border 8 8 8 8) True -- gaps (bor
 
 -- myLayout = maximize (ResizableTall 1 (3 / 100) (1 / 2) [] ||| Full)
 myLayout =
-    avoidStruts
-        ( -- ThreeColMid 1 (3/100) (1/2) |||
-          Tall 1 (3 / 100) (1 / 2)
-            ||| Mirror (Tall 1 (3 / 100) (1 / 2))
-            ||| tabbed shrinkText tabConfig
-            ||| Full
-        )
-        |||
-        -- Full) |||
-        -- spiral (6/7)) |||
-        noBorders (fullscreenFull Full)
+  avoidStruts
+    ( -- ThreeColMid 1 (3/100) (1/2) |||
+      Tall 1 (3 / 100) (1 / 2)
+        ||| Mirror (Tall 1 (3 / 100) (1 / 2))
+        ||| tabbed shrinkText tabConfig
+        ||| Full
+    )
+    |||
+    -- Full) |||
+    -- spiral (6/7)) |||
+    noBorders (fullscreenFull Full)
 
 tabConfig =
-    def
-        { activeBorderColor = "#7C7C7C"
-        , activeTextColor = "#CEFFAC"
-        , activeColor = "#000000"
-        , inactiveBorderColor = "#7C7C7C"
-        , inactiveTextColor = "#EEEEEE"
-        , inactiveColor = "#000000"
-        }
+  def
+    { activeBorderColor = "#7C7C7C"
+    , activeTextColor = "#CEFFAC"
+    , activeColor = "#000000"
+    , inactiveBorderColor = "#7C7C7C"
+    , inactiveTextColor = "#EEEEEE"
+    , inactiveColor = "#000000"
+    }
 
 myXmobarrc :: String
 myXmobarrc = "xmobar $HOME/.config/xmobar/xmobarrc.hs"
@@ -139,83 +147,92 @@ localBin x = "$HOME/.local/bin/" <> x
 
 main :: IO ()
 main = do
-    --setRandomWallpaper ["$HOME/Pictures/nixos-onedark-wallpaper.png"]
-    xmproc <- spawnPipe myXmobarrc
-    xmonad $
-        docks $
-            withUrgencyHook LibNotifyUrgencyHook $
-                ewmh $
-                    def
-                        { manageHook = manageDocks <+> manageHook def -- replaced defaultConfig by def
-                        , layoutHook = myLayoutHook
-                        , logHook =
-                            dynamicLogWithPP
-                                xmobarPP
-                                    { ppOutput = hPutStrLn xmproc
-                                    , -- , ppTitle = xmobarColor "#98c379" "" . shorten 100
-                                      ppTitle = xmobarColor "#d0d0d0" "" . shorten 80 -- Title of active window in xmobar
-                                      -- , ppCurrent = xmobarColor "#61afef" "" . wrap "[" "]"
-                                    , ppCurrent = xmobarColor "#6495ED" "" . wrap "[" "]"
-                                    , ppUrgent = xmobarColor "red" "yellow"
-                                    , ppVisible = wrap "(" ")"
-                                    , ppSep = "<fc=#9AEDFE> :: </fc>" -- Separators in xmobar
-                                    , ppExtras = [windowCount] -- # of windows current workspace
-                                    , ppHiddenNoWindows = xmobarColor "#F07178" ""
-                                    }
-                        , borderWidth = myBorderWidth
-                        , -- , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
-                          -- , startupHook        = myStartupHooker >> setWMName "LG3D"
-                          startupHook = myStartupHook
-                        , modMask = mod4Mask
-                        , workspaces = myWorkspaces
-                        , terminal = myTerminal
-                        , normalBorderColor = myNormalBorderColor
-                        , focusedBorderColor = myFocusedBorderColor
-                        }
-                        `additionalKeys` myKeys
+  -- setRandomWallpaper ["$HOME/Pictures/nixos-onedark-wallpaper.png"]
+  xmproc <- spawnPipe myXmobarrc
+  xmonad $
+    docks $
+      withUrgencyHook LibNotifyUrgencyHook $
+        ewmh $
+          def
+            { manageHook = manageDocks <+> manageHook def -- replaced defaultConfig by def
+            , layoutHook = myLayoutHook
+            , logHook =
+                dynamicLogWithPP
+                  xmobarPP
+                    { ppOutput = hPutStrLn xmproc
+                    , -- , ppTitle = xmobarColor "#98c379" "" . shorten 100
+                      ppTitle = xmobarColor "#d0d0d0" "" . shorten 80 -- Title of active window in xmobar
+                      -- , ppCurrent = xmobarColor "#61afef" "" . wrap "[" "]"
+                    , ppCurrent = xmobarColor "#6495ED" "" . wrap "[" "]"
+                    , ppUrgent = xmobarColor "red" "yellow"
+                    , ppVisible = wrap "(" ")"
+                    , ppSep = "<fc=#9AEDFE> :: </fc>" -- Separators in xmobar
+                    , ppExtras = [windowCount] -- # of windows current workspace
+                    , ppHiddenNoWindows = xmobarColor "#F07178" ""
+                    }
+            , borderWidth = myBorderWidth
+            , -- , startupHook = ewmhDesktopsStartup >> setWMName "LG3D"
+              -- , startupHook        = myStartupHooker >> setWMName "LG3D"
+              startupHook = myStartupHook
+            , modMask = mod4Mask
+            , workspaces = myWorkspaces
+            , terminal = myTerminal
+            , normalBorderColor = myNormalBorderColor
+            , focusedBorderColor = myFocusedBorderColor
+            }
+            `additionalKeys` myKeys
 
 myLayoutHook = minimize . BW.boringWindows $ avoidStruts $ gaps $ smartBorders myLayout
 
 myKeys =
-    [ -- myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
-      -- ((mod4Mask, xK_p                   ), spawn "j4-dmenu-desktop --dmenu=\"dmenu_run -fn 'monospace:regular:pixelsize=12' -nb '#282c34' -sf '#282c34' -sb '#98c379' -nf '#abb2bf'\"" ) ,
-      -- ((mod4Mask, xK_p), spawn "dmenu_run -i -p 'Packages' -fn 'Fira Mono:bold:pixelsize=15' -nb '#5b247a' -nf '#ce9ffc' -sf '#3425AF' -sb '#ce9ffc'")
-      ((mod4Mask, xK_p), spawn "rofi -show run")
-    , ((mod4Mask, xK_i), spawn "kill -s USR1 $(pidof deadd-notification-center)")
-    , ((mod4Mask .|. controlMask, xK_i), (spawn . localBin) "dunicode")
-    , ((mod4Mask .|. shiftMask, xK_i), (spawn . localBin) "dunicode 1")
-    , ((mod4Mask .|. shiftMask, xK_e), spawn "nemo")
-    , ((mod4Mask .|. shiftMask, xK_n), spawn "joplin-desktop")
-    , ((mod4Mask .|. shiftMask, xK_t), spawn "nixGL telegram-desktop")
-    , ((mod4Mask .|. shiftMask, xK_w), spawn "chromium")
-    , ((mod4Mask .|. shiftMask, xK_b), spawn "brave")
-    , ((mod4Mask .|. shiftMask, xK_s), spawn "maim -s | xclip -selection clipboard -t image/png")
-    , ((mod4Mask .|. shiftMask, xK_d), spawn "discord")
-    , ((mod4Mask .|. controlMask, xK_k), spawn "kitty")
-    , ((mod1Mask .|. controlMask, xK_l), spawn "i3lock-fancy")
-    , ((mod1Mask, xK_m), withFocused minimizeWindow)
-    , ((mod1Mask .|. shiftMask, xK_m), withLastMinimized maximizeWindow)
-    , ((0, XF86.xF86XK_AudioMute), spawn "amixer set Master toggle")
-    , ((0, XF86.xF86XK_AudioLowerVolume), spawn "amixer -q set Master 5%-")
-    , ((0, XF86.xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 5%+")
-    , ((0, XF86.xF86XK_MonBrightnessDown), spawn "xbacklight -dec 5")
-    , ((0, XF86.xF86XK_MonBrightnessUp), spawn "xbacklight -inc 5")
-    ]
+  [ -- myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $ [
+    -- ((mod4Mask, xK_p                   ), spawn "j4-dmenu-desktop --dmenu=\"dmenu_run -fn 'monospace:regular:pixelsize=12' -nb '#282c34' -sf '#282c34' -sb '#98c379' -nf '#abb2bf'\"" ) ,
+    -- ((mod4Mask, xK_p), spawn "dmenu_run -i -p 'Packages' -fn 'Fira Mono:bold:pixelsize=15' -nb '#5b247a' -nf '#ce9ffc' -sf '#3425AF' -sb '#ce9ffc'")
+    ((mod4Mask, xK_p), spawn "rofi -show run")
+  , ((mod4Mask, xK_i), spawn "kill -s USR1 $(pidof deadd-notification-center)")
+  , ((mod4Mask .|. controlMask, xK_i), (spawn . localBin) "dunicode")
+  , ((mod4Mask .|. shiftMask, xK_i), (spawn . localBin) "dunicode 1")
+  , ((mod4Mask .|. shiftMask, xK_e), spawn "nemo")
+  , ((mod4Mask .|. shiftMask, xK_n), spawn "obsidian")
+  , ((mod4Mask .|. shiftMask, xK_p), spawn "clipcat-menu")
+  , ((mod4Mask .|. shiftMask, xK_t), spawn "nixGL telegram-desktop")
+  , ((mod4Mask .|. shiftMask, xK_w), spawn "chromium")
+  , ((mod4Mask .|. shiftMask, xK_b), spawn "brave")
+  , ((mod4Mask .|. shiftMask, xK_s), spawn "maim -s | xclip -selection clipboard -t image/png")
+  , ((mod4Mask .|. shiftMask, xK_d), spawn "discord")
+  , ((mod4Mask .|. controlMask, xK_k), spawn "kitty")
+  , ((mod1Mask .|. controlMask, xK_l), spawn "i3lock-fancy")
+  , ((mod1Mask, xK_m), withFocused minimizeWindow)
+  , ((mod1Mask .|. shiftMask, xK_m), withLastMinimized maximizeWindow)
+  , ((0, XF86.xF86XK_AudioMute), spawn "amixer set Master toggle")
+  , ((0, XF86.xF86XK_AudioLowerVolume), spawn "amixer -q set Master 5%-")
+  , ((0, XF86.xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 5%+")
+  , ((0, XF86.xF86XK_MonBrightnessDown), spawn "xbacklight -dec 5")
+  , ((0, XF86.xF86XK_MonBrightnessUp), spawn "xbacklight -inc 5")
+  ]
 
+-- TODO: Move some of the strings values to outside file
 myStartupHook = do
-    -- spawnOnce "xbacklight -set 30"
-    spawnOnce "xrandr --output DP-2 --brightness 0.7"
-    spawnOnce "mpd"
-    spawnOnce "mpd-notification"
-    spawnOnce "ibus-daemon -drxR"
-    spawnOnce "compton --config ~/.compton.conf"
-    spawnOnce "unclutter"
-    -- spawnOnce "trayer --expand true  --transparent true  --alpha 255 --edge bottom --align right --expand true --SetDockType true --widthtype request"
-    spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 2 --transparent true --alpha 0 --tint 0x292d3e --height 22"
-    -- spawnOnce "xmodmap ~/.Xmodmap"
-    spawnOnce "setxkbmap -option caps:swapescape -option compose:ralt"
-    spawnOnce "nitrogen --restore &"
-    spawnOnce "clipit"
+  -- spawnOnce "xbacklight -set 30"
+  spawnOnce "xrandr --output DP-2 --brightness 0.7"
+  spawnOnce "mpd"
+  spawnOnce "mpd-notification"
+  spawnOnce "ibus-daemon -drxR"
+  spawnOnce "compton --config ~/.compton.conf"
+  spawnOnce "unclutter"
+  -- spawnOnce "trayer --expand true  --transparent true  --alpha 255 --edge bottom --align right --expand true --SetDockType true --widthtype request"
+  spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 2 --transparent true --alpha 0 --tint 0x292d3e --height 22"
+  -- spawnOnce "xmodmap ~/.Xmodmap"
+  spawnOnce "setxkbmap -option caps:swapescape -option compose:ralt"
+  spawnOnce "nitrogen --restore &"
+  spawnOnce "clipcatd"
+  spawnOnce "discord"
+  spawnOnce "brave-beta"
+  spawnOnce "raindrop"
+  spawnOnce "obsidian"
+  spawnOnce "anki"
+
+-- spawnOnce <$> autoStartAppsList "~/.config/autoStartApps.txt"
 
 -- spawnHere "xloadimage -onroot -fullscreen ~/Pictures/nixos-onedark-wallpaper.png"
 -- spawnOn "workspace2" "pulseeffects"

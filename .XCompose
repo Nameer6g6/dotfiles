@@ -1,5 +1,9 @@
 include "%L"
 
+# Text Emoji
+# Shrug.
+<Multi_key> <e> <s> <s>             : "¯\\_(ツ)_\/¯"
+
 # Mathematical Symbols
 <Multi_key> <equal>      <asciitilde>           : "≈"
 <Multi_key> <equal>      <slash>                : "≠"
@@ -40,6 +44,8 @@ include "%L"
 <Multi_key> <q> <q>       : "„"
 <Multi_key> <q> <Q>       : "“"
 
+
+<Multi_key> <v> <e>       : "é"
 
 # Serbian
 <Multi_key> <s> <s>       : "š"
