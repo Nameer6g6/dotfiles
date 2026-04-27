@@ -1,5 +1,8 @@
 return {
-  { "rust-lang/rust.vim", ft = "rust" },
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+  },
   {
     "mrcjkb/rustaceanvim",
     version = "^4", -- Recommended

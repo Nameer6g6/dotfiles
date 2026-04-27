@@ -1,3 +1,7 @@
 return {
-  { "brendalf/mix.nvim", ft = { "elixir", "eelixir" } },
+  {
+    "brendalf/mix.nvim",
+    enabled = false,
+    ft = { "elixir", "eelixir" },
+  },
 }

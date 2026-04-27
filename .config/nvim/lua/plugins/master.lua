@@ -1,6 +1,6 @@
 -- since this is just an example spec, don't actually load anything here and return an empty spec
 -- stylua: ignore
-if true then return {} end
+-- if true then return {} end
 
 -- every spec file under the "plugins" directory will be loaded automatically by lazy.nvim
 --
@@ -12,14 +12,10 @@ return {
   -- add gruvbox
   { "ellisonleao/gruvbox.nvim" },
 
-  -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "gruvbox",
-    },
+    version = "*",
   },
-
   -- change trouble config
   {
     "folke/trouble.nvim",
@@ -27,18 +23,6 @@ return {
     opts = { use_diagnostic_signs = true },
   },
 
-  -- disable trouble
-  { "folke/trouble.nvim", enabled = false },
-
-  -- override nvim-cmp and add cmp-emoji
-  {
-    "hrsh7th/nvim-cmp",
-    dependencies = { "hrsh7th/cmp-emoji" },
-    ---@param opts cmp.ConfigSchema
-    opts = function(_, opts)
-      table.insert(opts.sources, { name = "emoji" })
-    end,
-  },
   -- change some telescope options and a keymap to browse plugin files
   {
     "nvim-telescope/telescope.nvim",
@@ -76,7 +60,8 @@ return {
   {
     {
       "junegunn/fzf",
-      dir = "~/.fzf",
+      dir = vim.fn.expand("~/.fzf"),
+      enabled = vim.fn.isdirectory(vim.fn.expand("~/.fzf")) == 1,
       build = "./install --all",
     },
   },
@@ -84,7 +69,6 @@ return {
     "junegunn/fzf.vim",
   },
 
-  -- add more treesitter parsers
   {
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -106,20 +90,6 @@ return {
     },
   },
 
-  -- since `vim.tbl_deep_extend`, can only merge tables and not lists, the code above
-  -- would overwrite `ensure_installed` with the new value.
-  -- If you'd rather extend the default config, use the code below instead:
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- add tsx and treesitter
-      vim.list_extend(opts.ensure_installed, {
-        "tsx",
-        "typescript",
-      })
-    end,
-  },
-
   -- the opts function can also be used to change the default opts:
   {
     "nvim-lualine/lualine.nvim",
@@ -129,26 +99,8 @@ return {
     end,
   },
 
-  -- or you can return new options to override all the defaults
   {
-    "nvim-lualine/lualine.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return {
-        --[[add your custom lualine config here]]
-      }
-    end,
-  },
-
-  -- use mini.starter instead of alpha
-  { import = "lazyvim.plugins.extras.ui.mini-starter" },
-
-  -- add jsonls and schemastore packages, and setup treesitter for json, json5 and jsonc
-  { import = "lazyvim.plugins.extras.lang.json" },
-
-  -- add any tools you want to have installed below
-  {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = {
       ensure_installed = {
         "stylua",
@@ -175,6 +127,13 @@ return {
     },
     ---@param opts cmp.ConfigSchema
     opts = function(_, opts)
+      opts.sources = opts.sources or {}
+      if not vim.iter(opts.sources):any(function(source)
+            return source.name == "emoji"
+          end) then
+        table.insert(opts.sources, { name = "emoji" })
+      end
+
       local has_words_before = function()
         unpack = unpack or table.unpack
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -220,9 +179,6 @@ return {
       "rcarriga/nvim-notify",
     },
     opts = {
-      -- See below for full list of options 👇
     },
   },
-  -- Exiting Terminal mode remapping
-  { { mode = { "t" }, "<C-\\><C-\\>", "<C-\\><C-N>" } },
 }

@@ -9,7 +9,6 @@ return {
   },
   {
     "jbyuki/nabla.nvim",
-    opt = true,
     ft = { "markdown", "tex", "norg" },
   },
 }

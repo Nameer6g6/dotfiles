@@ -7,6 +7,7 @@ return {
       diagnostics = {
         underline = true,
         update_in_insert = false,
+        -- virtual_lines = true,
         virtual_text = {
           spacing = 4,
           source = "if_many",
@@ -121,20 +122,17 @@ return {
       -- Code action
       { mode = { "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>" },
 
-      { mode = { "n", "v" }, "<C-k>", "<cmd>Lspsaga signature_help<CR>" },
+      { mode = { "n", "v" }, "<leader>k", "<cmd>Lspsaga signature_help<CR>" },
 
-      -- Rename all occurrences of the hovered word for the entire file
-      { "gr", "<cmd>Lspsaga rename<CR>" },
-
-      -- Rename all occurrences of the hovered word for the selected files
-      { "gr", "<cmd>Lspsaga rename ++project<CR>" },
+      -- Keep standard `gr` for references from LazyVim, expose rename on leader.
+      { "<leader>cr", "<cmd>Lspsaga rename<CR>" },
 
       -- Peek definition
       -- You can edit the file containing the definition in the floating window
       -- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
       -- It also supports tagstack
       -- Use <C-t> to jump back
-      { "gD", "<cmd>Lspsaga peek_definition<CR>" },
+      { "gp", "<cmd>Lspsaga peek_definition<CR>" },
 
       -- WARN: Check if this valid
       -- { "gv", "<cmd>Lspsaga preview_definition<CR>"},
@@ -187,16 +185,6 @@ return {
       },
 
       -- Toggle outline
-      { "<leader>o", "<cmd>Lspsaga outline<CR>" },
-
-      -- Hover Doc
-      -- If there is no hover doc,
-      -- there will be a notification stating that
-      -- there is no information available.
-      -- To disable it just use ":Lspsaga hover_doc ++quiet"
-      -- Pressing the key twice will enter the hover window
-      { "K", "<cmd>Lspsaga hover_doc<CR>" },
-
       { "<leader>o", "<cmd>Lspsaga outline<CR>" },
 
       -- Hover Doc
