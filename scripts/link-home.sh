@@ -5,8 +5,8 @@ usage() {
   cat <<'USAGE'
 Usage: scripts/link-home.sh [--dry-run] [--force] [--backup]
 
-Symlink each direct file or directory inside .config and .local into the
-matching directory under $HOME.
+Symlink selected home dotfiles and each direct file or directory inside
+.config, .local, and .tmp into the matching location under $HOME.
 
 Options:
   -n, --dry-run  Show what would be linked without changing anything
@@ -42,8 +42,14 @@ repo_dir=$(CDPATH= cd -- "$script_dir/.." && pwd)
 link_entry() {
   src=$1
   base=$2
-  dest_dir=$HOME/$base
-  dest=$dest_dir/$(basename -- "$src")
+  dest=$HOME/$base/$(basename -- "$src")
+  link_path "$src" "$dest"
+}
+
+link_path() {
+  src=$1
+  dest=$2
+  dest_dir=$(dirname -- "$dest")
 
   if [ -L "$dest" ]; then
     current=$(readlink -- "$dest")
@@ -73,7 +79,34 @@ link_entry() {
 
 found_source=0
 
-for base in .config .local; do
+home_dotfiles='
+.ghci:.ghci
+.haskeline:.haskeline
+.inputrc:.inputrc
+.tmux.conf:.tmux.conf
+.xmodmap:.xmodmap
+xmonad.hs:.xmonad.hs
+.zprofile:.zprofile
+.zshenv:.zshenv
+.zshrc:.zshrc
+'
+
+while IFS=: read -r src_name dest_name; do
+  [ -n "$src_name" ] || continue
+  src=$repo_dir/$src_name
+
+  if [ ! -e "$src" ] && [ ! -L "$src" ]; then
+    printf 'missing: %s\n' "$src" >&2
+    continue
+  fi
+
+  found_source=1
+  link_path "$src" "$HOME/$dest_name"
+done <<EOF
+$home_dotfiles
+EOF
+
+for base in .config .local .tmp; do
   dir=$repo_dir/$base
 
   if [ ! -d "$dir" ]; then
@@ -95,6 +128,6 @@ for base in .config .local; do
 done
 
 if [ "$found_source" -eq 0 ]; then
-  echo "No .config or .local directory found in $repo_dir." >&2
+  echo "No home dotfiles, .config, .local, or .tmp directory found in $repo_dir." >&2
   exit 1
 fi

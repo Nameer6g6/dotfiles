@@ -1,6 +1,8 @@
 #!/bin/zsh
 
-PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
+if command -v ruby >/dev/null 2>&1; then
+  PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
+fi
 PATH="$PATH:$HOME/.local/bin"
 export PATH=$PATH:~/.cabal/bin
 export PATH=$PATH:$HOME/.local/share/cargo/bin/
@@ -27,7 +29,6 @@ export XDG_CACHE_HOME="$HOME/.cache"
 export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export GOBIN="$GOPATH/bin"
 export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
-export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
 
 
 
@@ -49,13 +50,18 @@ export QT_SCALE_FACTOR=1.5
 #   __vte_osc7
 # fi
 
-# Load ssh key path and load it to the agent
-eval `ssh-agent -s` &> /dev/null
-ssh-add -L &>/dev/null
-if [ $? -ne 0 ]; then
-     ssh-add $ssh_path &>/dev/null
+# Load ssh key path and add it to an agent when configured.
+if [[ -n ${ssh_path:-} ]] && command -v ssh-agent >/dev/null 2>&1 && command -v ssh-add >/dev/null 2>&1; then
+  if ! ssh-add -L &>/dev/null; then
+    [[ -n ${SSH_AUTH_SOCK:-} ]] || eval "$(ssh-agent -s)" &>/dev/null
+    ssh-add "$ssh_path" &>/dev/null
+  fi
+
+  ssh_agents=(/tmp/ssh-*/agent.*(N))
+  if (( ${#ssh_agents} )) && [[ -d "$HOME/.config" ]]; then
+    echo "SSH_AUTH_SOCK=${ssh_agents[1]}" > "$HOME/.config/sshPat"
+  fi
 fi
-ls /tmp/ssh-*/agent.*| head -n 1 | xargs -I {}  echo "SSH_AUTH_SOCK={}" > $HOME/.config/sshPat
 
 export LF_ICONS="di=📁:\
 fi=📃:\

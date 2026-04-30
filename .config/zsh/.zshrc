@@ -1,3 +1,8 @@
+if [ -z "${ZSH_VERSION:-}" ]; then
+  echo ".zshrc is zsh-only; start zsh before sourcing it." >&2
+  return 0 2>/dev/null || exit 0
+fi
+
 # Enable colors and change prompt:
 autoload -U colors && colors
 
@@ -172,17 +177,18 @@ source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 [ -f $HOME/dotfiles/functions.sh ] && . $HOME/dotfiles/functions.sh
 [ -f $HOME/dotfiles/secrets.sh   ] && . $HOME/dotfiles/secrets.sh
 
-# Auto completions for asdf
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
-# initialise completions with ZSH's compinit
-autoload -Uz compinit && compinit
+if [[ -n ${ASDF_DIR:-} && -d ${ASDF_DIR}/completions ]]; then
+  fpath=(${ASDF_DIR}/completions $fpath)
+  autoload -Uz compinit && compinit
+fi
 
 # export DOTNET_ROOT="$HOME/.dotnet"
 # export PATH="$DOTNET_ROOT:$PATH"
 
-fpath=(${ASDF_DIR}/completions $fpath)
-autoload -Uz compinit && compinit
+if [[ -n ${ASDF_DIR:-} && -d ${ASDF_DIR}/completions ]]; then
+  fpath=(${ASDF_DIR}/completions $fpath)
+  autoload -Uz compinit && compinit
+fi
 
 # Enabling cache for the completions for zsh
 zstyle ':completion::complete:*' use-cache 1
@@ -191,11 +197,12 @@ bindkey "^r" history-incremental-search-backward
 
 export TERM='xterm-256color'
 
-# Load ssh key path and load it to the agent
-eval `ssh-agent -s` &> /dev/null
-ssh-add -L &>/dev/null
-if [ $? -ne 0 ]; then
-     ssh-add $ssh_path &>/dev/null
+# Load ssh key path and add it to an existing/new agent when configured.
+if [[ -n ${ssh_path:-} ]]; then
+  if ! ssh-add -L &>/dev/null; then
+    [[ -n ${SSH_AUTH_SOCK:-} ]] || eval "$(ssh-agent -s)" &>/dev/null
+    ssh-add "$ssh_path" &>/dev/null
+  fi
 fi
 
 export GTK_IM_MODULE=ibus
@@ -209,17 +216,22 @@ export GOPASS_CLIPBOARD_COPY_CMD="/home/nameer/.local/bin/xclip"
 # Custom unstable & env specific alias
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias"
 
-
 if [[ ! -f ~/.zpm/zpm.zsh ]]; then
-  git clone --recursive https://github.com/zpm-zsh/zpm ~/.zpm
+  git clone --recursive https://github.com/zpm-zsh/zpm "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm"
 fi
-source ~/.zpm/zpm.zsh
 
-# zpm plugins
-zpm load zpm-zsh/bookmarks
-zpm load zpm-zsh/ls
+source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm/zpm.zsh"
+# Or source our zshrc
+# source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm/zshrc"
 
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+if [[ -r "$HOME/.zpm/zpm.zsh" ]]; then
+  source "$HOME/.zpm/zpm.zsh"
+  # zpm plugins
+  zpm load zpm-zsh/bookmarks
+  zpm load zpm-zsh/ls
+fi
+
+# THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
@@ -255,4 +267,3 @@ if command -v asdf >/dev/null 2>&1; then
   fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
   autoload -Uz compinit && compinit
 fi
-
