@@ -213,20 +213,22 @@ export QT_IM_MODULE=ibus
 # Custom unstable & env specific alias
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/custom_alias"
 
-if [[ ! -f ~/.zpm/zpm.zsh ]]; then
-  git clone --recursive https://github.com/zpm-zsh/zpm "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm"
+# zpm: use an existing ~/.zpm install, otherwise clone into XDG_DATA_HOME
+zpm_dir="${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm"
+[[ -r "$HOME/.zpm/zpm.zsh" ]] && zpm_dir="$HOME/.zpm"
+if [[ ! -r "$zpm_dir/zpm.zsh" ]]; then
+  git clone --recursive https://github.com/zpm-zsh/zpm "$zpm_dir"
 fi
 
-source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm/zpm.zsh"
-# Or source our zshrc
-# source "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/plugins/@zpm/zshrc"
-
-if [[ -r "$HOME/.zpm/zpm.zsh" ]]; then
-  source "$HOME/.zpm/zpm.zsh"
+if [[ -r "$zpm_dir/zpm.zsh" ]]; then
+  source "$zpm_dir/zpm.zsh"
+  # Or source our zshrc
+  # source "$zpm_dir/zshrc"
   # zpm plugins
   zpm load zpm-zsh/bookmarks
   zpm load zpm-zsh/ls
 fi
+unset zpm_dir
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
