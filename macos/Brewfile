@@ -9,6 +9,7 @@ cask "amethyst"                      # xmonad clone: Tall/Mirror/Full, master + 
 brew "felixkratz/formulae/borders"   # focused-window border, like xmonad's borderWidth
 cask "karabiner-elements"            # Linux keyboard layout: Ctrl/Super/Alt, Caps<->Esc
 cask "alt-tab"                       # Windows/Linux-style Alt+Tab window switcher
+brew "defaultbrowser"                # set the default browser (Chrome) from bootstrap.sh
 
 # --- Terminal & shell ---
 # Alacritty: the cask is disabled (fails Gatekeeper), bootstrap.sh installs it from GitHub

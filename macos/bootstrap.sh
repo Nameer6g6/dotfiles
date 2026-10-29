@@ -95,12 +95,32 @@ defaults write -g NSWindowShouldDragOnGesture -bool true
 defaults write com.apple.dock autohide -bool true
 # Spaces are the xmonad workspaces: keep them in order 1-9
 defaults write com.apple.dock mru-spaces -bool false
+# Typing like Linux: no autocorrect, auto-capitals, smart quotes/dashes,
+# double-space period or inline predictions
+for key in NSAutomaticSpellingCorrectionEnabled NSAutomaticCapitalizationEnabled \
+  NSAutomaticQuoteSubstitutionEnabled NSAutomaticDashSubstitutionEnabled \
+  NSAutomaticPeriodSubstitutionEnabled NSAutomaticInlinePredictionEnabled; do
+  defaults write -g "$key" -bool false
+done
+# Amethyst does the tiling: no macOS edge-drag tiling, no "click wallpaper to
+# show desktop", no Quick Note hot corner, quick Mission Control
+defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
+defaults write com.apple.WindowManager EnableTilingOptionAccelerator -bool false
+defaults write com.apple.WindowManager EnableStandardClickToShowDesktop -bool false
+defaults write com.apple.dock wvous-br-corner -int 1
+defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 # Finder: hidden files, full paths, no .DS_Store on network drives
 defaults write com.apple.finder AppleShowAllFiles -bool true
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 killall Dock Finder 2>/dev/null || true
+
+step "Default browser"
+# macOS asks to confirm: click Use "Chrome"
+[ -d "/Applications/Google Chrome.app" ] && defaultbrowser chrome
 # AltTab on Alt+Tab (Karabiner sends Alt as Option)
 defaults write com.lwouis.alt-tab-macos holdShortcut -string "⌥"
 defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "⇥"
