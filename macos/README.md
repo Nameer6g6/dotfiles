@@ -61,5 +61,7 @@ pinning apps to workspaces (use Dock > Options > Assign To instead).
 | setxkbmap caps:swapescape | Karabiner-Elements |
 | ibus / mozc | built-in Japanese input |
 | maim, i3lock-fancy | screencapture, Ctrl+Alt+L |
-| notify-send, xclip | shims in `bin/` (osascript, pbcopy) |
+| notify-send, xclip, xdg-open, setsid | shims in `bin/` (osascript, pbcopy, open, nohup) |
+| zathura, sxiv | shims in `bin/` that `open` the file (Preview) |
+| GNU coreutils/sed/grep/find/awk | Homebrew gnubin, first in PATH (`.zprofile`) |
 | nemo | Finder |

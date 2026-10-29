@@ -1,0 +1,11 @@
+#!/bin/sh
+# sxiv shim: open images in Preview; -i reads the file list from stdin (lf does that)
+stdin=
+for arg; do
+  case "$arg" in -*i*) stdin=1 ;; -*) ;; *) set -- "$@" "$arg" ;; esac
+  shift
+done
+if [ -n "$stdin" ]; then
+  while IFS= read -r f; do set -- "$@" "$f"; done
+fi
+[ $# -gt 0 ] && open "$@"

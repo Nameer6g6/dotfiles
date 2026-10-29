@@ -1,0 +1,3 @@
+#!/bin/sh
+# xdg-open shim: open files and URLs with their default macOS app
+exec open "$@"

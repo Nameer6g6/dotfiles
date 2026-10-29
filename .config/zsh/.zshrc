@@ -29,6 +29,11 @@ zstyle ':completion:*' menu select=1
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 fpath=(/usr/local/share/zsh-completions $fpath)
+# macOS: Homebrew's completions, like /usr/share/zsh/site-functions on Linux
+[[ -n $HOMEBREW_PREFIX ]] && fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+# asdf completions go in before the single compinit; a second compinit with a
+# different fpath rewrites the dump on every shell start
+fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
 
 autoload -Uz compinit
 compinit -u
@@ -262,9 +267,7 @@ done
 if command -v asdf >/dev/null 2>&1; then
   export ASDF_DATA_DIR="$HOME/.asdf"
   export PATH="$ASDF_DATA_DIR/shims:$PATH"
-  # append completions
-  fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
-  autoload -Uz compinit && compinit
+  # completions: added to fpath before compinit at the top
 fi
 
 # Send a command to the running ASF service through its IPC API

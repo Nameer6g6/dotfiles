@@ -1,0 +1,7 @@
+#!/bin/sh
+# zathura shim: open documents in the default PDF viewer (zathura isn't on macOS)
+for arg; do
+  case "$arg" in -*) ;; *) set -- "$@" "$arg" ;; esac
+  shift
+done
+exec open "$@"

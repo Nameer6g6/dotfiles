@@ -1,0 +1,12 @@
+#!/bin/sh
+# setsid shim: setsid [-f] [-w] CMD...; -f detaches it like util-linux setsid
+fork=
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -f|--fork) fork=1; shift ;;
+    -*) shift ;;
+    *) break ;;
+  esac
+done
+[ -n "$fork" ] || exec "$@"
+nohup "$@" </dev/null >/dev/null 2>&1 &
