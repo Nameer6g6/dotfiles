@@ -14,6 +14,9 @@ command -v dokcer >/dev/null && alias docker_container_rm="docker rm $(docker ps
 
 # change-commits="!f() { VAR=$1; OLD=$2; NEW=$3; shift 3; git filter-branch --env-filter \"if [[ \\\"$`echo $VAR`\\\" = '$OLD' ]]; then export $VAR='$NEW'; fi\" \$@; }; f"
 
+# macOS: coreutils owns the `gfold` name, the git tool is installed unlinked
+[ -x /opt/homebrew/opt/gfold/bin/gfold ] && alias gfold="/opt/homebrew/opt/gfold/bin/gfold"
+
 # aliasing bins
 alias \
   tb="taskbook" \

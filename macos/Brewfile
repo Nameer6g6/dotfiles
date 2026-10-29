@@ -28,7 +28,9 @@ brew "wget"
 brew "btop"
 brew "htop"
 brew "terminal-notifier"
-brew "gfold"
+# coreutils also ships a `gfold` (GNU fold), so keep this one unlinked;
+# aliasrc points `gfold` at it on macOS
+brew "gfold", link: false
 brew "universal-ctags"
 brew "stylua"
 
@@ -49,7 +51,7 @@ brew "asdf"
 brew "kubernetes-cli"
 brew "hashicorp/tap/terraform"
 brew "awscli"
-brew "azure-cli"
+cask "azure-cli"
 cask "gcloud-cli"
 
 # --- Fonts ---
