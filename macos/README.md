@@ -20,6 +20,8 @@ git clone git@github.com:Nameer6g6/dotfiles.git ~/dotfiles
 - **Super** is the tiling mod key (sent as ⌃⌥⌘, so it never hits app shortcuts).
 - **Super+P** opens Spotlight (rofi). **Ctrl+Alt+L** locks the screen. **Ctrl+Space** switches input source.
 - Right ⌘ is untouched, as an escape hatch for real ⌘ shortcuts.
+- Keychron Q1 Max: keep its switch on **Mac** (media keys on the F row).
+  Mac mode swaps Alt/Win in hardware, so Karabiner swaps ⌘/⌥ back for it.
 
 ## Window manager (Amethyst: `amethyst.yml`)
 
@@ -32,12 +34,15 @@ xmonad's default keys and `xmonad.hs` settings, with Super as mod:
 | Super+Enter, Super+M | swap with / focus master |
 | Super+H/L, Super+, / . | shrink / expand master, more / fewer in master |
 | Super+Space, Super+Shift+Space | next layout (Tall → Mirror → Full), reset |
+| Super+F | toggle Full and back |
 | Super+T | sink / float |
 | Super+1..9, Super+Shift+1..9 | go to / send to workspace (macOS Desktop) |
-| Super+W/E/R, Super+Shift+W/E/R | focus / send to screen 1–3 |
+| Super+W/E/R | focus screen 1–3 (left to right) |
+| Super+Shift+H/L | send window to previous / next screen |
 | Super+Shift+Enter, Super+Shift+C | terminal, close window |
 | Super+N, Super+Q, Super+Shift+Q | refresh, restart Amethyst, log out |
 | Alt+M | minimize |
+| Super+↑ or Super+` | Mission Control (add Desktops with + at the top) |
 
 App launch keys match `myKeys`; Super+Shift+S is a region screenshot to the
 clipboard. Keys Amethyst can't do itself live in Karabiner, and Super+1..9 are
