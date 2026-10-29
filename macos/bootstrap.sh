@@ -41,8 +41,7 @@ for f in .zprofile .zshenv .tmux.conf .inputrc .ghci .haskeline; do
 done
 # Only what is useful on macOS; .local/share is deliberately not linked so
 # work-laptop app data doesn't end up in the dotfiles repo.
-for f in zsh aliasrc nvim alacritty lf mpv mpd ncmpcpp newsboat aerc git \
-         ctags flake8 gfold.toml stylua.toml; do
+for f in zsh aliasrc nvim alacritty lf git ctags flake8 gfold.toml stylua.toml; do
   [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
 done
 link "$repo/.local/bin" "$HOME/.local/bin"
@@ -89,11 +88,9 @@ Done. Manual steps left:
      System Settings > Keyboard > Modifier Keys: Karabiner does it all.
   2. Privacy & Security > Accessibility: allow AeroSpace and AltTab.
   3. AltTab settings: set the shortcut to Option+Tab (= Alt+Tab).
-  4. Raycast: set its hotkey to Super+P (rofi), and Clipboard History to
-     Super+Shift+P (clipcat-menu). Pressing Super records as ⌃⌥⌘.
-  5. System Settings > Keyboard > Input Sources: add Japanese. Ctrl+Space
+  4. System Settings > Keyboard > Input Sources: add Japanese. Ctrl+Space
      switches input source.
-  6. Log out and back in so the key-repeat settings apply.
-  7. Open tmux and press prefix + I to install plugins.
-  8. Create ~/.gitconfig with your work email (it isn't in the repo).
+  5. Log out and back in so the key-repeat settings apply.
+  6. Open tmux and press prefix + I to install plugins.
+  7. Create ~/.gitconfig with your work email (it isn't in the repo).
 DONE

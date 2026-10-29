@@ -33,7 +33,7 @@ export TERMINAL="st"
 export BROWSER="$browser_bin"
 export READER="zathura"
 if [[ $OSTYPE == darwin* ]]; then
-  export TERMINAL="alacritty" BROWSER="open" READER="open -a Skim"
+  export TERMINAL="alacritty" BROWSER="open" READER="open"
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"

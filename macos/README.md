@@ -18,7 +18,7 @@ git clone git@github.com:Nameer6g6/dotfiles.git ~/dotfiles
   Ctrl+←/→ word jump, Ctrl+Backspace, Home/End, Ctrl+click new tab).
   In terminals it is a real Ctrl, and Ctrl+Shift+C/V copy and paste.
 - **Super** is the tiling mod key (sent as ⌃⌥⌘, so it never hits app shortcuts).
-- **Ctrl+Alt+L** locks the screen. **Ctrl+Space** switches input source.
+- **Super+P** opens Spotlight (rofi). **Ctrl+Alt+L** locks the screen. **Ctrl+Space** switches input source.
 - Right ⌘ is untouched, as an escape hatch for real ⌘ shortcuts.
 
 ## Window manager (AeroSpace: `aerospace.toml`)
@@ -34,9 +34,9 @@ Super+Shift+S screenshot to clipboard. App launch keys match `myKeys`.
 | Linux | macOS |
 |-------|-------|
 | xmonad + xmobar | AeroSpace + borders (native menu bar) |
-| rofi, clipcat-menu, dunicode | Raycast |
+| rofi | Spotlight on Super+P |
 | setxkbmap caps:swapescape | Karabiner-Elements |
 | ibus / mozc | built-in Japanese input |
 | maim, i3lock-fancy | screencapture, Ctrl+Alt+L |
 | notify-send, xclip | shims in `bin/` (osascript, pbcopy) |
-| zathura, nemo | Skim, Finder |
+| nemo | Finder |

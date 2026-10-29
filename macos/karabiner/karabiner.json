@@ -156,6 +156,32 @@
             ]
           },
           {
+            "description": "Super+P opens Spotlight (rofi)",
+            "manipulators": [
+              {
+                "type": "basic",
+                "from": {
+                  "key_code": "p",
+                  "modifiers": {
+                    "mandatory": [
+                      "control",
+                      "option",
+                      "command"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "key_code": "spacebar",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
             "description": "Ctrl+Alt+L locks the screen (i3lock-fancy)",
             "manipulators": [
               {

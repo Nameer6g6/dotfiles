@@ -1,4 +1,4 @@
-# macOS equivalents of the Arch setup.  Install with:
+# Window manager, keyboard, terminal and dev tools.  Install with:
 #   brew bundle --file=~/dotfiles/macos/Brewfile
 
 tap "nikitabobko/tap"      # aerospace
@@ -8,13 +8,11 @@ tap "hashicorp/tap"        # terraform
 # --- Window management (xmonad replacement) ---
 cask "nikitabobko/tap/aerospace"     # i3/xmonad-like tiling, workspaces 1-9
 brew "felixkratz/formulae/borders"   # focused-window border, like xmonad's borderWidth
-cask "raycast"                       # rofi/dmenu + clipcat + dunicode replacement
 cask "karabiner-elements"            # Linux keyboard layout: Ctrl/Super/Alt, Caps<->Esc
 cask "alt-tab"                       # Windows/Linux-style Alt+Tab window switcher
 
 # --- Terminal & shell ---
 cask "alacritty"
-cask "kitty"
 brew "zsh-syntax-highlighting"
 brew "tmux"
 brew "neovim"
@@ -54,33 +52,6 @@ brew "awscli"
 brew "azure-cli"
 cask "gcloud-cli"
 
-# --- Media ---
-brew "mpv"
-brew "mpd"
-brew "ncmpcpp"
-brew "yt-dlp"
-brew "ffmpeg"
-brew "exiftool"
-brew "gifski"
-brew "sevenzip"
-brew "newsboat"
-brew "aerc"
-cask "calibre"
-cask "skim"          # PDF reader (zathura replacement)
-
 # --- Fonts ---
 cask "font-fira-code"
 cask "font-fira-code-nerd-font"   # icons for eza --icons / lf
-
-# --- Apps from the xmonad keybinds/startup ---
-cask "brave-browser"
-cask "firefox"
-cask "google-chrome"
-cask "obsidian"
-cask "anki"
-cask "raindropio"
-
-# --- Personal: comment out if the work laptop shouldn't have these ---
-cask "discord"
-cask "telegram"
-cask "signal"
