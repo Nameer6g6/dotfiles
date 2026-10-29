@@ -22,6 +22,8 @@ alias \
   tb="taskbook" \
   newsboat="nbrun"
 
+alias getYtSong="yt-dlp -f 'bestaudio' -x --audio-format best --embed-thumbnail --add-metadata -o \"%(title)s.%(ext)s\" "
+
 alias nuget="mono /usr/local/bin/nuget.exe"
 
 alias wtfutil_discourse="wtfutil  -c=~/.config/wtf/feeds.yml"
@@ -95,3 +97,9 @@ alias \
 # 	ref="shortcuts >/dev/null; source ${XDG_CONFIG_HOME:-$HOME/.config}/shortcutrc ; source ${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" \
 # 	weath="less -S ${XDG_DATA_HOME:-$HOME/.local/share}/weatherreport" \
 # 	tmux="tmux -f ${XDG_CONFIG_HOME:-$HOME/.config}/tmux/tmux.conf" \
+
+# Anki flashcard session (German + Japanese) -- role file: ~/.claude/cards/CARDSMITH.md
+alias cardsmith='cd ~/workspace/projects/LearningWithANki && claude "Read ~/.claude/cards/CARDSMITH.md — that is your role. Ready for words."'
+
+# German conversation tutor session -- role file: ~/.claude/german/TUTOR.md
+alias tutor='cd ~/Documents/notes/Languages\ \&\ Literature/Deutsch && claude "Read ~/.claude/german/TUTOR.md — that is your role. Then do the reconnaissance it describes and start the conversation in German."'
