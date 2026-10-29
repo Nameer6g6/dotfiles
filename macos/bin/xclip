@@ -1,0 +1,6 @@
+#!/bin/sh
+# xclip shim: -o prints the clipboard, anything else copies stdin
+for arg; do
+  [ "$arg" = "-o" ] && exec pbpaste
+done
+exec pbcopy

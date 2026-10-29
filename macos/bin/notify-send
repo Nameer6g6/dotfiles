@@ -1,0 +1,15 @@
+#!/bin/sh
+# notify-send shim: notify-send [options] TITLE [BODY]
+while [ $# -gt 0 ]; do
+  case "$1" in
+    -t|-u|-i|-a|-c|-h|-r) shift 2; continue ;;   # options that take a value
+    -*) shift; continue ;;
+  esac
+  break
+done
+title=${1:-Notification}
+body=${2:-}
+if command -v terminal-notifier >/dev/null 2>&1; then
+  exec terminal-notifier -title "$title" -message "${body:- }"
+fi
+exec osascript -e 'on run argv' -e 'display notification (item 2 of argv) with title (item 1 of argv)' -e 'end run' "$title" "$body"

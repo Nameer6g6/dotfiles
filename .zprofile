@@ -12,6 +12,16 @@ BINPATH="$HOME/.local/bin"
 path+=("$BINPATH" ${BINPATH}/*/)
 export PATH
 
+# macOS: Homebrew, GNU userland ahead of BSD tools, Linux shims (notify-send, xclip)
+if [[ $OSTYPE == darwin* ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+  for gnu in coreutils gnu-sed grep findutils gawk; do
+    [[ -d $HOMEBREW_PREFIX/opt/$gnu/libexec/gnubin ]] && path=("$HOMEBREW_PREFIX/opt/$gnu/libexec/gnubin" $path)
+  done
+  path=("$HOME/dotfiles/macos/bin" $path)
+  export PATH
+fi
+
 # Check whether brave or brave-beta
 browser_bin=$( [[ -f /usr/bin/brave ]] && echo brave || [[ -f /usr/bin/brave-beta ]] && echo brave-beta )
 
@@ -22,6 +32,9 @@ export TERM='xterm-256color'
 export TERMINAL="st"
 export BROWSER="$browser_bin"
 export READER="zathura"
+if [[ $OSTYPE == darwin* ]]; then
+  export TERMINAL="alacritty" BROWSER="open" READER="open -a Skim"
+fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"

@@ -52,7 +52,7 @@ zstyle ':vcs_info:git:*' patch-format '%10>…>%p%<< (%n applied)'
 zstyle ':vcs_info:*+set-message:*' hooks home-path
 function +vi-home-path() {
   # Replace $HOME with ~
-  hook_com[base]="$(echo ${hook_com[base]} | sed "s/${HOME:gs/\//\\\//}/~/" )"
+  hook_com[base]="$(echo ${hook_com[base]} | sed "s/${HOME:gs/\//\\\//}/~/")"
 }
 zstyle ':vcs_info:git+post-backend:*' hooks git-remote-staged
 function +vi-git-remote-staged() {
@@ -62,27 +62,27 @@ function +vi-git-remote-staged() {
   # See original VCS_INFO_get_data_git for implementation details
 
   # Set "unstaged" when git reports either staged or unstaged changes
-  if (( gitstaged || gitunstaged )) ; then
+  if ((gitstaged || gitunstaged)); then
     gitunstaged=1
   fi
 
   # Set "staged" when current HEAD is not present in the remote branch
-  if (( querystaged )) && \
-     [[ "$(${vcs_comm[cmd]} rev-parse --is-inside-work-tree 2> /dev/null)" == 'true' ]] ; then
-      # Default: off - these are potentially expensive on big repositories
-      if ${vcs_comm[cmd]} rev-parse --quiet --verify HEAD &> /dev/null ; then
-          gitstaged=1
-          if ${vcs_comm[cmd]} status --branch --short | head -n1 | grep -v ahead > /dev/null ; then
-            gitstaged=
-          fi
+  if ((querystaged)) &&
+    [[ "$(${vcs_comm[cmd]} rev-parse --is-inside-work-tree 2>/dev/null)" == 'true' ]]; then
+    # Default: off - these are potentially expensive on big repositories
+    if ${vcs_comm[cmd]} rev-parse --quiet --verify HEAD &>/dev/null; then
+      gitstaged=1
+      if ${vcs_comm[cmd]} status --branch --short | head -n1 | grep -v ahead >/dev/null; then
+        gitstaged=
       fi
+    fi
   fi
 
   hook_com[staged]=$gitstaged
   hook_com[unstaged]=$gitunstaged
 }
 autoload -Uz vcs_info
-function precmd() { vcs_info }
+function precmd() { vcs_info; }
 setopt prompt_subst
 PROMPT='%(?..%{%F{red}%}%?%{%f%} )%{%F{green}%}%n%{%f%}@%{%F{red}%}%m%{%f%}:${vcs_info_msg_0_}%{%B%} %{%F{magenta}%}λ%(!.#.>)%{%b%E%}%{%f%} '
 # End of lines for vcs_info prompt configuration
@@ -104,18 +104,18 @@ fi
 if [[ -s /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
   source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 fi
+if [[ -n $HOMEBREW_PREFIX && -s $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # History in cache directory:
 HISTSIZE=1000000
 SAVEHIST=1000000
 HISTFILE=~/.cache/zsh/history
 
-# Basic auto/tab complete:
-autoload -U compinit
+# Basic auto/tab complete (compinit already run above):
 zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit
-_comp_options+=(globdots)		# Include hidden files.
+_comp_options+=(globdots) # Include hidden files.
 
 # vi mode
 bindkey -v
@@ -131,24 +131,24 @@ bindkey -v '^?' backward-delete-char
 # Change cursor shape for different vi modes.
 function zle-keymap-select {
   if [[ ${KEYMAP} == vicmd ]] ||
-     [[ $1 = 'block' ]]; then
+    [[ $1 == 'block' ]]; then
     echo -ne '\e[1 q'
   elif [[ ${KEYMAP} == main ]] ||
-       [[ ${KEYMAP} == viins ]] ||
-       [[ ${KEYMAP} = '' ]] ||
-       [[ $1 = 'beam' ]]; then
+    [[ ${KEYMAP} == viins ]] ||
+    [[ ${KEYMAP} == '' ]] ||
+    [[ $1 == 'beam' ]]; then
     echo -ne '\e[5 q'
   fi
 }
 
 zle -N zle-keymap-select
 zle-line-init() {
-    zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
-    echo -ne "\e[5 q"
+  zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
+  echo -ne "\e[5 q"
 }
 zle -N zle-line-init
-echo -ne '\e[5 q' # Use beam shape cursor on startup.
-preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
+echo -ne '\e[5 q'                # Use beam shape cursor on startup.
+preexec() { echo -ne '\e[5 q'; } # Use beam shape cursor for each new prompt.
 
 # Use lf to switch directories and bind it to ctrl-o
 # lfcd () {
@@ -163,7 +163,8 @@ preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 # bindkey -s '^o' 'lfcd\n'
 
 # Edit line in vim with ctrl-e:
-autoload edit-command-line; zle -N edit-command-line
+autoload edit-command-line
+zle -N edit-command-line
 bindkey '^e' edit-command-line
 
 # Load aliases and shortcuts if existent.
@@ -175,7 +176,7 @@ bindkey '^e' edit-command-line
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 [ -f $HOME/dotfiles/functions.sh ] && . $HOME/dotfiles/functions.sh
-[ -f $HOME/dotfiles/secrets.sh   ] && . $HOME/dotfiles/secrets.sh
+[ -f $HOME/dotfiles/secrets.sh ] && . $HOME/dotfiles/secrets.sh
 
 if [[ -n ${ASDF_DIR:-} && -d ${ASDF_DIR}/completions ]]; then
   fpath=(${ASDF_DIR}/completions $fpath)
@@ -185,11 +186,6 @@ fi
 # export DOTNET_ROOT="$HOME/.dotnet"
 # export PATH="$DOTNET_ROOT:$PATH"
 
-if [[ -n ${ASDF_DIR:-} && -d ${ASDF_DIR}/completions ]]; then
-  fpath=(${ASDF_DIR}/completions $fpath)
-  autoload -Uz compinit && compinit
-fi
-
 # Enabling cache for the completions for zsh
 zstyle ':completion::complete:*' use-cache 1
 
@@ -197,12 +193,13 @@ bindkey "^r" history-incremental-search-backward
 
 export TERM='xterm-256color'
 
-# Load ssh key path and add it to an existing/new agent when configured.
-if [[ -n ${ssh_path:-} ]]; then
-  if ! ssh-add -L &>/dev/null; then
-    [[ -n ${SSH_AUTH_SOCK:-} ]] || eval "$(ssh-agent -s)" &>/dev/null
-    ssh-add "$ssh_path" &>/dev/null
+# Reuse a running ssh-agent if possible, otherwise start one once.
+if ! ssh-add -l &>/dev/null; then
+  # Exit code 2 means we couldn't talk to an agent at all -> start a new one.
+  if [ $? -eq 2 ]; then
+    eval "$(ssh-agent -s)" &>/dev/null
   fi
+  [ -n "$ssh_path" ] && ssh-add "$ssh_path" &>/dev/null
 fi
 
 export GTK_IM_MODULE=ibus
@@ -210,7 +207,7 @@ export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 # ibus-daemon -drx
 
-export GOPASS_CLIPBOARD_COPY_CMD="/home/nameer/.local/bin/xclip"
+[[ $OSTYPE == darwin* ]] || export GOPASS_CLIPBOARD_COPY_CMD="$HOME/.local/bin/xclip"
 [ -f "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env" ] && source "${GHCUP_INSTALL_BASE_PREFIX:=$HOME}/.ghcup/env"
 
 # Custom unstable & env specific alias
@@ -235,10 +232,10 @@ fi
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-
 # Enable bash auto completion in zsh
 autoload -U +X bashcompinit && bashcompinit
 
+# The next line updates PATH for the Google Cloud SDK.
 if [ -f "$HOME/test_dir/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/path.zsh.inc"; fi
 
 # The next line enables shell command completion for gcloud.
@@ -247,14 +244,12 @@ if [ -f "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/te
 # enable completion for kubectl
 [[ -f "$HOME/.config/zsh/kubectl_complete" ]] && source "$HOME/.config/zsh/kubectl_complete"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/test_dir/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc"; fi
-
 # Terraform autocompletion
-command -v terraform >/dev/null 2>&1 && complete -o nospace -C /usr/bin/terraform terraform
+command -v terraform >/dev/null 2>&1 && complete -o nospace -C "$(command -v terraform)" terraform
+
+# aws autocompletion (bashcompinit needed for `complete -C`)
+autoload -Uz bashcompinit && bashcompinit
+command -v aws_completer >/dev/null 2>&1 && complete -C "$(command -v aws_completer)" aws
 
 # azure autocompletion
 command -v az >/dev/null 2>&1 && source $HOME/.config/zsh/az.completion
@@ -263,7 +258,16 @@ command -v az >/dev/null 2>&1 && source $HOME/.config/zsh/az.completion
 if command -v asdf >/dev/null 2>&1; then
   export ASDF_DATA_DIR="$HOME/.asdf"
   export PATH="$ASDF_DATA_DIR/shims:$PATH"
-  # append completions 
+  # append completions
   fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
   autoload -Uz compinit && compinit
 fi
+
+# Send a command to the running ASF service through its IPC API
+asfc() { curl -s -X POST http://localhost:1242/Api/Command -H 'Content-Type: application/json' -d "{\"Command\":\"$*\"}" | jq -r .Result; }
+# Farm only the given Steam app ID: clear the ASF queue, add it, resume
+asffarm() {
+	local q=$(asfc fq main | sed 's/^<main> //')
+	[[ $q == *empty* ]] || asfc fqrm main "${q// /}"
+	asfc fqadd main "$1" && asfc resume main
+}

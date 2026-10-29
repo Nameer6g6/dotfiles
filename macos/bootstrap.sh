@@ -1,0 +1,99 @@
+#!/bin/sh
+# Set up a Mac to feel like the Arch/xmonad machine.
+# Safe to re-run: existing files are moved aside, correct links are left alone.
+#
+#   git clone git@github.com:Nameer6g6/dotfiles.git ~/dotfiles
+#   ~/dotfiles/macos/bootstrap.sh
+set -eu
+
+[ "$(uname)" = Darwin ] || { echo "This script is for macOS." >&2; exit 1; }
+
+repo=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+
+step() { printf '\n==> %s\n' "$*"; }
+
+link() {
+  src=$1 dest=$2
+  if [ -L "$dest" ] && [ "$(readlink -- "$dest")" = "$src" ]; then
+    printf 'ok: %s\n' "$dest"
+    return
+  fi
+  mkdir -p -- "$(dirname -- "$dest")"
+  if [ -e "$dest" ] || [ -L "$dest" ]; then
+    backup=$dest.backup.$(date +%Y%m%d%H%M%S)
+    printf 'backup: %s -> %s\n' "$dest" "$backup"
+    mv -- "$dest" "$backup"
+  fi
+  printf 'link: %s -> %s\n' "$dest" "$src"
+  ln -s -- "$src" "$dest"
+}
+
+step "Homebrew"
+if ! command -v brew >/dev/null 2>&1; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+brew bundle --file="$repo/macos/Brewfile"
+
+step "Linking dotfiles"
+for f in .zprofile .zshenv .tmux.conf .inputrc .ghci .haskeline; do
+  link "$repo/$f" "$HOME/$f"
+done
+# Only what is useful on macOS; .local/share is deliberately not linked so
+# work-laptop app data doesn't end up in the dotfiles repo.
+for f in zsh aliasrc nvim alacritty lf mpv mpd ncmpcpp newsboat aerc git \
+         ctags flake8 gfold.toml stylua.toml; do
+  [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
+done
+link "$repo/.local/bin" "$HOME/.local/bin"
+link "$repo/macos/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
+link "$repo/macos/alacritty-local.toml" "$HOME/.config/alacritty-local.toml"
+# Link the directory, not karabiner.json: Karabiner rewrites the file in place
+link "$repo/macos/karabiner" "$HOME/.config/karabiner"
+mkdir -p "$HOME/.cache/zsh"
+
+step "tmux plugin manager"
+[ -d "$HOME/.tmux/plugins/tpm" ] ||
+  git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+
+step "macOS defaults"
+# Fast key repeat for vim; holding a key repeats instead of showing the accent
+# popup (Option dead keys still give ü/é/ñ)
+defaults write -g KeyRepeat -int 2
+defaults write -g InitialKeyRepeat -int 15
+defaults write -g ApplePressAndHoldEnabled -bool false
+# Ctrl+Cmd+drag anywhere in a window moves it, like xmonad's mod+drag
+defaults write -g NSWindowShouldDragOnGesture -bool true
+# Recommended by AeroSpace: tiny windows in Mission Control otherwise
+defaults write com.apple.dock expose-group-apps -bool true
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock mru-spaces -bool false
+# Finder: hidden files, full paths, no .DS_Store on network drives
+defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder ShowPathbar -bool true
+defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+killall Dock Finder 2>/dev/null || true
+
+step "Starting Karabiner, AeroSpace and AltTab"
+open -a Karabiner-Elements
+open -a AeroSpace
+open -a AltTab
+
+cat <<'DONE'
+
+Done. Manual steps left:
+  1. Karabiner-Elements: allow its driver extension and Input Monitoring
+     when macOS asks. If a "Keyboard Setup Assistant" pops up for the PC
+     keyboard, press the key it asks for and pick ANSI. Don't change
+     System Settings > Keyboard > Modifier Keys: Karabiner does it all.
+  2. Privacy & Security > Accessibility: allow AeroSpace and AltTab.
+  3. AltTab settings: set the shortcut to Option+Tab (= Alt+Tab).
+  4. Raycast: set its hotkey to Super+P (rofi), and Clipboard History to
+     Super+Shift+P (clipcat-menu). Pressing Super records as ⌃⌥⌘.
+  5. System Settings > Keyboard > Input Sources: add Japanese. Ctrl+Space
+     switches input source.
+  6. Log out and back in so the key-repeat settings apply.
+  7. Open tmux and press prefix + I to install plugins.
+  8. Create ~/.gitconfig with your work email (it isn't in the repo).
+DONE

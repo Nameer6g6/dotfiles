@@ -1,0 +1,8 @@
+# macOS overrides, imported by .config/alacritty/alacritty.toml
+
+[font]
+size = 14.0   # 9 is unreadable on a Retina screen
+
+[window]
+option_as_alt = "OnlyLeft" # left Option = Meta like Linux Alt; right Option still types ü/é
+decorations = "Buttonless"
