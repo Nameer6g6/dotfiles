@@ -42,6 +42,11 @@ if brew help trust >/dev/null 2>&1; then
   brew trust --formula felixkratz/formulae/borders
   brew trust --formula hashicorp/tap/terraform
 fi
+# coreutils ships its own `gfold` and refuses to install while the gfold
+# git tool is linked (the Brewfile keeps it unlinked; aliasrc aliases it)
+if brew list --formula gfold >/dev/null 2>&1; then
+  brew unlink gfold >/dev/null
+fi
 brew bundle --file="$repo/macos/Brewfile"
 
 step "Alacritty"
