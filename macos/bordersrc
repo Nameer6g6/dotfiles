@@ -1,0 +1,4 @@
+#!/bin/sh
+# Focused border like xmonad's myFocusedBorderColor / myNormalBorderColor.
+# Started by `brew services start borders` (see bootstrap.sh).
+exec borders active_color=0xff89ddff inactive_color=0xffbfbfbf width=6.0

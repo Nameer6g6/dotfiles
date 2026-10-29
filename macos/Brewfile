@@ -1,12 +1,11 @@
 # Window manager, keyboard, terminal and dev tools.  Install with:
 #   brew bundle --file=~/dotfiles/macos/Brewfile
 
-tap "nikitabobko/tap"      # aerospace
 tap "felixkratz/formulae"  # borders
 tap "hashicorp/tap"        # terraform
 
 # --- Window management (xmonad replacement) ---
-cask "nikitabobko/tap/aerospace"     # i3/xmonad-like tiling, workspaces 1-9
+cask "amethyst"                      # xmonad clone: Tall/Mirror/Full, master + stack
 brew "felixkratz/formulae/borders"   # focused-window border, like xmonad's borderWidth
 cask "karabiner-elements"            # Linux keyboard layout: Ctrl/Super/Alt, Caps<->Esc
 cask "alt-tab"                       # Windows/Linux-style Alt+Tab window switcher

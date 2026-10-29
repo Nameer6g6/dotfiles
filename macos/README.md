@@ -21,19 +21,37 @@ git clone git@github.com:Nameer6g6/dotfiles.git ~/dotfiles
 - **Super+P** opens Spotlight (rofi). **Ctrl+Alt+L** locks the screen. **Ctrl+Space** switches input source.
 - Right ⌘ is untouched, as an escape hatch for real ⌘ shortcuts.
 
-## Window manager (AeroSpace: `aerospace.toml`)
+## Window manager (Amethyst: `amethyst.yml`)
 
-Same keys as `xmonad.hs`, with Super as mod:
-Super+1..9 / Super+Shift+1..9, Super+J/K focus, Super+Shift+J/K swap,
-Super+H/L resize, Super+Space layout, Super+Shift+Space tabbed, Super+F full,
-Super+T float, Super+Shift+Enter terminal, Super+Shift+C close, Super+Q reload,
-Super+Shift+S screenshot to clipboard. App launch keys match `myKeys`.
+xmonad's default keys and `xmonad.hs` settings, with Super as mod:
+
+| Keys | Action |
+|------|--------|
+| Super+J/K, Super+Tab / Shift+Tab | focus next / previous |
+| Super+Shift+J/K | swap with next / previous |
+| Super+Enter, Super+M | swap with / focus master |
+| Super+H/L, Super+, / . | shrink / expand master, more / fewer in master |
+| Super+Space, Super+Shift+Space | next layout (Tall → Mirror → Full), reset |
+| Super+T | sink / float |
+| Super+1..9, Super+Shift+1..9 | go to / send to workspace (macOS Desktop) |
+| Super+W/E/R, Super+Shift+W/E/R | focus / send to screen 1–3 |
+| Super+Shift+Enter, Super+Shift+C | terminal, close window |
+| Super+N, Super+Q, Super+Shift+Q | refresh, restart Amethyst, log out |
+| Alt+M | minimize |
+
+App launch keys match `myKeys`; Super+Shift+S is a region screenshot to the
+clipboard. Keys Amethyst can't do itself live in Karabiner, and Super+1..9 are
+macOS "Switch to Desktop N" shortcuts set by `bootstrap.sh`. Workspaces are
+macOS Desktops, so there need to be 9 of them in Mission Control.
+
+Not carried over: the tabbed layout, Alt+Shift+M (restore minimized) and
+pinning apps to workspaces (use Dock > Options > Assign To instead).
 
 ## Linux → macOS
 
 | Linux | macOS |
 |-------|-------|
-| xmonad + xmobar | AeroSpace + borders (native menu bar) |
+| xmonad + xmobar | Amethyst + borders (native menu bar) |
 | rofi | Spotlight on Super+P |
 | setxkbmap caps:swapescape | Karabiner-Elements |
 | ibus / mozc | built-in Japanese input |

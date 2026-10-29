@@ -34,11 +34,10 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
 # Homebrew ignores third-party taps until trusted; trust only what we use
-for tap in nikitabobko/tap felixkratz/formulae hashicorp/tap; do
+for tap in felixkratz/formulae hashicorp/tap; do
   brew tap "$tap"
 done
 if brew help trust >/dev/null 2>&1; then
-  brew trust --cask nikitabobko/tap/aerospace
   brew trust --formula felixkratz/formulae/borders
   brew trust --formula hashicorp/tap/terraform
 fi
@@ -74,7 +73,8 @@ for f in zsh aliasrc nvim alacritty lf git ctags flake8 gfold.toml stylua.toml; 
   [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
 done
 link "$repo/.local/bin" "$HOME/.local/bin"
-link "$repo/macos/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
+link "$repo/macos/amethyst.yml" "$HOME/.config/amethyst/amethyst.yml"
+link "$repo/macos/bordersrc" "$HOME/.config/borders/bordersrc"
 link "$repo/macos/alacritty-local.toml" "$HOME/.config/alacritty-local.toml"
 # Link the directory, not karabiner.json: Karabiner rewrites the file in place
 link "$repo/macos/karabiner" "$HOME/.config/karabiner"
@@ -92,9 +92,8 @@ defaults write -g InitialKeyRepeat -int 15
 defaults write -g ApplePressAndHoldEnabled -bool false
 # Ctrl+Cmd+drag anywhere in a window moves it, like xmonad's mod+drag
 defaults write -g NSWindowShouldDragOnGesture -bool true
-# Recommended by AeroSpace: tiny windows in Mission Control otherwise
-defaults write com.apple.dock expose-group-apps -bool true
 defaults write com.apple.dock autohide -bool true
+# Spaces are the xmonad workspaces: keep them in order 1-9
 defaults write com.apple.dock mru-spaces -bool false
 # Finder: hidden files, full paths, no .DS_Store on network drives
 defaults write com.apple.finder AppleShowAllFiles -bool true
@@ -102,11 +101,30 @@ defaults write com.apple.finder ShowPathbar -bool true
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
 killall Dock Finder 2>/dev/null || true
+# AltTab on Alt+Tab (Karabiner sends Alt as Option)
+defaults write com.lwouis.alt-tab-macos holdShortcut -string "⌥"
+defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "⇥"
 
-step "Starting Karabiner, AeroSpace and AltTab"
+step "Workspace keys"
+# Super+1..9 (sent by Karabiner as ctrl+option+cmd+N) switches to Desktop N,
+# like xmonad mod-N. Amethyst does Super+Shift+N (send window to Desktop N).
+# Symbolic hotkeys 118-126 are "Switch to Desktop 1-9".
+super_mask=1835008  # control + option + command
+set -- 18 19 20 21 23 22 26 28 25  # key codes for 1-9
+n=1
+for keycode do
+  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add $((117 + n)) \
+    "<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>$((48 + n))</integer><integer>$keycode</integer><integer>$super_mask</integer></array><key>type</key><string>standard</string></dict></dict>"
+  n=$((n + 1))
+done
+/System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null || true
+
+step "Starting Karabiner, Amethyst, borders and AltTab"
 open -a Karabiner-Elements
-open -a AeroSpace
+open -a Amethyst
 open -a AltTab
+brew services start borders
+osascript -e 'tell application "System Events" to if not (exists login item "Amethyst") then make login item at end with properties {path:"/Applications/Amethyst.app", hidden:true}' >/dev/null
 
 cat <<'DONE'
 
@@ -115,8 +133,10 @@ Done. Manual steps left:
      when macOS asks. If a "Keyboard Setup Assistant" pops up for the PC
      keyboard, press the key it asks for and pick ANSI. Don't change
      System Settings > Keyboard > Modifier Keys: Karabiner does it all.
-  2. Privacy & Security > Accessibility: allow AeroSpace and AltTab.
-  3. AltTab settings: set the shortcut to Option+Tab (= Alt+Tab).
+  2. Privacy & Security > Accessibility: allow Amethyst and AltTab.
+  3. Mission Control: add Desktops until there are 9 (the workspaces).
+     Optional: Accessibility > Display > Reduce motion, so switching
+     desktops fades instead of sliding.
   4. System Settings > Keyboard > Input Sources: add Japanese. Ctrl+Space
      switches input source.
   5. Log out and back in so the key-repeat settings apply.

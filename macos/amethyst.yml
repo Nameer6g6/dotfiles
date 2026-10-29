@@ -1,0 +1,99 @@
+# Amethyst config mirroring xmonad.hs (xmonad's default keys + its settings).
+# Mod = Super: the Win key on the PC keyboard, ⌃ on the MacBook keyboard.
+# Karabiner (macos/karabiner) sends Super as ctrl+alt+cmd, so mod1 below is
+# Super and mod2 is Super+Shift; they never clash with app shortcuts.
+#
+# Handled outside Amethyst:
+#   Super+1..9                 macOS "Switch to Desktop N" (set by bootstrap.sh)
+#   Super+Tab / Super+Shift+Tab, Super+Shift+Enter, Super+Shift+C,
+#   Super+Shift+Q, Super+P and the myKeys app launchers   Karabiner
+#
+# Reload after editing: Super+q (like xmonad mod-q).
+
+mod1: [control, option, command]
+mod2: [control, option, command, shift]
+
+# Tall ||| Mirror Tall ||| Full (Amethyst has no tabbed layout)
+layouts:
+  - tall
+  - wide
+  - fullscreen
+
+# --- xmonad default keys ---
+cycle-layout:          {mod: mod1, key: space}   # mod-space       next layout
+select-tall-layout:    {mod: mod2, key: space}   # mod-shift-space reset layout
+reevaluate-windows:    {mod: mod1, key: n}       # mod-n           refresh
+relaunch-amethyst:     {mod: mod1, key: q}       # mod-q           restart
+
+focus-ccw:   {mod: mod1, key: j}       # mod-j          focus next
+focus-cw:    {mod: mod1, key: k}       # mod-k          focus previous
+focus-main:  {mod: mod1, key: m}       # mod-m          focus master
+swap-main:   {mod: mod1, key: enter}   # mod-return     swap with master
+swap-ccw:    {mod: mod2, key: j}       # mod-shift-j    swap with next
+swap-cw:     {mod: mod2, key: k}       # mod-shift-k    swap with previous
+
+shrink-main:   {mod: mod1, key: h}     # mod-h          shrink master
+expand-main:   {mod: mod1, key: l}     # mod-l          expand master
+increase-main: {mod: mod1, key: ","}   # mod-comma      one more in master
+decrease-main: {mod: mod1, key: "."}   # mod-period     one fewer in master
+
+toggle-float: {mod: mod1, key: t}      # mod-t          sink (and float back)
+
+throw-space-1: {mod: mod2, key: "1"}   # mod-shift-1..9 send to workspace
+throw-space-2: {mod: mod2, key: "2"}
+throw-space-3: {mod: mod2, key: "3"}
+throw-space-4: {mod: mod2, key: "4"}
+throw-space-5: {mod: mod2, key: "5"}
+throw-space-6: {mod: mod2, key: "6"}
+throw-space-7: {mod: mod2, key: "7"}
+throw-space-8: {mod: mod2, key: "8"}
+throw-space-9: {mod: mod2, key: "9"}
+
+focus-screen-1: {mod: mod1, key: w}    # mod-w/e/r      focus screen 1/2/3
+focus-screen-2: {mod: mod1, key: e}
+focus-screen-3: {mod: mod1, key: r}
+throw-screen-1: {mod: mod2, key: w}    # mod-shift-w/e/r send to screen 1/2/3
+throw-screen-2: {mod: mod2, key: e}
+throw-screen-3: {mod: mod2, key: r}
+
+# Escape hatch: focus follows mouse is xmonad's default but can be twitchy on macOS
+toggle-focus-follows-mouse: {mod: mod2, key: x}
+
+# Amethyst-only defaults, unbound so they don't shadow xmonad keys
+cycle-layout-backward: false
+select-wide-layout: false
+select-fullscreen-layout: false
+select-column-layout: false
+focus-screen-ccw: false
+focus-screen-cw: false
+focus-screen-4: false
+focus-screen-5: false
+throw-screen-4: false
+throw-screen-5: false
+swap-screen-ccw: false
+swap-screen-cw: false
+throw-space-10: false
+throw-space-left: false
+throw-space-right: false
+toggle-tiling: false
+display-current-layout: false
+
+# --- Behaviour, matching xmonad ---
+focus-follows-mouse: true         # focusFollowsMouse = True
+mouse-follows-focus: false
+new-windows-to-main: true         # new windows become master
+follow-space-thrown-windows: false   # mod-shift-N doesn't follow the window
+window-resize-step: 3             # Tall 1 (3/100) (1/2)
+float-small-windows: true
+enables-layout-hud: false         # xmonad switches layouts silently
+enables-layout-hud-on-space-change: false
+restore-layouts-on-launch: true
+
+# Same 8px gaps as xmonad's spacingRaw, none with a single window (smartBorder)
+window-margins: true
+smart-window-margins: true
+window-margin-size: 8
+screen-padding-top: 0
+screen-padding-bottom: 0
+screen-padding-left: 0
+screen-padding-right: 0
