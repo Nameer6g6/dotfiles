@@ -253,8 +253,10 @@ command -v terraform >/dev/null 2>&1 && complete -o nospace -C "$(command -v ter
 autoload -Uz bashcompinit && bashcompinit
 command -v aws_completer >/dev/null 2>&1 && complete -C "$(command -v aws_completer)" aws
 
-# azure autocompletion
-command -v az >/dev/null 2>&1 && source $HOME/.config/zsh/az.completion
+# azure autocompletion (Linux: our copy; macOS: the one Homebrew's azure-cli ships)
+for f in "$HOME/.config/zsh/az.completion" /opt/homebrew/etc/bash_completion.d/az; do
+  [[ -f "$f" ]] && source "$f" && break
+done
 
 # asdf
 if command -v asdf >/dev/null 2>&1; then
