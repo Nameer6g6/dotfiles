@@ -33,6 +33,15 @@ if ! command -v brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+# Homebrew ignores third-party taps until trusted; trust only what we use
+for tap in nikitabobko/tap felixkratz/formulae hashicorp/tap; do
+  brew tap "$tap"
+done
+if brew help trust >/dev/null 2>&1; then
+  brew trust --cask nikitabobko/tap/aerospace
+  brew trust --formula felixkratz/formulae/borders
+  brew trust --formula hashicorp/tap/terraform
+fi
 brew bundle --file="$repo/macos/Brewfile"
 
 step "Linking dotfiles"
