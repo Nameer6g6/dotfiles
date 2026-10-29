@@ -44,6 +44,21 @@ if brew help trust >/dev/null 2>&1; then
 fi
 brew bundle --file="$repo/macos/Brewfile"
 
+step "Alacritty"
+# Homebrew disabled the cask (not notarized), so install the release DMG
+alacritty_version=0.17.0
+if [ ! -d /Applications/Alacritty.app ]; then
+  tmp=$(mktemp -d)
+  curl -fL -o "$tmp/Alacritty.dmg" \
+    "https://github.com/alacritty/alacritty/releases/download/v$alacritty_version/Alacritty-v$alacritty_version.dmg"
+  mnt=$(hdiutil attach -nobrowse -readonly "$tmp/Alacritty.dmg" | awk -F'\t' '/\/Volumes\//{print $NF}')
+  cp -R "$mnt/Alacritty.app" /Applications/
+  hdiutil detach -quiet "$mnt"
+  rm -rf "$tmp"
+  # Unsigned app: let it open without the Gatekeeper prompt
+  xattr -dr com.apple.quarantine /Applications/Alacritty.app 2>/dev/null || true
+fi
+
 step "Linking dotfiles"
 for f in .zprofile .zshenv .tmux.conf .inputrc .ghci .haskeline; do
   link "$repo/$f" "$HOME/$f"

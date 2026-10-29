@@ -12,7 +12,7 @@ cask "karabiner-elements"            # Linux keyboard layout: Ctrl/Super/Alt, Ca
 cask "alt-tab"                       # Windows/Linux-style Alt+Tab window switcher
 
 # --- Terminal & shell ---
-cask "alacritty"
+# Alacritty: the cask is disabled (fails Gatekeeper), bootstrap.sh installs it from GitHub
 brew "zsh-syntax-highlighting"
 brew "tmux"
 brew "neovim"
