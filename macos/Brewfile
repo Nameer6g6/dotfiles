@@ -3,11 +3,13 @@
 
 tap "felixkratz/formulae"  # borders
 tap "hashicorp/tap"        # terraform
+tap "nikitabobko/tap"      # aerospace
 
 # --- Window management (xmonad replacement) ---
-cask "amethyst"                      # xmonad clone: Tall/Mirror/Full, master + stack
+cask "nikitabobko/tap/aerospace"     # tiling WM with xmonad-style workspaces across monitors
 brew "felixkratz/formulae/borders"   # focused-window border, like xmonad's borderWidth
 cask "karabiner-elements"            # Linux keyboard layout: Ctrl/Super/Alt, Caps<->Esc
+brew "displayplacer"                 # arrange monitors / pick the main one from the shell, like xrandr
 cask "alt-tab"                       # Windows/Linux-style Alt+Tab window switcher
 brew "defaultbrowser"                # set the default browser (Chrome) from bootstrap.sh
 
@@ -47,6 +49,8 @@ brew "gawk"
 brew "git"
 brew "gh"
 brew "gopass"
+brew "gnupg"
+brew "pinentry-mac"   # GUI passphrase prompt for gpg-agent
 brew "asdf"
 brew "kubernetes-cli"
 brew "hashicorp/tap/terraform"

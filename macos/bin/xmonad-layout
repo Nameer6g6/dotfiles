@@ -1,0 +1,51 @@
+#!/bin/sh
+# xmonad layout keys AeroSpace has no single command for (see aerospace.toml):
+#   xmonad-layout next         mod-space: Tall -> Mirror Tall -> Tabbed -> Full
+#   xmonad-layout reset        mod-shift-space: back to Tall
+#   xmonad-layout swap-master  mod-return: swap the focused window with master
+PATH=/opt/homebrew/bin:/usr/local/bin:$PATH
+
+focused() { aerospace list-windows --focused --format "%{$1}"; }
+
+case "$1" in
+  next)
+    if [ "$(focused window-is-fullscreen)" = true ]; then
+      aerospace fullscreen off
+      aerospace layout h_tiles
+      exit
+    fi
+    case "$(focused window-parent-container-layout)" in
+      h_tiles) aerospace layout v_tiles ;;
+      v_tiles) aerospace layout h_accordion ;;
+      *) aerospace fullscreen on ;;
+    esac
+    ;;
+  reset)
+    aerospace fullscreen off 2>/dev/null
+    aerospace flatten-workspace-tree
+    aerospace layout h_tiles
+    ;;
+  swap-master)
+    # W.swapMaster: the focused window becomes master and the old master
+    # takes its place; everything else stays put
+    id=$(focused window-id) || exit
+    # list-windows isn't in tiling order, so walk the tree by DFS index
+    i=0
+    while aerospace focus --dfs-index $i 2>/dev/null; do
+      w=$(focused window-id)
+      [ $i -eq 0 ] && master=$w
+      [ "$w" = "$id" ] && break
+      i=$((i + 1))
+    done
+    aerospace focus --window-id "$id"
+    [ "$w" = "$id" ] && [ $i -gt 0 ] || exit 0
+    n=$i
+    while [ $n -gt 0 ]; do aerospace swap --window-id "$id" dfs-prev; n=$((n - 1)); done
+    n=$((i - 1))
+    while [ $n -gt 0 ]; do aerospace swap --window-id "$master" dfs-next; n=$((n - 1)); done
+    ;;
+  *)
+    echo "usage: xmonad-layout next|reset|swap-master" >&2
+    exit 2
+    ;;
+esac

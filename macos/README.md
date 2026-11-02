@@ -23,40 +23,44 @@ git clone git@github.com:Nameer6g6/dotfiles.git ~/dotfiles
 - Keychron Q1 Max: keep its switch on **Mac** (media keys on the F row).
   Mac mode swaps Alt/Win in hardware, so Karabiner swaps ⌘/⌥ back for it.
 
-## Window manager (Amethyst: `amethyst.yml`)
+## Window manager (AeroSpace: `aerospace.toml`)
 
-xmonad's default keys and `xmonad.hs` settings, with Super as mod:
+xmonad's default keys and `xmonad.hs` settings, with Super as mod.
+Workspaces work like xmonad's: one shared set 1–9, each monitor shows one,
+and Super+N pulls workspace N onto the focused monitor (swapping it over if
+the other monitor shows it). Everything lives on a single macOS Space, so
+don't add Desktops in Mission Control.
 
 | Keys | Action |
 |------|--------|
 | Super+J/K, Super+Tab / Shift+Tab | focus next / previous |
 | Super+Shift+J/K | swap with next / previous |
 | Super+Enter, Super+M | swap with / focus master |
-| Super+H/L, Super+, / . | shrink / expand master, more / fewer in master |
-| Super+Space, Super+Shift+Space | next layout (Tall → Mirror → Full), reset |
+| Super+H/L | shrink / expand |
+| Super+Space, Super+Shift+Space | next layout (Tall → Mirror → Tabbed → Full), reset |
 | Super+F | toggle Full and back |
 | Super+T | sink / float |
-| Super+1..9, Super+Shift+1..9 | go to / send to workspace (macOS Desktop) |
+| Super+1..9, Super+Shift+1..9 | go to / send to workspace |
 | Super+W/E/R | focus screen 1–3 (left to right) |
 | Super+Shift+H/L | send window to previous / next screen |
 | Super+Shift+Enter, Super+Shift+C | terminal, close window |
-| Super+N, Super+Q, Super+Shift+Q | refresh, restart Amethyst, log out |
+| Super+N, Super+Q, Super+Shift+Q | refresh, reload config, log out |
 | Alt+M | minimize |
-| Super+↑ or Super+` | Mission Control (add Desktops with + at the top) |
+| Super+↑ or Super+` | Mission Control |
 
 App launch keys match `myKeys`; Super+Shift+S is a region screenshot to the
-clipboard. Keys Amethyst can't do itself live in Karabiner, and Super+1..9 are
-macOS "Switch to Desktop N" shortcuts set by `bootstrap.sh`. Workspaces are
-macOS Desktops, so there need to be 9 of them in Mission Control.
+clipboard. Those, Super+P and log out live in Karabiner; layout keys AeroSpace
+has no single command for go through `bin/xmonad-layout`.
 
-Not carried over: the tabbed layout, Alt+Shift+M (restore minimized) and
-pinning apps to workspaces (use Dock > Options > Assign To instead).
+Differences from xmonad: Tall puts windows side by side in equal columns
+(AeroSpace has no master + stack area), so Super+, / . do nothing; Tabbed is
+AeroSpace's accordion; Alt+Shift+M (restore minimized) isn't carried over.
 
 ## Linux → macOS
 
 | Linux | macOS |
 |-------|-------|
-| xmonad + xmobar | Amethyst + borders (native menu bar) |
+| xmonad + xmobar | AeroSpace + borders (native menu bar) |
 | rofi | Spotlight on Super+P |
 | setxkbmap caps:swapescape | Karabiner-Elements |
 | ibus / mozc | built-in Japanese input |
