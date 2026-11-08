@@ -1,0 +1,98 @@
+# AeroSpace config mirroring xmonad.hs (xmonad's default keys + its settings).
+# Mod = Super: the Win key on the Keychron, ⌃ on the MacBook keyboard.
+# Karabiner (macos/karabiner) sends Super as ctrl+alt+cmd, so cmd-alt-ctrl-X
+# below is Super+X and never clashes with app shortcuts.
+#
+# Workspaces behave like xmonad's: one shared set 1-9, every monitor shows
+# one of them, and Super+N pulls N onto the focused monitor (greedyView).
+# AeroSpace keeps everything on a single macOS Space, so macOS Desktops and
+# "Displays have separate Spaces" are not used (bootstrap.sh turns it off).
+#
+# Handled by Karabiner instead: Super+P, Super+Shift+Q, Super+Shift+S, the
+# myKeys app launchers and Alt+M.  Layout keys AeroSpace has no command for
+# go through macos/bin/xmonad-layout.
+#
+# Reload after editing: Super+q (like xmonad mod-q).
+
+config-version = 2
+
+start-at-login = true
+
+# focusFollowsMouse = True, and the mouse jumps along when Super+W/E/R
+# switches screens so it doesn't steal focus straight back
+focus-follows-mouse.enabled = true
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Tall by default; accordion stands in for xmonad's tabbed layout
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+accordion-padding = 30
+
+persistent-workspaces = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+# spacingRaw with an 8px window border: 8px at the screen edge, 16px between
+# windows
+gaps.inner.horizontal = 16
+gaps.inner.vertical   = 16
+gaps.outer.left       = 8
+gaps.outer.bottom     = 8
+gaps.outer.top        = 8
+gaps.outer.right      = 8
+
+[mode.main.binding]
+# --- xmonad default keys ---
+cmd-alt-ctrl-shift-enter = 'exec-and-forget open -na /Applications/Alacritty.app'  # mod-shift-return
+cmd-alt-ctrl-shift-c     = 'close'                                                 # mod-shift-c
+cmd-alt-ctrl-q           = 'reload-config'                                         # mod-q
+
+cmd-alt-ctrl-space       = 'exec-and-forget ~/dotfiles/macos/bin/xmonad-layout next'   # mod-space
+cmd-alt-ctrl-shift-space = 'exec-and-forget ~/dotfiles/macos/bin/xmonad-layout reset'  # mod-shift-space
+cmd-alt-ctrl-f           = 'fullscreen'                 # Full, and back
+cmd-alt-ctrl-n           = 'balance-sizes'              # mod-n refresh
+cmd-alt-ctrl-t           = 'layout floating tiling'     # mod-t sink (and float again)
+
+cmd-alt-ctrl-tab       = 'focus --boundaries-action wrap-around-the-workspace dfs-next'  # mod-tab
+cmd-alt-ctrl-shift-tab = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'  # mod-shift-tab
+cmd-alt-ctrl-j         = 'focus --boundaries-action wrap-around-the-workspace dfs-next'  # mod-j
+cmd-alt-ctrl-k         = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'  # mod-k
+cmd-alt-ctrl-m         = 'focus --dfs-index 0'                                           # mod-m focus master
+cmd-alt-ctrl-enter     = 'exec-and-forget ~/dotfiles/macos/bin/xmonad-layout swap-master' # mod-return
+cmd-alt-ctrl-shift-j   = 'swap --wrap-around dfs-next'                                   # mod-shift-j
+cmd-alt-ctrl-shift-k   = 'swap --wrap-around dfs-prev'                                   # mod-shift-k
+
+cmd-alt-ctrl-h = 'resize smart -50'   # mod-h shrink
+cmd-alt-ctrl-l = 'resize smart +50'   # mod-l expand
+
+# mod-1..9: greedyView, so a workspace shown on the other monitor swaps over
+cmd-alt-ctrl-1 = 'summon-workspace 1'
+cmd-alt-ctrl-2 = 'summon-workspace 2'
+cmd-alt-ctrl-3 = 'summon-workspace 3'
+cmd-alt-ctrl-4 = 'summon-workspace 4'
+cmd-alt-ctrl-5 = 'summon-workspace 5'
+cmd-alt-ctrl-6 = 'summon-workspace 6'
+cmd-alt-ctrl-7 = 'summon-workspace 7'
+cmd-alt-ctrl-8 = 'summon-workspace 8'
+cmd-alt-ctrl-9 = 'summon-workspace 9'
+
+# mod-shift-1..9: send the window, stay where you are
+cmd-alt-ctrl-shift-1 = 'move-node-to-workspace 1'
+cmd-alt-ctrl-shift-2 = 'move-node-to-workspace 2'
+cmd-alt-ctrl-shift-3 = 'move-node-to-workspace 3'
+cmd-alt-ctrl-shift-4 = 'move-node-to-workspace 4'
+cmd-alt-ctrl-shift-5 = 'move-node-to-workspace 5'
+cmd-alt-ctrl-shift-6 = 'move-node-to-workspace 6'
+cmd-alt-ctrl-shift-7 = 'move-node-to-workspace 7'
+cmd-alt-ctrl-shift-8 = 'move-node-to-workspace 8'
+cmd-alt-ctrl-shift-9 = 'move-node-to-workspace 9'
+
+# mod-w/e/r: focus screen 1/2/3, numbered left to right
+cmd-alt-ctrl-w = 'focus-monitor 1'
+cmd-alt-ctrl-e = 'focus-monitor 2'
+cmd-alt-ctrl-r = 'focus-monitor 3'
+# mod-shift-w/e are myKeys launchers, so sending a window to another screen
+# lives on mod-shift-h/l
+cmd-alt-ctrl-shift-h = 'move-node-to-monitor --wrap-around prev'
+cmd-alt-ctrl-shift-l = 'move-node-to-monitor --wrap-around next'

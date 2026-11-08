@@ -34,12 +34,13 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
 # Homebrew ignores third-party taps until trusted; trust only what we use
-for tap in felixkratz/formulae hashicorp/tap; do
+for tap in felixkratz/formulae hashicorp/tap nikitabobko/tap; do
   brew tap "$tap"
 done
 if brew help trust >/dev/null 2>&1; then
   brew trust --formula felixkratz/formulae/borders
   brew trust --formula hashicorp/tap/terraform
+  brew trust --cask nikitabobko/tap/aerospace
 fi
 # coreutils ships its own `gfold` and refuses to install while the gfold
 # git tool is linked (the Brewfile keeps it unlinked; aliasrc aliases it)
@@ -73,7 +74,7 @@ for f in zsh aliasrc nvim alacritty lf git ctags flake8 gfold.toml stylua.toml; 
   [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
 done
 link "$repo/.local/bin" "$HOME/.local/bin"
-link "$repo/macos/amethyst.yml" "$HOME/.config/amethyst/amethyst.yml"
+link "$repo/macos/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
 link "$repo/macos/bordersrc" "$HOME/.config/borders/bordersrc"
 link "$repo/macos/alacritty-local.toml" "$HOME/.config/alacritty-local.toml"
 # Link the directory, not karabiner.json: Karabiner rewrites the file in place
@@ -93,8 +94,12 @@ defaults write -g ApplePressAndHoldEnabled -bool false
 # Ctrl+Cmd+drag anywhere in a window moves it, like xmonad's mod+drag
 defaults write -g NSWindowShouldDragOnGesture -bool true
 defaults write com.apple.dock autohide -bool true
-# Spaces are the xmonad workspaces: keep them in order 1-9
+# AeroSpace runs its own workspaces on a single macOS Space: one Space
+# across all monitors (its recommended setup, needs a log out), never
+# reordered, and Mission Control groups windows by app so they stay readable
+defaults write com.apple.spaces spans-displays -bool true
 defaults write com.apple.dock mru-spaces -bool false
+defaults write com.apple.dock expose-group-apps -bool true
 # Typing like Linux: no autocorrect, auto-capitals, smart quotes/dashes,
 # double-space period or inline predictions
 for key in NSAutomaticSpellingCorrectionEnabled NSAutomaticCapitalizationEnabled \
@@ -102,7 +107,7 @@ for key in NSAutomaticSpellingCorrectionEnabled NSAutomaticCapitalizationEnabled
   NSAutomaticPeriodSubstitutionEnabled NSAutomaticInlinePredictionEnabled; do
   defaults write -g "$key" -bool false
 done
-# Amethyst does the tiling: no macOS edge-drag tiling, no "click wallpaper to
+# AeroSpace does the tiling: no macOS edge-drag tiling, no "click wallpaper to
 # show desktop", no Quick Note hot corner, quick Mission Control
 defaults write com.apple.WindowManager EnableTilingByEdgeDrag -bool false
 defaults write com.apple.WindowManager EnableTopTilingByEdgeDrag -bool false
@@ -116,6 +121,8 @@ defaults write com.apple.finder AppleShowAllFiles -bool true
 defaults write com.apple.finder ShowPathbar -bool true
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 defaults write com.apple.desktopservices DSDontWriteNetworkStores -bool true
+# Don't launch Music on the Play key or when headphones connect
+launchctl disable "gui/$(id -u)/com.apple.rcd"
 killall Dock Finder 2>/dev/null || true
 
 step "Default browser"
@@ -126,25 +133,19 @@ defaults write com.lwouis.alt-tab-macos holdShortcut -string "⌥"
 defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "⇥"
 
 step "Workspace keys"
-# Super+1..9 (sent by Karabiner as ctrl+option+cmd+N) switches to Desktop N,
-# like xmonad mod-N. Amethyst does Super+Shift+N (send window to Desktop N).
-# Symbolic hotkeys 118-126 are "Switch to Desktop 1-9".
-super_mask=1835008  # control + option + command
-set -- 18 19 20 21 23 22 26 28 25  # key codes for 1-9
-n=1
-for keycode do
-  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add $((117 + n)) \
-    "<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>$((48 + n))</integer><integer>$keycode</integer><integer>$super_mask</integer></array><key>type</key><string>standard</string></dict></dict>"
-  n=$((n + 1))
+# AeroSpace owns Super+1..9, so macOS's "Switch to Desktop 1-9" (symbolic
+# hotkeys 118-126) stays off
+for n in 118 119 120 121 122 123 124 125 126; do
+  defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add $n \
+    '<dict><key>enabled</key><false/></dict>'
 done
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null || true
 
-step "Starting Karabiner, Amethyst, borders and AltTab"
+step "Starting Karabiner, AeroSpace, borders and AltTab"
 open -a Karabiner-Elements
-open -a Amethyst
+open -a AeroSpace   # start-at-login in aerospace.toml
 open -a AltTab
 brew services start borders
-osascript -e 'tell application "System Events" to if not (exists login item "Amethyst") then make login item at end with properties {path:"/Applications/Amethyst.app", hidden:true}' >/dev/null
 
 cat <<'DONE'
 
@@ -153,10 +154,9 @@ Done. Manual steps left:
      when macOS asks. If a "Keyboard Setup Assistant" pops up for the PC
      keyboard, press the key it asks for and pick ANSI. Don't change
      System Settings > Keyboard > Modifier Keys: Karabiner does it all.
-  2. Privacy & Security > Accessibility: allow Amethyst and AltTab.
-  3. Mission Control: add Desktops until there are 9 (the workspaces).
-     Optional: Accessibility > Display > Reduce motion, so switching
-     desktops fades instead of sliding.
+  2. Privacy & Security > Accessibility: allow AeroSpace and AltTab.
+  3. Mission Control: keep a single Desktop. AeroSpace has its own
+     workspaces 1-9, shared by all monitors like xmonad.
   4. System Settings > Keyboard > Input Sources: add Japanese. Ctrl+Space
      switches input source.
   5. Log out and back in so the key-repeat settings apply.
