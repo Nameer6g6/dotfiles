@@ -19,6 +19,8 @@ fi
 autoload -U zmv
 
 setopt extended_glob
+# extended_glob makes # a glob operator, which breaks flake refs like nixpkgs#hello
+alias nix='noglob nix'
 
 # The following lines were added by compinstall
 zstyle ':completion:*' completer _complete _ignored
