@@ -70,7 +70,7 @@ for f in .zprofile .zshenv .tmux.conf .inputrc .ghci .haskeline; do
 done
 # Only what is useful on macOS; .local/share is deliberately not linked so
 # work-laptop app data doesn't end up in the dotfiles repo.
-for f in zsh aliasrc nvim alacritty lf git ctags flake8 gfold.toml stylua.toml; do
+for f in zsh aliasrc nvim alacritty lf git nix ctags flake8 gfold.toml stylua.toml; do
   [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
 done
 link "$repo/.local/bin" "$HOME/.local/bin"
