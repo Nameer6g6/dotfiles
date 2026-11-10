@@ -128,9 +128,11 @@ killall Dock Finder 2>/dev/null || true
 step "Default browser"
 # macOS asks to confirm: click Use "Chrome"
 [ -d "/Applications/Google Chrome.app" ] && defaultbrowser chrome
-# AltTab on Alt+Tab (Karabiner sends Alt as Option)
+# AltTab on Alt+` for all windows; AeroSpace keeps Alt+Tab to the current
+# workspace (Karabiner sends Alt as Option). Its second shortcut is off.
 defaults write com.lwouis.alt-tab-macos holdShortcut -string "⌥"
-defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "⇥"
+defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "\`"
+defaults write com.lwouis.alt-tab-macos nextWindowShortcut2 -string ""
 
 step "Workspace keys"
 # AeroSpace owns Super+1..9, so macOS's "Switch to Desktop 1-9" (symbolic

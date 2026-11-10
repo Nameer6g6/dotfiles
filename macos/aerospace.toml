@@ -63,6 +63,11 @@ cmd-alt-ctrl-enter     = 'exec-and-forget ~/dotfiles/macos/bin/xmonad-layout swa
 cmd-alt-ctrl-shift-j   = 'swap --wrap-around dfs-next'                                   # mod-shift-j
 cmd-alt-ctrl-shift-k   = 'swap --wrap-around dfs-prev'                                   # mod-shift-k
 
+# Alt+Tab stays on the current workspace (AltTab can't tell AeroSpace
+# workspaces apart, so it lives on Alt+` for all windows)
+alt-tab       = 'focus --boundaries-action wrap-around-the-workspace dfs-next'
+alt-shift-tab = 'focus --boundaries-action wrap-around-the-workspace dfs-prev'
+
 cmd-alt-ctrl-h = 'resize smart -50'   # mod-h shrink
 cmd-alt-ctrl-l = 'resize smart +50'   # mod-l expand
 
