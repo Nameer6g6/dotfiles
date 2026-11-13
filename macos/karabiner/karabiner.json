@@ -2094,6 +2094,60 @@
                                 "type": "basic"
                             }
                         ]
+                    },
+                    {
+                        "description": "Browsers: F5 reloads, Ctrl+F5 reloads without cache",
+                        "manipulators": [
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.google\\.Chrome",
+                                            "^com\\.brave\\.Browser",
+                                            "^org\\.mozilla\\.firefox",
+                                            "^com\\.apple\\.Safari",
+                                            "^company\\.thebrowser\\.Browser$",
+                                            "^com\\.microsoft\\.edgemac"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": {
+                                    "key_code": "f5",
+                                    "modifiers": { "mandatory": ["control"] }
+                                },
+                                "to": [
+                                    {
+                                        "key_code": "r",
+                                        "modifiers": ["left_command", "left_shift"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "bundle_identifiers": [
+                                            "^com\\.google\\.Chrome",
+                                            "^com\\.brave\\.Browser",
+                                            "^org\\.mozilla\\.firefox",
+                                            "^com\\.apple\\.Safari",
+                                            "^company\\.thebrowser\\.Browser$",
+                                            "^com\\.microsoft\\.edgemac"
+                                        ],
+                                        "type": "frontmost_application_if"
+                                    }
+                                ],
+                                "from": { "key_code": "f5" },
+                                "to": [
+                                    {
+                                        "key_code": "r",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            }
+                        ]
                     }
                 ]
             },
