@@ -63,17 +63,24 @@ export QT_SCALE_FACTOR=1.5
 #   __vte_osc7
 # fi
 
-# Load ssh key path and add it to an agent when configured.
-if [[ -n ${ssh_path:-} ]] && command -v ssh-agent >/dev/null 2>&1 && command -v ssh-add >/dev/null 2>&1; then
-  if ! ssh-add -L &>/dev/null; then
-    [[ -n ${SSH_AUTH_SOCK:-} ]] || eval "$(ssh-agent -s)" &>/dev/null
-    ssh-add "$ssh_path" &>/dev/null
+# One ssh-agent per login, shared by terminals and by GUI apps started from
+# xmonad (Obsidian's git signs commits through it). lightdm sources this file
+# via ~/.xprofile with /bin/sh, so keep this block POSIX.
+if command -v ssh-agent >/dev/null 2>&1; then
+  ssh_env="${XDG_RUNTIME_DIR:-$HOME/.cache}/ssh-agent.env"
+  ssh-add -l >/dev/null 2>&1
+  # Exit code 2: no agent reachable -> reuse this login's agent or start one
+  if [ $? -eq 2 ]; then
+    [ -f "$ssh_env" ] && . "$ssh_env" >/dev/null
+    ssh-add -l >/dev/null 2>&1
+    if [ $? -eq 2 ]; then
+      (umask 077; ssh-agent -s > "$ssh_env")
+      . "$ssh_env" >/dev/null
+    fi
   fi
-
-  ssh_agents=(/tmp/ssh-*/agent.*(N))
-  if (( ${#ssh_agents} )) && [[ -d "$HOME/.config" ]]; then
-    echo "SSH_AUTH_SOCK=${ssh_agents[1]}" > "$HOME/.config/sshPat"
-  fi
+  ssh-add -l >/dev/null 2>&1 ||
+    ssh-add "${ssh_path:-$HOME/.ssh/id_ed25519}" </dev/null >/dev/null 2>&1
+  unset ssh_env
 fi
 
 export LF_ICONS="di=📁:\

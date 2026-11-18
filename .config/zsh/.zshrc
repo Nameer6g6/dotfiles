@@ -198,15 +198,6 @@ bindkey "^r" history-incremental-search-backward
 
 export TERM='xterm-256color'
 
-# Reuse a running ssh-agent if possible, otherwise start one once.
-if ! ssh-add -l &>/dev/null; then
-  # Exit code 2 means we couldn't talk to an agent at all -> start a new one.
-  if [ $? -eq 2 ]; then
-    eval "$(ssh-agent -s)" &>/dev/null
-  fi
-  [ -n "$ssh_path" ] && ssh-add "$ssh_path" &>/dev/null
-fi
-
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
