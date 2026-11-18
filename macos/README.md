@@ -45,6 +45,8 @@ don't add Desktops in Mission Control.
 | Super+Shift+H/L | send window to previous / next screen |
 | Super+Shift+Enter, Super+Shift+C | terminal, close window |
 | Super+N, Super+Q, Super+Shift+Q | refresh, reload config, log out |
+| Alt+Tab / Alt+Shift+Tab | next / previous window on this workspace only |
+| Alt+` | AltTab switcher: every window, with previews |
 | Alt+M | minimize |
 | Super+↑ or Super+` | Mission Control |
 

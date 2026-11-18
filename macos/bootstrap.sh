@@ -70,7 +70,7 @@ for f in .zprofile .zshenv .tmux.conf .inputrc .ghci .haskeline; do
 done
 # Only what is useful on macOS; .local/share is deliberately not linked so
 # work-laptop app data doesn't end up in the dotfiles repo.
-for f in zsh aliasrc nvim alacritty lf git ctags flake8 gfold.toml stylua.toml; do
+for f in zsh aliasrc nvim alacritty lf git nix ctags flake8 gfold.toml stylua.toml; do
   [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
 done
 link "$repo/.local/bin" "$HOME/.local/bin"
@@ -128,9 +128,11 @@ killall Dock Finder 2>/dev/null || true
 step "Default browser"
 # macOS asks to confirm: click Use "Chrome"
 [ -d "/Applications/Google Chrome.app" ] && defaultbrowser chrome
-# AltTab on Alt+Tab (Karabiner sends Alt as Option)
+# AltTab on Alt+` for all windows; AeroSpace keeps Alt+Tab to the current
+# workspace (Karabiner sends Alt as Option). Its second shortcut is off.
 defaults write com.lwouis.alt-tab-macos holdShortcut -string "⌥"
-defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "⇥"
+defaults write com.lwouis.alt-tab-macos nextWindowShortcut -string "\`"
+defaults write com.lwouis.alt-tab-macos nextWindowShortcut2 -string ""
 
 step "Workspace keys"
 # AeroSpace owns Super+1..9, so macOS's "Switch to Desktop 1-9" (symbolic

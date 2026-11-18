@@ -15,6 +15,10 @@ export PATH
 # macOS: Homebrew, GNU userland ahead of BSD tools, Linux shims (notify-send, xclip)
 if [[ $OSTYPE == darwin* ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+  # Nix: the installer hooks /etc/zshrc, but macOS updates reset that file
+  nix_sh=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  [[ -r $nix_sh ]] && . $nix_sh
+  unset nix_sh
   for gnu in coreutils gnu-sed grep findutils gawk; do
     [[ -d $HOMEBREW_PREFIX/opt/$gnu/libexec/gnubin ]] && path=("$HOMEBREW_PREFIX/opt/$gnu/libexec/gnubin" $path)
   done
