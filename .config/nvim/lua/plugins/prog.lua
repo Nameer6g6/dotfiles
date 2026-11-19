@@ -9,6 +9,7 @@ return {
   },
   {
     "krivahtoo/silicon.nvim",
+    cmd = "Silicon",
     build = "./install.sh build",
     config = function()
       require("silicon").setup({

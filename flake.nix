@@ -56,6 +56,16 @@
             csharpier
             vtsls # TypeScript
 
+            # Build tools for nvim plugins: silicon.nvim (cargo),
+            # markdown-preview.nvim (yarn), rest.nvim via luarocks (Lua 5.1)
+            cargo
+            rustc
+            nodejs
+            yarn
+            lua5_1
+            lua51Packages.luarocks
+            glow # glow.nvim
+
             # Dev
             git
             lazygit

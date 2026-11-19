@@ -6,9 +6,9 @@ return {
     cmd = "MarkdownPreview",
   },
   {
-    "npxbr/glow.nvim",
-    ft = { "markdown", "text", "norg" },
-    build = ":GlowInstall",
+    "ellisonleao/glow.nvim",
+    cmd = "Glow",
+    config = true,
   },
   {
     "gabrielelana/vim-markdown",
