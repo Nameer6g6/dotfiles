@@ -15,7 +15,7 @@ return {
   },
   {
     "mrcjkb/haskell-tools.nvim",
-    version = "^3", -- Recommended
+    version = "^11", -- Recommended
     -- ft = { "haskell", "lhaskell", "cabal", "cabalproject" },
     ft = { "haskell", "lhaskell" },
     lazy = true,

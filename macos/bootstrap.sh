@@ -76,7 +76,6 @@ done
 link "$repo/.local/bin" "$HOME/.local/bin"
 link "$repo/macos/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
 link "$repo/macos/bordersrc" "$HOME/.config/borders/bordersrc"
-link "$repo/macos/alacritty-local.toml" "$HOME/.config/alacritty-local.toml"
 # Link the directory, not karabiner.json: Karabiner rewrites the file in place
 link "$repo/macos/karabiner" "$HOME/.config/karabiner"
 mkdir -p "$HOME/.cache/zsh"
@@ -141,6 +140,10 @@ for n in 118 119 120 121 122 123 124 125 126; do
   defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add $n \
     '<dict><key>enabled</key><false/></dict>'
 done
+# Alt+0 switches input source (hotkey 60) instead of Ctrl+Space, which also
+# swallows Ctrl+Shift+Space, Alacritty's vi mode
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 60 \
+  '<dict><key>enabled</key><true/><key>value</key><dict><key>parameters</key><array><integer>48</integer><integer>29</integer><integer>524288</integer></array><key>type</key><string>standard</string></dict></dict>'
 /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u 2>/dev/null || true
 
 step "Starting Karabiner, AeroSpace, borders and AltTab"
@@ -159,7 +162,7 @@ Done. Manual steps left:
   2. Privacy & Security > Accessibility: allow AeroSpace and AltTab.
   3. Mission Control: keep a single Desktop. AeroSpace has its own
      workspaces 1-9, shared by all monitors like xmonad.
-  4. System Settings > Keyboard > Input Sources: add Japanese. Ctrl+Space
+  4. System Settings > Keyboard > Input Sources: add Japanese. Alt+0
      switches input source.
   5. Log out and back in so the key-repeat settings apply.
   6. Open tmux and press prefix + I to install plugins.

@@ -45,6 +45,27 @@
             universal-ctags
             stylua
 
+            # Language servers/formatters nvim uses from PATH (Mason would
+            # need npm/cargo to build these)
+            pyright
+            nil
+            nixfmt
+            statix
+            omnisharp-roslyn # C#
+            netcoredbg
+            csharpier
+            vtsls # TypeScript
+
+            # Build tools for nvim plugins: silicon.nvim (cargo),
+            # markdown-preview.nvim (yarn), rest.nvim via luarocks (Lua 5.1)
+            cargo
+            rustc
+            nodejs
+            yarn
+            lua5_1
+            lua51Packages.luarocks
+            glow # glow.nvim
+
             # Dev
             git
             lazygit

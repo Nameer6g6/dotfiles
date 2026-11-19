@@ -47,6 +47,11 @@ return {
     },
   },
   {
+    "ellisonleao/glow.nvim",
+    cmd = "Glow",
+    config = true,
+  },
+  {
     "hamidi-dev/org-list.nvim",
     dependencies = {
       "tpope/vim-repeat", -- for repeatable actions with '.'

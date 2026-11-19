@@ -11,6 +11,7 @@ return {
   },
   {
     "krivahtoo/silicon.nvim",
+    cmd = "Silicon",
     build = "./install.sh build",
     cmd = "Silicon",
     config = function()
