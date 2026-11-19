@@ -55,8 +55,10 @@ return {
         -- From the dotfiles flake (nix profile), not Mason
         pyright = { mason = false },
         nil_ls = { mason = false },
-        omnisharp = { mason = false, cmd = { "OmniSharp" } },
+        omnisharp = { mason = false },
         vtsls = { mason = false },
+        -- The dotnet extra also sets up F#, which isn't used
+        fsautocomplete = { enabled = false },
         lua_ls = {
           -- mason = false, -- set to false if you don't want this server to be installed with mason
           -- Use this to add any additional keymaps
@@ -102,6 +104,14 @@ return {
         -- ["*"] = function(server, opts) end,
       },
     },
+  },
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, opts)
+      opts.ensure_installed = vim.tbl_filter(function(lang)
+        return lang ~= "fsharp"
+      end, opts.ensure_installed)
+    end,
   },
   {
     "nvimdev/lspsaga.nvim",

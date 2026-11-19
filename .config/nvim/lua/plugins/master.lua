@@ -101,14 +101,13 @@ return {
 
   {
     "mason-org/mason.nvim",
-    opts = {
-      ensure_installed = {
-        "stylua",
-        "shellcheck",
-        "shfmt",
-        "flake8",
-      },
-    },
+    opts = function(_, opts)
+      vim.list_extend(opts.ensure_installed, { "stylua", "shellcheck", "shfmt", "flake8" })
+      -- Skip tools already on PATH (e.g. from the dotfiles flake) and F#
+      opts.ensure_installed = vim.tbl_filter(function(tool)
+        return tool ~= "fantomas" and vim.fn.executable(tool) == 0
+      end, opts.ensure_installed)
+    end,
   },
 
   -- Use <tab> for completion and snippets (supertab)
