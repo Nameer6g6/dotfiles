@@ -45,6 +45,13 @@
             universal-ctags
             stylua
 
+            # Language servers/formatters nvim uses from PATH (Mason would
+            # need npm/cargo to build these)
+            pyright
+            nil
+            nixfmt
+            statix
+
             # Dev
             git
             lazygit
