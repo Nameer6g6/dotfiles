@@ -51,6 +51,10 @@
             nil
             nixfmt
             statix
+            omnisharp-roslyn # C#
+            netcoredbg
+            csharpier
+            vtsls # TypeScript
 
             # Dev
             git
