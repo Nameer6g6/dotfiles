@@ -42,8 +42,6 @@ return {
       document_highlight = {
         enabled = true,
       },
-      -- add any global capabilities here
-      capabilities = {},
       -- options for vim.lsp.buf.format
       -- `bufnr` and `filter` is handled by the LazyVim formatter,
       -- but can be also overridden when specified
@@ -117,7 +115,7 @@ return {
       --  If there is no definition, it will instead be hidden
       --  When you use an action in finder like "open vsplit",
       --  you can use <C-t> to jump back
-      { "gh", "<cmd>Lspsaga lsp_finder<CR>" },
+      { "gh", "<cmd>Lspsaga finder<CR>" },
 
       -- Code action
       { mode = { "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>" },
