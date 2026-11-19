@@ -18,7 +18,7 @@ git clone git@github.com:Nameer6g6/dotfiles.git ~/dotfiles
   Ctrl+←/→ word jump, Ctrl+Backspace, Home/End, Ctrl+click new tab).
   In terminals it is a real Ctrl, and Ctrl+Shift+C/V copy and paste.
 - **Super** is the tiling mod key (sent as ⌃⌥⌘, so it never hits app shortcuts).
-- **Super+P** opens Spotlight (rofi). **Ctrl+Alt+L** locks the screen. **Ctrl+Space** switches input source.
+- **Super+P** opens Spotlight (rofi). **Ctrl+Alt+L** locks the screen. **Alt+0** switches input source.
 - Right ⌘ is untouched, as an escape hatch for real ⌘ shortcuts.
 - Keychron Q1 Max: keep its switch on **Mac** (media keys on the F row).
   Mac mode swaps Alt/Win in hardware, so Karabiner swaps ⌘/⌥ back for it.
