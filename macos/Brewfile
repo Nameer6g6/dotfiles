@@ -15,6 +15,7 @@ brew "defaultbrowser"                # set the default browser (Chrome) from boo
 
 # --- Terminal & shell ---
 # Alacritty: the cask is disabled (fails Gatekeeper), bootstrap.sh installs it from GitHub
+cask "wezterm"                       # draws images (lf previews), Alacritty can't
 brew "zsh-syntax-highlighting"
 brew "tmux"
 brew "neovim"

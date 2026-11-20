@@ -104,7 +104,7 @@ instance UrgencyHook LibNotifyUrgencyHook where
 --                             let n = i ]
 
 myTerminal :: String
-myTerminal = "alacritty"
+myTerminal = "wezterm"
 
 gaps = spacingRaw True (Border 0 0 0 0) False (Border 8 8 8 8) True -- gaps (border / window spacing)
 

@@ -44,7 +44,7 @@ gaps.outer.right      = 8
 
 [mode.main.binding]
 # --- xmonad default keys ---
-cmd-alt-ctrl-shift-enter = 'exec-and-forget open -na /Applications/Alacritty.app'  # mod-shift-return
+cmd-alt-ctrl-shift-enter = 'exec-and-forget open -na /Applications/WezTerm.app'    # mod-shift-return
 cmd-alt-ctrl-shift-c     = 'close'                                                 # mod-shift-c
 cmd-alt-ctrl-q           = 'reload-config'                                         # mod-q
 

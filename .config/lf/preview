@@ -1,6 +1,7 @@
 #!/bin/sh
+mkdir -p "$HOME/.cache/lf"
 CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' \
-  -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
+  -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}')"
 
 # $1 image, $2 width, $3 height, $4 x, $5 y (in cells)
 image() {
@@ -10,9 +11,16 @@ image() {
       "$4" "$5" "$(($2 - 1))" "$(($3 - 1))" "$1" >"$FIFO_UEBERZUG"
     exit 1
   fi
-  # anywhere else (macOS, Wayland, ssh): draw it with text characters
+  # terminals that draw sixel images (lfrc sets sixel): the real picture
   if command -v chafa >/dev/null 2>&1; then
-    chafa -f symbols --animate off -s "${2}x${3}" "$1"
+    case "${TERM_PROGRAM:-}:${TERM:-}" in
+    WezTerm:* | iTerm.app:* | *:foot* | *:mlterm* | *:contour*)
+      chafa -f sixel --animate off --polite on -s "${2}x${3}" "$1"
+      exit 1
+      ;;
+    esac
+    # anywhere else (Alacritty on macOS/Wayland, ssh): text characters
+    chafa -f symbols --animate off --polite on -s "${2}x${3}" "$1"
   else
     file -Lb "$1"
   fi
@@ -87,6 +95,8 @@ case "$(printf "%s\n" "$(readlink -f "$1")" | awk '{print tolower($0)}')" in
   image "${CACHE}.jpg" "$2" "$3" "$4" "$5"
   ;;
 *.ino) batorcat --language=cpp "$1" ;;
-*) file -ibL "$1" | grep -q text && batorcat "$1" || file -Lb "$1" ;;
+# --mime, not -i: on macOS -i means "don't look inside". Anything not binary
+# (scripts, txt, json, configs) is shown as text
+*) file -bL --mime "$1" | grep -q "charset=binary" && file -Lb "$1" || batorcat "$1" ;;
 esac
 exit 0
