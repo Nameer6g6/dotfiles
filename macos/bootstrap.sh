@@ -28,6 +28,27 @@ link() {
   ln -s -- "$src" "$dest"
 }
 
+# Link every git-tracked file under a repo path one by one, never the
+# directory, so app data written next to them stays out of the public repo.
+# An old directory link from earlier runs is turned into a real directory
+# first (untracked files in it move out of the repo with it).
+link_tracked() {
+  path=$1
+  if [ -L "$HOME/$path" ] && [ "$(readlink -- "$HOME/$path")" = "$repo/$path" ] &&
+    [ -d "$repo/$path" ]; then
+    printf 'unfold: %s\n' "$HOME/$path"
+    rm -- "$HOME/$path"
+    mv -- "$repo/$path" "$HOME/$path"
+    git -C "$repo" ls-files -- "$path" | while IFS= read -r f; do
+      mkdir -p -- "$(dirname -- "$repo/$f")"
+      mv -- "$HOME/$f" "$repo/$f"
+    done
+  fi
+  git -C "$repo" ls-files -- "$path" | while IFS= read -r f; do
+    link "$repo/$f" "$HOME/$f"
+  done
+}
+
 step "Homebrew"
 if ! command -v brew >/dev/null 2>&1; then
   /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
@@ -71,9 +92,9 @@ done
 # Only what is useful on macOS; .local/share is deliberately not linked so
 # work-laptop app data doesn't end up in the dotfiles repo.
 for f in zsh aliasrc nvim alacritty lf git nix ctags flake8 gfold.toml stylua.toml; do
-  [ -e "$repo/.config/$f" ] && link "$repo/.config/$f" "$HOME/.config/$f"
+  [ -e "$repo/.config/$f" ] && link_tracked ".config/$f"
 done
-link "$repo/.local/bin" "$HOME/.local/bin"
+link_tracked .local/bin
 link "$repo/macos/aerospace.toml" "$HOME/.config/aerospace/aerospace.toml"
 link "$repo/macos/bordersrc" "$HOME/.config/borders/bordersrc"
 # Link the directory, not karabiner.json: Karabiner rewrites the file in place
