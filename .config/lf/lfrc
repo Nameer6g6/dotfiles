@@ -11,8 +11,8 @@ set period 1
 set hiddenfiles ".*:*.aux:*.log:*.bbl:*.bcf:*.blg:*.run.xml"
 set previewer ~/.config/lf/preview
 set cleaner ~/.config/lf/cleaner
-# Let the previewer draw real images on sixel terminals (WezTerm, iTerm2, foot)
-set sixel true
+# Sixel images from the previewer (WezTerm, iTerm2, foot) need no option:
+# current lf always passes them through ("set sixel" no longer exists)
 
 # Vars that depend on environmental variables
 # $lf -remote "send $id set previewer ${XDG_CONFIG_HOME:-$HOME/.config}/lf/scope"

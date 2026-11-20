@@ -1,11 +1,12 @@
 #!/bin/sh
-# lf with image previews. On X11 with ueberzug(pp) images are drawn as real
-# pictures; everywhere else (macOS, Wayland, ssh, tty) ~/.config/lf/preview
-# falls back to chafa, which draws them with text characters.
+# lf with image previews. WezTerm draws images itself (sixel, see
+# ~/.config/lf/preview); other X11 terminals get ueberzug(pp); everywhere
+# else (macOS, Wayland, ssh, tty) the previewer falls back to chafa, which
+# draws them with text characters.
 set -e
 
-if [ -n "$SSH_CLIENT$SSH_TTY" ] || [ -z "$DISPLAY" ] || [ -n "$WAYLAND_DISPLAY" ] ||
-  [ "$(uname)" = Darwin ]; then
+if [ "${TERM_PROGRAM:-}" = WezTerm ] || [ -n "${SSH_CLIENT:-}${SSH_TTY:-}" ] ||
+  [ -z "${DISPLAY:-}" ] || [ -n "${WAYLAND_DISPLAY:-}" ] || [ "$(uname)" = Darwin ]; then
   exec lf "$@"
 fi
 
