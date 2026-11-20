@@ -21,13 +21,13 @@ import XMonad.Hooks.DynamicLog (
   xmobarColor,
   xmobarPP,
  )
-import XMonad.Hooks.EwmhDesktops (ewmh)
+import XMonad.Hooks.EwmhDesktops (ewmh, setEwmhActivateHook)
 import XMonad.Hooks.ManageDocks (avoidStruts, docks, manageDocks)
-import XMonad.Hooks.UrgencyHook (UrgencyHook (..), withUrgencyHook)
+import XMonad.Hooks.UrgencyHook (UrgencyHook (..), doAskUrgent, withUrgencyHook)
 import XMonad.Layout.BoringWindows as BW
 import XMonad.Layout.Fullscreen (fullscreenFull)
 import XMonad.Layout.Minimize (minimize)
-import XMonad.Layout.NoBorders (noBorders, smartBorders)
+import XMonad.Layout.NoBorders (hasBorder, noBorders, smartBorders)
 import XMonad.Layout.Spacing (Border (..), spacingRaw)
 import XMonad.Layout.Tabbed (
   activeBorderColor,
@@ -152,9 +152,9 @@ main = do
   xmonad $
     docks $
       withUrgencyHook LibNotifyUrgencyHook $
-        ewmh $
+        ewmh $ setEwmhActivateHook doAskUrgent $
           def
-            { manageHook = manageDocks <+> manageHook def -- replaced defaultConfig by def
+            { manageHook = manageDocks <+> myManageHook <+> manageHook def -- replaced defaultConfig by def
             , layoutHook = myLayoutHook
             , logHook =
                 dynamicLogWithPP
@@ -198,10 +198,12 @@ myKeys =
   , ((mod4Mask .|. shiftMask, xK_t), spawn "nixGL telegram-desktop")
   , ((mod4Mask .|. shiftMask, xK_w), spawn "chromium")
   , ((mod4Mask .|. shiftMask, xK_b), spawn "brave")
-  , ((mod4Mask .|. shiftMask, xK_s), spawn "maim -s | xclip -selection clipboard -t image/png")
+  , ((mod4Mask .|. shiftMask, xK_s), spawn "maim -s | copyq copy image/png -")
   , ((mod4Mask .|. shiftMask, xK_d), spawn "discord")
   , ((mod4Mask .|. controlMask, xK_k), spawn "kitty")
   , ((mod1Mask .|. controlMask, xK_l), spawn "i3lock-fancy")
+    -- toggle the compositor (picom adds input lag/stutter in games)
+  , ((mod4Mask .|. controlMask, xK_o), spawn "pkill -x picom || picom -b")
   , ((mod1Mask, xK_m), withFocused minimizeWindow)
   , ((mod1Mask .|. shiftMask, xK_m), withLastMinimized maximizeWindow)
   , ((0, XF86.xF86XK_AudioMute), spawn "amixer set Master toggle")
@@ -218,7 +220,7 @@ myStartupHook = do
   spawnOnce "mpd"
   spawnOnce "mpd-notification"
   spawnOnce "ibus-daemon -drxR"
-  spawnOnce "compton --config ~/.compton.conf"
+  -- spawnOnce "picom -b"
   spawnOnce "unclutter"
   -- spawnOnce "trayer --expand true  --transparent true  --alpha 255 --edge bottom --align right --expand true --SetDockType true --widthtype request"
   spawnOnce "trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 2 --transparent true --alpha 0 --tint 0x292d3e --height 22"
@@ -236,3 +238,18 @@ myStartupHook = do
 
 -- spawnHere "xloadimage -onroot -fullscreen ~/Pictures/nixos-onedark-wallpaper.png"
 -- spawnOn "workspace2" "pulseeffects"
+
+myManageHook :: ManageHook
+myManageHook =
+  composeAll
+    [ className =? "firefox"        --> doShift "二"
+    , className =? "discord-canary" --> doShift "五"
+    , className =? "discord"        --> doShift "五"
+    , className =? "Signal-desktop" --> doShift "四"
+    -- , className =? "steam"          --> doShift "九"
+    , className =? "brave-beta"     --> doShift "一"
+    , className =? "raindrop"       --> doShift "六"
+    , className =? "obsidian"       --> doShift "七"
+    , className =? "anki"           --> doShift "八"
+    , className =? "ai-moeru-airi"  --> doFloat <+> hasBorder False
+    ]
