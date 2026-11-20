@@ -37,6 +37,7 @@
             fd
             lf
             chafa # lf image previews where ueberzug can't draw (macOS, Wayland)
+            poppler-utils # pdftoppm: lf pdf previews
             highlight
             jq
             tree
