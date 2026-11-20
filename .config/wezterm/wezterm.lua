@@ -15,8 +15,8 @@ config.colors = {
 config.bold_brightens_ansi_colors = true
 
 -- Font
-config.font = wezterm.font("FiraCode Nerd Font")
-config.font_size = 9.0
+config.font = wezterm.font "FiraCode Nerd Font"
+config.font_size = 14.0
 
 -- Window: no title bar, no tabs (tmux does that), small padding
 config.window_decorations = "RESIZE"
