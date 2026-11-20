@@ -23,6 +23,7 @@ brew "fzf"
 brew "ripgrep"
 brew "fd"
 brew "lf"
+brew "chafa"      # lf image previews (see .config/lf/preview)
 brew "highlight"
 brew "jq"
 brew "tree"

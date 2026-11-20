@@ -36,6 +36,7 @@
             ripgrep
             fd
             lf
+            chafa # lf image previews where ueberzug can't draw (macOS, Wayland)
             highlight
             jq
             tree

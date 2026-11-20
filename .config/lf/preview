@@ -2,13 +2,19 @@
 CACHE="$HOME/.cache/lf/thumbnail.$(stat --printf '%n\0%i\0%F\0%s\0%W\0%Y' \
   -- "$(readlink -f "$1")" | sha256sum | awk '{print $1}'))"
 
+# $1 image, $2 width, $3 height, $4 x, $5 y (in cells)
 image() {
-  if [ -n "$DISPLAY" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+  # lfrun started ueberzug: draw the real picture
+  if [ -p "${FIFO_UEBERZUG:-}" ]; then
     printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y":"%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' \
       "$4" "$5" "$(($2 - 1))" "$(($3 - 1))" "$1" >"$FIFO_UEBERZUG"
     exit 1
+  fi
+  # anywhere else (macOS, Wayland, ssh): draw it with text characters
+  if command -v chafa >/dev/null 2>&1; then
+    chafa -f symbols --animate off -s "${2}x${3}" "$1"
   else
-    chafa "$1" -s "$4x"
+    file -Lb "$1"
   fi
 }
 
