@@ -249,7 +249,8 @@ return {
           },
         },
         trash = {
-          cmd = "gio trash",
+          -- Arch: trash-cli from the flake. Mac: macos/bin/trash, Finder's Trash
+          cmd = "trash",
         },
         tab = {
           sync = {

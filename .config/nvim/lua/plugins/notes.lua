@@ -23,7 +23,11 @@ return {
       legacy_commands = false,
 
       workspaces = {
-        { name = "work", path = "~/Documents/notes/" },
+        -- Arch: ~/Documents/notes, Mac: ~/Documents/notes_work
+        {
+          name = "work",
+          path = vim.fn.has("mac") == 1 and "~/Documents/notes_work/" or "~/Documents/notes/",
+        },
       },
 
       log_level = vim.log.levels.WARN,

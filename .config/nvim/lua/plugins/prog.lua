@@ -2,7 +2,13 @@ return {
   {
     "vhyrro/luarocks.nvim",
     priority = 1000,
-    config = true,
+    config = function(_, opts)
+      -- luarocks >= 3.12 keeps dkjson in luarocks/vendor, which luarocks.nvim
+      -- doesn't add to the path: its loader fails and pops up a big error
+      local share = vim.fn.stdpath("data") .. "/lazy/luarocks.nvim/.rocks/share/lua/5.1/"
+      package.path = package.path .. ";" .. share .. "luarocks/vendor/?.lua"
+      require("luarocks-nvim").setup(opts)
+    end,
     opts = {
       -- fidget.nvim comes from lazy below: luarocks.org's manifest is now too
       -- big for luarocks' Lua 5.1 to load, so new rocks can't be resolved
