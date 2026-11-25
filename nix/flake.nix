@@ -18,7 +18,7 @@
 
   outputs = { self, nixpkgs }:
     let
-      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" ];
       forAllSystems = f: nixpkgs.lib.genAttrs systems (system:
         # terraform is BSL-licensed, which nixpkgs counts as unfree
         f (import nixpkgs { inherit system; config.allowUnfree = true; }));
