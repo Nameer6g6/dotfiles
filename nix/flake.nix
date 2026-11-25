@@ -48,6 +48,31 @@
             universal-ctags
             stylua
 
+            # Files & shell
+            bat
+            dust
+            procs
+            bottom
+            tokei
+            onefetch
+            trash-cli
+            _7zz # 7-Zip
+            zip
+            unzip
+            unrar
+            atool
+            rsync
+            aria2
+            parallel
+            moor
+            superfile
+            vifm
+            git-graph
+            w3m
+            termdown
+            pwgen
+            yt-dlp
+
             # Language servers/formatters nvim uses from PATH (Mason would
             # need npm/cargo to build these)
             pyright
@@ -79,6 +104,42 @@
             awscli2
             azure-cli
             google-cloud-sdk
+            go
+            cmake
+            meson
+            uv
+            poetry
+            pandoc
+            mermaid-cli
+            prettier
+            lua-language-server
+            rust-analyzer
+            haskellPackages.cabal-fmt
+            stack
+            kotlin
+            maven
+            jdk17
+            ansible
+            nmap
+            siege
+            codex
+            cabal-install
+            scala-cli
+            dotnet-sdk_10
+            aws-sam-cli
+            maestro # mobile UI tests
+
+            # Was AUR on Arch
+            abook
+            nchat
+            fastfetch # neofetch is dead upstream
+            haskellPackages.patat
+            pistol
+            imgcat
+            tagutil
+            netcat-gnu
+            wkhtmltopdf
+            dragon-drop
           ];
         };
       });
