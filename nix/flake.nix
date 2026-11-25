@@ -27,7 +27,9 @@
       packages = forAllSystems (pkgs: {
         default = pkgs.buildEnv {
           name = "dotfiles";
-          paths = with pkgs; [
+          # Packages nixpkgs doesn't build for this OS (e.g. Linux-only ones
+          # on the Mac) are skipped instead of failing the whole profile
+          paths = pkgs.lib.filter (pkgs.lib.meta.availableOn pkgs.stdenv.hostPlatform) (with pkgs; [
             # Terminal & shell
             tmux
             neovim
@@ -109,6 +111,7 @@
             meson
             uv
             poetry
+            python3Packages.jupytext # jupytext.nvim: open .ipynb as text
             pandoc
             mermaid-cli
             prettier
@@ -136,11 +139,11 @@
             haskellPackages.patat
             pistol
             imgcat
-            tagutil
             netcat-gnu
-            wkhtmltopdf
-            dragon-drop
-          ];
+            tagutil # Linux only
+            wkhtmltopdf # Linux only
+            dragon-drop # Linux only
+          ]);
         };
       });
     };
