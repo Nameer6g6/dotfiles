@@ -135,6 +135,17 @@ return {
     end,
   },
   {
+    -- "N reference(s)" as virtual text after functions, methods, classes...
+    -- :ReferencerToggle hides it, :ReferencerUpdate refreshes
+    "romus204/referencer.nvim",
+    event = "LspAttach",
+    opts = {
+      enable = true,
+      format = "  %d ref",
+      show_no_reference = true,
+    },
+  },
+  {
     "nvimdev/lspsaga.nvim",
     config = function()
       require("lspsaga").setup({})
