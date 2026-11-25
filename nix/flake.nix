@@ -38,6 +38,7 @@
             lf
             chafa # lf image previews where ueberzug can't draw (macOS, Wayland)
             poppler-utils # pdftoppm: lf pdf previews
+            tree-sitter # CLI nvim-treesitter needs to build parsers
             highlight
             jq
             tree
