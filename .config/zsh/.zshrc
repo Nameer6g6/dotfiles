@@ -33,6 +33,8 @@ zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 fpath=(/usr/local/share/zsh-completions $fpath)
 # macOS: Homebrew's completions, like /usr/share/zsh/site-functions on Linux
 [[ -n $HOMEBREW_PREFIX ]] && fpath=($HOMEBREW_PREFIX/share/zsh/site-functions $fpath)
+# Completions for the flake's tools (gh, kubectl, az...), both OSes
+fpath=($HOME/.nix-profile/share/zsh/site-functions $fpath)
 # asdf completions go in before the single compinit; a second compinit with a
 # different fpath rewrites the dump on every shell start
 fpath=(${ASDF_DATA_DIR:-$HOME/.asdf}/completions $fpath)
@@ -99,22 +101,6 @@ zle -N edit-command-line
 bindkey '^Xe' edit-command-line
 bindkey '^ ' edit-command-line
 
-# Enable inline syntax highlighting
-typeset -A ZSH_HIGHLIGHT_STYLES
-ZSH_HIGHLIGHT_STYLES[path]='fg=cyan,bold'
-ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=cyan'
-ZSH_HIGHLIGHT_STYLES[redirection]='fg=cyan,bold'
-ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=magenta,bold'
-if [[ -s /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-if [[ -s /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-if [[ -n $HOMEBREW_PREFIX && -s $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source $HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
-
 # History in cache directory:
 HISTSIZE=1000000
 SAVEHIST=1000000
@@ -179,17 +165,9 @@ bindkey '^e' edit-command-line
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/aliasrc"
 # [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc" ] && source "${XDG_CONFIG_HOME:-$HOME/.config}/zshnameddirrc"
 
-# Load zsh-syntax-highlighting; should be last.
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
-
 [ -f $HOME/dotfiles/functions.sh ] && . $HOME/dotfiles/functions.sh
 # Tokens/keys: kept in $HOME, outside the public dotfiles repo
 [ -f "$HOME/.secrets.zsh" ] && . "$HOME/.secrets.zsh"
-
-if [[ -n ${ASDF_DIR:-} && -d ${ASDF_DIR}/completions ]]; then
-  fpath=(${ASDF_DIR}/completions $fpath)
-  autoload -Uz compinit && compinit
-fi
 
 # export DOTNET_ROOT="$HOME/.dotnet"
 # export PATH="$DOTNET_ROOT:$PATH"
@@ -231,29 +209,17 @@ unset zpm_dir
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Enable bash auto completion in zsh
-autoload -U +X bashcompinit && bashcompinit
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f "$HOME/test_dir/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/path.zsh.inc"; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/test_dir/google-cloud-sdk/completion.zsh.inc"; fi
-
 # enable completion for kubectl
 [[ -f "$HOME/.config/zsh/kubectl_complete" ]] && source "$HOME/.config/zsh/kubectl_complete"
+
+# bash-style completions below (terraform, aws) need bashcompinit
+autoload -Uz bashcompinit && bashcompinit
 
 # Terraform autocompletion
 command -v terraform >/dev/null 2>&1 && complete -o nospace -C "$(command -v terraform)" terraform
 
-# aws autocompletion (bashcompinit needed for `complete -C`)
-autoload -Uz bashcompinit && bashcompinit
+# aws autocompletion
 command -v aws_completer >/dev/null 2>&1 && complete -C "$(command -v aws_completer)" aws
-
-# azure autocompletion (Linux: our copy; macOS: the one Homebrew's azure-cli ships)
-for f in "$HOME/.config/zsh/az.completion" /opt/homebrew/etc/bash_completion.d/az; do
-  [[ -f "$f" ]] && source "$f" && break
-done
 
 # asdf
 if command -v asdf >/dev/null 2>&1; then
@@ -270,3 +236,17 @@ asffarm() {
 	[[ $q == *empty* ]] || asfc fqrm main "${q// /}"
 	asfc fqadd main "$1" && asfc resume main
 }
+
+# Syntax highlighting goes last so it wraps every widget defined above
+typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]='fg=cyan,bold'
+ZSH_HIGHLIGHT_STYLES[path_prefix]='fg=cyan'
+ZSH_HIGHLIGHT_STYLES[redirection]='fg=cyan,bold'
+ZSH_HIGHLIGHT_STYLES[dollar-double-quoted-argument]='fg=magenta,bold'
+for f in /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  ${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh \
+  /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh; do
+  [[ -r $f ]] && { source "$f"; break; }
+done
+unset f
