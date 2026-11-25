@@ -67,6 +67,7 @@
   "octo.nvim": { "branch": "master", "commit": "0ddca04c02aab8ba18d2072f9b855f3806adad54" },
   "omnisharp-extended-lsp.nvim": { "branch": "main", "commit": "51e407a46ddb15e49727139b5b1ae3650cd6a069" },
   "org-list.nvim": { "branch": "master", "commit": "2d6f2985e0312daabb6d06725746f5b8c2e5a002" },
+  "outline.nvim": { "branch": "main", "commit": "6f95d46ff1d128fd4e6ec77f660caec6ad40a122" },
   "persistence.nvim": { "branch": "main", "commit": "b20b2a7887bd39c1a356980b45e03250f3dce49c" },
   "plenary.nvim": { "branch": "master", "commit": "74b06c6c75e4eeb3108ec01852001636d85a932b" },
   "pomo.nvim": { "branch": "main", "commit": "7e06e5221d8d1e596a0ab29dd4d7fcee5f3cd05a" },
@@ -91,6 +92,7 @@
   "vim-latex-live-preview": { "branch": "master", "commit": "9973568fc7275f70a4277d474821284128850034" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
   "vimtex": { "branch": "master", "commit": "cedc0a172e40d0d1d49670dd0d936d6e2df61de7" },
+  "vista.vim": { "branch": "master", "commit": "1e90efad6e32c4f7d16b1ca8f49bf63d0693802e" },
   "which-key.nvim": { "branch": "main", "commit": "3aab2147e74890957785941f0c1ad87d0a44c15a" },
   "zen-mode.nvim": { "branch": "main", "commit": "863f150ca321b3dd8aa1a2b69b5f411a220e144f" }
 }
