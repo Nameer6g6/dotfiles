@@ -1,8 +1,11 @@
 # Window manager, keyboard, terminal and dev tools.  Install with:
 #   brew bundle --file=~/dotfiles/macos/Brewfile
+#
+# CLI and dev tools come from the Nix flake (nix/flake.nix), same as on Arch.
+# Homebrew keeps GUI apps, macOS-only tools and what other config points at
+# by Homebrew path (zsh-syntax-highlighting, GNU userland, gpg/pinentry/gopass).
 
 tap "felixkratz/formulae"  # borders
-tap "hashicorp/tap"        # terraform
 tap "nikitabobko/tap"      # aerospace
 
 # --- Window management (xmonad replacement) ---
@@ -17,26 +20,10 @@ brew "defaultbrowser"                # set the default browser (Chrome) from boo
 # Alacritty: the cask is disabled (fails Gatekeeper), bootstrap.sh installs it from GitHub
 cask "wezterm"                       # draws images (lf previews), Alacritty can't
 brew "zsh-syntax-highlighting"
-brew "tmux"
-brew "neovim"
-brew "eza"
-brew "fzf"
-brew "ripgrep"
-brew "fd"
-brew "lf"
-brew "chafa"      # lf image previews (see .config/lf/preview)
-brew "highlight"
-brew "jq"
-brew "tree"
-brew "wget"
-brew "btop"
-brew "htop"
 brew "terminal-notifier"
 # coreutils also ships a `gfold` (GNU fold), so keep this one unlinked;
 # aliasrc points `gfold` at it on macOS
 brew "gfold", link: false
-brew "universal-ctags"
-brew "stylua"
 
 # GNU userland so the Linux scripts in .local/bin behave the same.
 # These install as g-prefixed tools (gsed, gdate...); bootstrap.sh's PATH
@@ -48,17 +35,9 @@ brew "findutils"
 brew "gawk"
 
 # --- Dev ---
-brew "git"
-brew "gh"
 brew "gopass"
 brew "gnupg"
 brew "pinentry-mac"   # GUI passphrase prompt for gpg-agent
-brew "asdf"
-brew "kubernetes-cli"
-brew "hashicorp/tap/terraform"
-brew "awscli"
-cask "azure-cli"
-cask "gcloud-cli"
 
 # --- Fonts ---
 cask "font-fira-code"

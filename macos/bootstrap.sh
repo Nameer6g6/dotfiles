@@ -55,12 +55,11 @@ if ! command -v brew >/dev/null 2>&1; then
 fi
 eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
 # Homebrew ignores third-party taps until trusted; trust only what we use
-for tap in felixkratz/formulae hashicorp/tap nikitabobko/tap; do
+for tap in felixkratz/formulae nikitabobko/tap; do
   brew tap "$tap"
 done
 if brew help trust >/dev/null 2>&1; then
   brew trust --formula felixkratz/formulae/borders
-  brew trust --formula hashicorp/tap/terraform
   brew trust --cask nikitabobko/tap/aerospace
 fi
 # coreutils ships its own `gfold` and refuses to install while the gfold
@@ -69,6 +68,27 @@ if brew list --formula gfold >/dev/null 2>&1; then
   brew unlink gfold >/dev/null
 fi
 brew bundle --file="$repo/macos/Brewfile"
+
+step "Nix and the dotfiles flake"
+# CLI and dev tools (nvim, tmux, git, language servers...) come from
+# nix/flake.nix, the same list as on Arch
+nix_sh=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+if [ ! -r "$nix_sh" ]; then
+  tmp=$(mktemp -d)
+  curl -fsSL -o "$tmp/install-nix" https://nixos.org/nix/install
+  # Plain macOS PATH: the installer breaks on Homebrew's GNU chown
+  env PATH=/usr/bin:/bin:/usr/sbin:/sbin sh "$tmp/install-nix" --daemon
+  rm -rf "$tmp"
+fi
+# shellcheck disable=SC1090
+. "$nix_sh"
+nix_flags="--extra-experimental-features nix-command --extra-experimental-features flakes"
+if nix $nix_flags profile list 2>/dev/null | grep -q "dotfiles?dir=nix"; then
+  nix $nix_flags profile upgrade nix
+else
+  nix $nix_flags profile add "$repo/nix"
+fi
+unset nix_sh nix_flags
 
 step "Alacritty"
 # Homebrew disabled the cask (not notarized), so install the release DMG
