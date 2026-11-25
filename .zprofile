@@ -33,6 +33,8 @@ fi
 browser_bin=$( [[ -f /usr/bin/brave ]] && echo brave || [[ -f /usr/bin/brave-beta ]] && echo brave-beta )
 
 # Default programs:
+# Dates in Japanese everywhere (ls, date, nvim); Arch needs ja_JP.UTF-8 in locale.gen
+export LC_TIME="ja_JP.UTF-8"
 export EDITOR="nvim"
 export MANPAGER='nvim +Man!'
 export TERMINAL="st"
