@@ -15,7 +15,16 @@ config.colors = {
 config.bold_brightens_ansi_colors = true
 
 -- Font
-config.font = wezterm.font "FiraCode Nerd Font"
+-- Explicit fallbacks for the Japanese gitsigns glyphs (追変削...): without them
+-- WezTerm picks a Korean font for some and has none for 変 (drawn as a box).
+-- Fonts missing on one OS are just skipped.
+config.font = wezterm.font_with_fallback {
+  "FiraCode Nerd Font",
+  "Hiragino Sans", -- macOS
+  "Noto Sans CJK JP", -- Arch: noto-fonts-cjk
+  "Apple Color Emoji", -- macOS
+  "Noto Color Emoji", -- Arch
+}
 config.font_size = 14.0
 
 -- Window: no title bar, no tabs (tmux does that), small padding
