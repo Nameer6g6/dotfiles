@@ -183,7 +183,8 @@ bindkey '^e' edit-command-line
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
 
 [ -f $HOME/dotfiles/functions.sh ] && . $HOME/dotfiles/functions.sh
-[ -f $HOME/dotfiles/secrets.sh ] && . $HOME/dotfiles/secrets.sh
+# Tokens/keys: kept in $HOME, outside the public dotfiles repo
+[ -f "$HOME/.secrets.zsh" ] && . "$HOME/.secrets.zsh"
 
 if [[ -n ${ASDF_DIR:-} && -d ${ASDF_DIR}/completions ]]; then
   fpath=(${ASDF_DIR}/completions $fpath)

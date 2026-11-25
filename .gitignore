@@ -6,3 +6,10 @@
 .config/zsh/.zsh_history
 .config/zsh/.zsh_sessions/
 .config/zsh/bookmarks
+
+# Secrets never belong in this public repo
+secrets.sh
+*.secret*
+.secrets*
+.env
+*.env
