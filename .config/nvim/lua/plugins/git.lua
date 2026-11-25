@@ -38,11 +38,12 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     keys = {
-      { "<Space>g]", "<Cmd>Gitsigns next_hunk<CR>" },
-      { "<Space>g[", "<Cmd>Gitsigns prev_hunk<CR>" },
+      { "<Space>g]", "<Cmd>Gitsigns nav_hunk next<CR>", desc = "Next hunk" },
+      { "<Space>g[", "<Cmd>Gitsigns nav_hunk prev<CR>", desc = "Prev hunk" },
       { "<Space>gd", "<Cmd>Gitsigns diffthis<CR>" },
-      { "<Space>ga", "<Cmd>Gitsigns stage_hunk<CR>" },
-      { "<Space>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>" },
+      { "<Space>ga", "<Cmd>Gitsigns stage_hunk<CR>", desc = "Stage/unstage hunk" },
+      -- stage_hunk toggles now (undo_stage_hunk is deprecated)
+      { "<Space>gu", "<Cmd>Gitsigns stage_hunk<CR>", desc = "Stage/unstage hunk" },
       { "<Space>gr", "<Cmd>Gitsigns reset_hunk<CR>" },
       { "<Space>gs", "<Cmd>Gitsigns select_hunk<CR>" },
       { "<Space>gb", "<Cmd>Gitsigns toggle_current_line_blame<CR>" },
@@ -125,23 +126,19 @@ return {
   },
   {
     "akinsho/git-conflict.nvim",
+    event = "BufReadPre",
     opts = {
-      default_mappings = false,    -- disable buffer local mapping created by this plugin
+      -- co/ct/cb/c0 and ]x/[x, mapped only in buffers that have conflicts
+      -- (global maps would break ct, cb and c0 in every file)
+      default_mappings = true,
       disable_diagnostics = false, -- This will disable the diagnostics in a buffer whilst it is conflicted
       highlights = {               -- They must have background color, otherwise the default color will be used
         incoming = "DiffText",
         current = "DiffAdd",
       },
     },
-    keys = {
-      { "co", "<Plug>(git-conflict-ours)" },
-      { "ct", "<Plug>(git-conflict-theirs)" },
-      { "cb", "<Plug>(git-conflict-both)" },
-      { "c0", "<Plug>(git-conflict-none)" },
-      { "c]", "<Plug>(git-conflict-next-conflict)" },
-      { "c[", "<Plug>(git-conflict-prev-conflict)" },
-    },
   },
+
   {
     "linrongbin16/gitlinker.nvim",
     cmd = "GitLink",
