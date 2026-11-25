@@ -19,6 +19,9 @@ if [[ $OSTYPE == darwin* ]]; then
   nix_sh=/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   [[ -r $nix_sh ]] && . $nix_sh
   unset nix_sh
+  # path_helper (/etc/zprofile) pushes Nix behind /usr/bin and Homebrew, and
+  # nix-daemon.sh won't re-add it once it has run: put the flake's tools first
+  path=("$HOME/.nix-profile/bin" /nix/var/nix/profiles/default/bin $path)
   for gnu in coreutils gnu-sed grep findutils gawk; do
     [[ -d $HOMEBREW_PREFIX/opt/$gnu/libexec/gnubin ]] && path=("$HOMEBREW_PREFIX/opt/$gnu/libexec/gnubin" $path)
   done

@@ -1,0 +1,4 @@
+#!/bin/sh
+# Finder's Trash, not trash-cli's hidden ~/.local/share/Trash (the flake's
+# trash-cli is ahead of /usr/bin on PATH)
+exec /usr/bin/trash "$@"
