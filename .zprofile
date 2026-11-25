@@ -32,7 +32,6 @@ browser_bin=$( [[ -f /usr/bin/brave ]] && echo brave || [[ -f /usr/bin/brave-bet
 # Default programs:
 export EDITOR="nvim"
 export MANPAGER='nvim +Man!'
-export TERM='xterm-256color'
 export TERMINAL="st"
 export BROWSER="$browser_bin"
 export READER="zathura"

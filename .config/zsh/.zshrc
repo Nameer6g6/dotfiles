@@ -198,8 +198,6 @@ zstyle ':completion::complete:*' use-cache 1
 
 bindkey "^r" history-incremental-search-backward
 
-export TERM='xterm-256color'
-
 export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus

@@ -1,6 +1,6 @@
 -- Same look and keys as .config/alacritty/alacritty.toml. WezTerm is here
 -- for what Alacritty can't do: draw images (lf previews via sixel).
-local wezterm = require("wezterm")
+local wezterm = require "wezterm"
 local act = wezterm.action
 local config = wezterm.config_builder()
 
@@ -37,7 +37,7 @@ config.audible_bell = "Disabled"
 
 config.keys = {
   -- Shift+Enter sends Esc+Enter, as in Alacritty
-  { key = "Enter", mods = "SHIFT", action = act.SendString("\x1b\r") },
+  { key = "Enter", mods = "SHIFT", action = act.SendString "\x1b\r" },
   -- Alt+Enter is WezTerm's fullscreen toggle; leave it to the shell/nvim
   { key = "Enter", mods = "ALT", action = act.DisableDefaultAssignment },
   -- Ctrl font zoom like Linux
