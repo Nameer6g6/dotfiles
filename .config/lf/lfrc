@@ -56,7 +56,7 @@ cmd extract ${{
 			# *.zip)       unzip $fx              ;;
 		  *.zip)       unzip $fx -d $dirName  ;;
 			*.Z)         uncompress $fx         ;;
-			*.7z)        7z x $fx               ;;
+			*.7z)        $(command -v 7z || echo 7zz) x $fx ;;
 			*.tar.xz)    tar xf $fx             ;;
 		esac
 	}
