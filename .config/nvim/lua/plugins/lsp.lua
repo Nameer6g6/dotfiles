@@ -55,7 +55,28 @@ return {
         -- From the dotfiles flake (nix profile), not Mason
         pyright = { mason = false },
         nil_ls = { mason = false },
-        omnisharp = { mason = false },
+        omnisharp = {
+          mason = false,
+          -- OmniSharp runs on the first `dotnet` in PATH; the profile's .NET 10
+          -- makes it send broken messages (INVALID_SERVER_MESSAGE: vim.NIL).
+          -- Hide the profile: it falls back to its bundled .NET 8, and a
+          -- project's `nix develop` SDKs (in /nix/store) still win
+          cmd_env = (function()
+            local omnisharp = vim.fn.exepath("OmniSharp")
+            if omnisharp == "" then
+              return nil
+            end
+            -- a folder with just the OmniSharp launcher, so it's still found
+            local bin = vim.fn.stdpath("cache") .. "/omnisharp-bin"
+            vim.fn.mkdir(bin, "p")
+            vim.uv.fs_unlink(bin .. "/OmniSharp")
+            vim.uv.fs_symlink(omnisharp, bin .. "/OmniSharp")
+            local dirs = vim.tbl_filter(function(dir)
+              return not dir:match("/%.nix%-profile/") and not dir:match("^/nix/var/nix/profiles/")
+            end, vim.split(vim.env.PATH or "", ":"))
+            return { PATH = bin .. ":" .. table.concat(dirs, ":") }
+          end)(),
+        },
         vtsls = { mason = false },
         -- The dotnet extra also sets up F#, which isn't used
         fsautocomplete = { enabled = false },
