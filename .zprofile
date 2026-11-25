@@ -30,7 +30,10 @@ if [[ $OSTYPE == darwin* ]]; then
 fi
 
 # Check whether brave or brave-beta
-browser_bin=$( [[ -f /usr/bin/brave ]] && echo brave || [[ -f /usr/bin/brave-beta ]] && echo brave-beta )
+browser_bin=
+if [[ -f /usr/bin/brave ]]; then browser_bin=brave
+elif [[ -f /usr/bin/brave-beta ]]; then browser_bin=brave-beta
+fi
 
 # Default programs:
 # Dates in Japanese everywhere (ls, date, nvim); Arch needs ja_JP.UTF-8 in locale.gen
@@ -154,4 +157,9 @@ ex=🎯:\
 "
 
 # Switch escape and caps if tty and no passwd required:
-sudo -n loadkeys ${XDG_DATA_HOME:-$HOME/.local/share}/larbs/ttymaps.kmap 2>/dev/null
+if [[ $OSTYPE == linux* ]]; then
+  for kmap in "${XDG_DATA_HOME:-$HOME/.local/share}"/{,larbs/}ttymaps.kmap; do
+    [[ -r $kmap ]] && { sudo -n loadkeys "$kmap" 2>/dev/null; break; }
+  done
+  unset kmap
+fi
