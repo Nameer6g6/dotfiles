@@ -74,6 +74,7 @@
   "purescript-vim": { "branch": "main", "commit": "82348352e6568fcc0385bd7c99a8ead3a479feea" },
   "referencer.nvim": { "branch": "master", "commit": "7e9420ee16e3b3eecc9b3fc53ff75448435e94bd" },
   "rest.nvim": { "branch": "main", "commit": "714d5512aaec5565d55652480c16c26f8d95645d" },
+  "roslyn.nvim": { "branch": "main", "commit": "13103877cd3adcc395e80740fa5de104457eb22b" },
   "rust.vim": { "branch": "main", "commit": "2beee60144703b574fd95adaa07e0dfd83e71006" },
   "rustaceanvim": { "branch": "main", "commit": "b7ca983c6ec88c94cf25e5deaad96df9a68b9a98" },
   "silicon.nvim": { "branch": "main", "commit": "1aa690b9264f751f4e035b8ca6fcd6fd0ff8b708" },

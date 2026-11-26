@@ -90,7 +90,10 @@ return {
   {
     "mason-org/mason.nvim",
     opts = function(_, opts)
-      vim.list_extend(opts.ensure_installed, { "stylua", "shellcheck", "shfmt", "flake8" })
+      -- Roslyn (C# language server) is only in this community registry; nixpkgs
+      -- builds it from source together with a whole .NET SDK
+      opts.registries = { "github:mason-org/mason-registry", "github:Crashdummyy/mason-registry" }
+      vim.list_extend(opts.ensure_installed, { "stylua", "shellcheck", "shfmt", "flake8", "roslyn" })
       -- Skip tools already on PATH (e.g. from the dotfiles flake) and F#
       opts.ensure_installed = vim.tbl_filter(function(tool)
         return tool ~= "fantomas" and vim.fn.executable(tool) == 0

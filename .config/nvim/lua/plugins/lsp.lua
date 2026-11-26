@@ -55,28 +55,8 @@ return {
         -- From the dotfiles flake (nix profile), not Mason
         pyright = { mason = false },
         nil_ls = { mason = false },
-        omnisharp = {
-          mason = false,
-          -- OmniSharp runs on the first `dotnet` in PATH; the profile's .NET 10
-          -- makes it send broken messages (INVALID_SERVER_MESSAGE: vim.NIL).
-          -- Hide the profile: it falls back to its bundled .NET 8, and a
-          -- project's `nix develop` SDKs (in /nix/store) still win
-          cmd_env = (function()
-            local omnisharp = vim.fn.exepath("OmniSharp")
-            if omnisharp == "" then
-              return nil
-            end
-            -- a folder with just the OmniSharp launcher, so it's still found
-            local bin = vim.fn.stdpath("cache") .. "/omnisharp-bin"
-            vim.fn.mkdir(bin, "p")
-            vim.uv.fs_unlink(bin .. "/OmniSharp")
-            vim.uv.fs_symlink(omnisharp, bin .. "/OmniSharp")
-            local dirs = vim.tbl_filter(function(dir)
-              return not dir:match("/%.nix%-profile/") and not dir:match("^/nix/var/nix/profiles/")
-            end, vim.split(vim.env.PATH or "", ":"))
-            return { PATH = bin .. ":" .. table.concat(dirs, ":") }
-          end)(),
-        },
+        -- C# is Roslyn (roslyn.nvim below): much faster on big solutions
+        omnisharp = { enabled = false },
         vtsls = { mason = false },
         -- The dotnet extra also sets up F#, which isn't used
         fsautocomplete = { enabled = false },
@@ -132,6 +112,76 @@ return {
       opts.ensure_installed = vim.tbl_filter(function(lang)
         return lang ~= "fsharp"
       end, opts.ensure_installed)
+    end,
+  },
+  {
+    -- C#: Microsoft's Roslyn language server (what VS Code uses), from Mason.
+    -- Opens the nearest .sln/.csproj; :Roslyn target switches solutions
+    "seblyng/roslyn.nvim",
+    ft = { "cs", "razor" },
+    opts = {
+      filewatching = "roslyn",
+      lock_target = true, -- keep the chosen solution for the session
+      -- A project in several solutions: take the one with the most projects,
+      -- so references cover the whole codebase, not one small service
+      choose_target = function(targets)
+        local function count(sln)
+          local n = 0
+          for line in io.lines(sln) do
+            if line:match("^Project%(") or line:match("<Project ") then
+              n = n + 1
+            end
+          end
+          return n
+        end
+        table.sort(targets, function(a, b)
+          return count(a) > count(b)
+        end)
+        return targets[1]
+      end,
+    },
+    init = function()
+      -- A leftover "X - Backup.csproj" next to the real one gets picked as the
+      -- file's project; it's in no solution, so nothing loads properly. Patched
+      -- here, before the plugin starts its first client (this loads it early)
+      local discovery = require("roslyn.sln.discovery")
+      local find_project = discovery.find_project
+      discovery.find_project = function(bufnr)
+        local found = vim.fs.find(function(name)
+          return name:match("%.csproj$") and not name:lower():match("backup")
+        end, { upward = true, path = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr)), limit = 1 })
+        return found[1] or find_project(bufnr)
+      end
+      -- Roslyn itself runs on .NET 10 (the dotfiles flake's), even inside a
+      -- project's `nix develop` shell whose `dotnet` is older
+      local dotnet = vim.fn.expand("~/.nix-profile/bin/dotnet")
+      if vim.fn.executable(dotnet) == 0 then
+        dotnet = "dotnet"
+      end
+      vim.lsp.config("roslyn", {
+        cmd = {
+          dotnet,
+          vim.fn.stdpath("data") .. "/mason/packages/roslyn/libexec/roslyn-language-server.dll",
+          "--logLevel=Information",
+          "--extensionLogDirectory=" .. vim.fs.joinpath(vim.fn.stdpath("log"), "roslyn"),
+          "--stdio",
+        },
+        settings = {
+          -- Diagnostics only for open files: whole-solution analysis keeps a
+          -- big solution busy; find references still searches everything
+          ["csharp|background_analysis"] = {
+            dotnet_analyzer_diagnostics_scope = "openFiles",
+            dotnet_compiler_diagnostics_scope = "openFiles",
+          },
+          ["csharp|inlay_hints"] = {
+            csharp_enable_inlay_hints_for_implicit_variable_types = true,
+            dotnet_enable_inlay_hints_for_parameters = true,
+          },
+          ["csharp|completion"] = {
+            dotnet_show_completion_items_from_unimported_namespaces = true,
+          },
+        },
+      })
     end,
   },
   {
